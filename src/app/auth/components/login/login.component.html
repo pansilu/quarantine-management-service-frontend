@@ -1,0 +1,38 @@
+<div class="container">
+    <div>
+        <div class="login_box">
+            <!-- <div class="login_side">
+                <img src="../../../../assets/img/login_side.png" style="    margin: auto;            display: block;            width: 100%;">
+            </div> -->
+            <div class="login_form_side">
+                <div class="login">
+                    <!-- <div class="login_heading">
+                        <img src="../../../../assets/img/logo.png" />
+                    </div> -->
+                    <div class="login_form">
+                        <p>Login To Quarantine Application</p>
+                        <form>
+                            <div class="row login_input">
+                                <label>Username</label>
+                                <input type="email" placeholder="Email" #user="ngModel" [(ngModel)]="username"
+                                    id="usernameInput" name="userName" class="form-control" placeholder="Email" />
+                                <label *ngIf="isValidUserName()" class="err_lo">Please Enter E-mail</label>
+                            </div>
+                            <div class="row login_input">
+                                <label>Password</label>
+                                <input type="password" #pass="ngModel" [(ngModel)]="password" id="passwordInput"
+                                    name="passwordInput" placeholder="Password" class="form-control" />
+                                <label class="err_lo" *ngIf="isValidPassword()"> Please Enter Password</label>
+                            </div>
+
+                            <div class="row login_btn">
+                                <button type="submit" (click)="submitted=true;onLoginClick()"
+                                    [disabled]="user.errors">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
