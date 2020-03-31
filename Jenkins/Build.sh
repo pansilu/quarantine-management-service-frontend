@@ -20,8 +20,9 @@ build_services(){
 	    echo ""
 	fi
 	
-	sudo cp -rf ${WORKSPACE}/dist/* ${WORKSPACE}/Docker/
-    cd ${WORKSPACE}/Docker
+	cp -rf ${WORKSPACE}/dist/* ${WORKSPACE}/Docker/
+    
+	cd ${WORKSPACE}/Docker
 
     docker build -t qms_frontend:v0.${BUILD_NUMBER} .
     if [ $? -ne 0 ]

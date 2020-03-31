@@ -4,4 +4,4 @@ RUN sed -i 's+#ErrorDocument\ 404\ \/missing.html+ErrorDocument\ 404 \/40x.html+
 RUN rm -rf /usr/local/apache2/htdocs/
 ADD 404.html /usr/local/apache2/htdocs/40x.html
 ADD 50x.html /usr/local/apache2/htdocs/500.html
-ADD dist/ /usr/local/apache2/htdocs/
+ADD client/ /usr/local/apache2/htdocs/
