@@ -30,12 +30,12 @@ export class AuthService {
     }
 
     logOut() {
-        if (this.isLoggedIn) {
-            this._.api()
-                .url('api/user/loggedOut')
-                .needJson().hasJson()
-                .post(() => { this._.accessToken = null; }, e => { this._.accessToken = null; });
-        }
+        // if (this.isLoggedIn) {
+        //     this._.api()
+        //         .url('api/user/loggedOut')
+        //         .needJson().hasJson()
+        //         .post(() => { this._.accessToken = null; }, e => { this._.accessToken = null; });
+        // }
 
         this._loggedUser = null;
         localStorage.removeItem('userData');

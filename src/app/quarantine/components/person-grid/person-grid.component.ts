@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
+import { ToastService } from 'src/app/Service/toast.service';
 
 @Component({
   selector: 'app-person-grid',
@@ -12,7 +13,7 @@ export class PersonGridComponent implements OnInit {
   offset = 0;
   limit = 10;
   search_text = ""
-  constructor(private _quarantineService: QuarantineService) { }
+  constructor(private _quarantineService: QuarantineService,private _toast: ToastService) { }
 
   ngOnInit() {
     this.load_data_types();
@@ -34,6 +35,7 @@ export class PersonGridComponent implements OnInit {
   }
 
   search() {
+    this._toast.error("Error","Search")
     this.offset = 0;
     this.load_data_types();
   }

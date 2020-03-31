@@ -6,6 +6,8 @@ import { AppComponent } from './components/home/app.component';
 import { NavBarComponent } from './components/nav/components/nav-bar/nav-bar.component';
 import { NavSideBarComponent } from './components/nav/components/nav-side-bar/nav-side-bar.component';
 import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { SimpleNotificationsModule } from 'angular2-notifications';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -17,8 +19,12 @@ import { HttpClient,HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
     HttpClientModule,
-    SharedModule.forRoot()
+    SharedModule.forRoot(),
+    SimpleNotificationsModule.forRoot(),
+
+
   ],
     providers: [HttpClient],
   bootstrap: [AppComponent]
