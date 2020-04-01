@@ -48,6 +48,12 @@ body {
   padding-left: 0;
 }
 
+
+//custom full screen css
+.hidepadding{
+  padding-left: 0 !important;
+}
+
 /* sidebar styling */
 
 .sidebar-nav {
@@ -454,6 +460,13 @@ a span.fa.arrow::before {
 }
 
 .login_form p {
+  margin: 0 0 10px;
+  text-align: left;
+  color: #274563;
+  font-weight: bold;
+}
+
+.login_form h4 {
   margin: -13px 0 16px;
   text-align: center;
   color: #274563;
