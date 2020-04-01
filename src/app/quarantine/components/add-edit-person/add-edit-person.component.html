@@ -102,7 +102,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="checkbox">
-                            <label><input type="checkbox" value="">පුද්ගලයා විදේශ ගතව පැමිණි අයෙක්ද ?</label>
+                            <label><input type="checkbox" (change) = "checkIfMigrated($event)" value="">පුද්ගලයා විදේශ ගතව පැමිණි අයෙක්ද ?</label>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -110,7 +110,7 @@
                             <label>
                                 Date (පැමිණි දිනය)
                             </label>
-                            <input type="date">
+                            <input type="date" [disabled] = "!isMigrated">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -121,7 +121,7 @@
                             <label>
                                 Country (පැමිණි රට)
                             </label>
-                            <input type="text">
+                            <input type="text" [disabled] = "!isMigrated">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -131,7 +131,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="checkbox">
-                            <label><input type="checkbox" value="">සෞඛ්‍ය නිලධාරියෙක් දැනුවත් කර තිබේද?</label>
+                            <label><input type="checkbox" (change) = "checkIfInformed($event)" value="">සෞඛ්‍ය නිලධාරියෙක් දැනුවත් කර තිබේද?</label>
                         </div>
                     </div>
                     <div>
@@ -140,7 +140,7 @@
                                 <label>
                                     Date (දැනුවත් කල දිනය)
                                 </label>
-                                <input type="date">
+                                <input type="date" [disabled] = "!isInformed">
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -202,7 +202,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="checkbox">
-                            <label><input type="checkbox" value="">ආසධිතයකු ලෙස සැකකර රෝහල් ගතකරන ලද්දේද?</label>
+                            <label><input type="checkbox" (change) = "checkIfSuspected($event)" value="">ආසධිතයකු ලෙස සැකකර රෝහල් ගතකරන ලද්දේද?</label>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -210,7 +210,7 @@
                             <label>
                                 Date (රෝහල් ගතකල දිනය)
                             </label>
-                            <input type="date">
+                            <input type="date" [disabled] = "!isSuspected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -221,7 +221,7 @@
                             <label>
                                 Hospital (රෝහල)
                             </label>
-                            <input type="text">
+                            <input type="text" [disabled] = "!isSuspected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -232,7 +232,7 @@
                             <label>
                                 Date (පිටවූ දිනය)
                             </label>
-                            <input type="date">
+                            <input type="date" [disabled] = "!isSuspected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -242,7 +242,7 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="checkbox">
-                            <label><input type="checkbox" value="">ආසධිතයකු බවට හදුනා ගත්තේද?</label>
+                            <label><input type="checkbox" (change) = "checkIfInfected($event)" value="">ආසධිතයකු බවට හදුනා ගත්තේද?</label>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -250,7 +250,7 @@
                             <label>
                                 Date (දිනය)
                             </label>
-                            <input type="date">
+                            <input type="date" [disabled] = "!isInfected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -261,7 +261,7 @@
                             <label>
                                 Hospital (රෝහල)
                             </label>
-                            <input type="text">
+                            <input type="text" [disabled] = "!isInfected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
