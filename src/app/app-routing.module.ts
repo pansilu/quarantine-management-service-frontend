@@ -8,7 +8,6 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: './auth/auth.module#AuthModule',
-    data: { roles: [roles.administrator, roles.advance, roles.blender] },
   },
   {
     path: 'quarantine',
@@ -18,6 +17,10 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: './dashboard/dashboard.module#DashboardModule'
+  },
+  {
+    path: '**',
+    loadChildren: './dashboard/dashboard.module#DashboardModule',
   }
 ];
 

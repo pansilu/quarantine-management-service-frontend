@@ -6,8 +6,8 @@ export class LoginResultModel {
     refresh_token: string;
     userImage: string;
     userRole: string;
-    loggedCompany: number;
-    loggedBranch: number;
+    //loggedCompany: number;
+    //loggedBranch: number;
     userId: number;
 
     constructor(obj?: LoginResultModel) {
@@ -18,8 +18,8 @@ export class LoginResultModel {
         this.refresh_token = obj.refresh_token;
         this.userImage = obj.userImage;
         this.userRole = obj.userRole;
-        this.loggedCompany = obj.loggedCompany;
-        this.loggedBranch = obj.loggedBranch;
+        //this.loggedCompany = obj.loggedCompany;
+        //this.loggedBranch = obj.loggedBranch;
         this.userId = obj.userId;
     }
 }

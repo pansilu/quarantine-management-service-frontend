@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/Service/auth.service';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/Service/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted:boolean= false;
 
-  constructor(private _authService: AuthService, private _router: Router) { }
+  constructor(private _authService: AuthService, private _router: Router, private _toast:ToastService) { }
 
   ngOnInit() {
     this._authService.logOut();
@@ -22,17 +23,17 @@ export class LoginComponent implements OnInit {
 
   onLoginClick() {
     if (this.username && this.password) {
-      /*this.loading = true;
+      this.loading = true;
       this._authService.tryToLogIn(data => {
         this.loading = false;
         this._router.navigate(['/home']);
       }, error => {
-        // this._toast.error('Login Failed!', 'Please check your username, password and try again.');
+        this._toast.error('Login Failed!', 'Please check your username, password and try again.');
         this.loading = false;
       }, this.username, this.password);
 
-      this._router.navigate(['/home']);*/
-      this._router.navigate(['/home']);
+      // this._router.navigate(['/home']);
+      // this._router.navigate(['/home']);
     }
   }
 

@@ -6,4 +6,10 @@ class QuarantinePersonEditModel {
     public address:string
     public nic:string
     public passportNo:string
+    public reporter:InvestigatorModel
+
+    constructor(){
+        this.id = -1
+        this.reporter = new InvestigatorModel()
+    }
 }

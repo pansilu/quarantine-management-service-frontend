@@ -12,10 +12,10 @@ export class QuarantineService {
     constructor(private _: ServiceHelper, private _http: HttpClient) { }
 
     // Sample api call
-    // getDatatypes(data: NextCallback<PagedResultModel<DataTypeView>>, error: ErrorCallback<ErrorModel>, skip: number, take: number, search?: string) {
-    //     this._.api()
-    //         .url('api/DataType')
-    //         .needJson()
-    //         .get(data, error, `skip=${skip}&take=${take}&searchText=${search}`);
-    // }
+    getDatatypes(data: NextCallback<PagedResultModel<String>>, error: ErrorCallback<ErrorModel>, skip: number, take: number, search?: string) {
+        this._.api()
+            .url('api/DataType')
+            .needJson()
+            .get(data, error, `skip=${skip}&take=${take}&searchText=${search}`);
+    }
 }

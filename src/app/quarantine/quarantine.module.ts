@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddEditPersonComponent } from './components/add-edit-person/add-edit-person.component';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { AuthGuard } from '../Service/auth.guard';
+import roles from '../Service/roles';
 
 
 
@@ -14,7 +15,8 @@ const routes: Routes = [
   {
     path:'quarantine-person',
     component:PersonGridComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: { roles: [roles.administrator] },
   }
 ];
 

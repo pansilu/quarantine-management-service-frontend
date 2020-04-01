@@ -23,8 +23,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     SharedModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
-
-
   ],
     providers: [HttpClient],
   bootstrap: [AppComponent]

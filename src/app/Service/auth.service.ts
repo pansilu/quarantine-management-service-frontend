@@ -112,7 +112,7 @@ export class AuthService {
 
     private getToken(rowData, callback: NextCallback<LoginResultModel> = null, error: ErrorCallback<string> = null) {
         this._.api()
-            .url('token')
+            .url('web-backend/getAuth')
             .hasUrlencoded()
             .rowData(rowData)
             .post<LoginResultModel, string>((data) => {
