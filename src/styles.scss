@@ -746,3 +746,24 @@ a span.fa.arrow::before {
   font-size: 17px;
   margin-left: 28px;
 }
+
+/* User add edit*/
+.margin {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.page_padding {
+  padding: 0 17px;
+}
+
+.page_padding hr {
+  margin-top: 20px;
+  margin-bottom: 4px;
+  border: 0;
+  border-top: 1px solid #cdf3d2;
+}
+
+.one_form {
+  width: 70%;
+}

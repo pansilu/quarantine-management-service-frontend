@@ -10,6 +10,11 @@ const routes: Routes = [
     loadChildren: './auth/auth.module#AuthModule',
   },
   {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
+    data: { roles: [roles.administrator] },
+  },
+  {
     path: 'quarantine',
     loadChildren: './quarantine/quarantine.module#QuarantineModule'
   }

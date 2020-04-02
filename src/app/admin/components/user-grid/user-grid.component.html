@@ -1,0 +1,109 @@
+<div class="container-fluid">
+    <!-- Page title -->
+    <div class="content-header">
+        <div class="header-icon">
+            <i class="material-icons-outlined">supervisor_account</i>
+        </div>
+        <div class="header-title">
+            <h1>System Users</h1>
+            <small>Information about registered users.</small>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-users"></i> Admin</a></li>
+                <li><a href="#">User</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- Page Content -->
+    <!-- <app-add-edit-person></app-add-edit-person> -->
+    <!-- Page content -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-bd">
+                <div class="panel-body">
+                    <div class="pull-right flot_none">
+                        <div class="pagefilter">
+                            <ul>
+                                <li>
+                                    <div class="filter_input">
+                                        <input type="search" placeholder="Search Name...." [(ngModel)]="search_text"
+                                            (keypress)="checkEnter($event.keyCode)" (keyup)="search()"
+                                            [ngModelOptions]="{standalone: true}" />
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="filterbtn">
+                                        <button type="submit" (click)="search()">Search</button>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="filterbtn">
+                                        <button type="button" [routerLink]="['/admin/user/0']">Add New</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="page_table page_table_list">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Address</th>
+                                        <th>Role</th>
+                                        <!-- <th>Officer</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr style="cursor:pointer;">
+                                        <!-- <td>1</td> -->
+                                        <td>John Doe</td>
+                                        <td>45/2, Lane, City</td>
+                                        <td>Root</td>
+                                    </tr>
+                                    <tr style="cursor:pointer;">
+                                        <!-- <td>1</td> -->
+                                        <td>John Doe</td>
+                                        <td>45/2, Lane1, City1</td>
+                                        <td>Addmin</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <app-pagination [offset]="offset" [limit]="limit" [size]="count"
+                        (pageChange)="onPageChange($event)"></app-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div id="addNew" class="overlay">
+    <div class=" popup " style="width: 90%;">
+        <div class="popup_heading ">
+            <div class="row margin ">
+                <div class="pull-right ">
+                    <a class="close " (click)="close_add_new()">&times;</a>
+                </div>
+                <h2>Add New</h2>
+            </div>
+        </div>
+        <div class="content">
+            <app-add-edit-person></app-add-edit-person>
+        </div>
+        <hr />
+        <div class="poopup_footer">
+            <div class="row">
+                <div class="pull-right">
+                    <div class="page_button pageptn">
+                        <button type="submit" (click)="close_add_new()">Cancel</button>
+                        <button type="submit" (click)="close_add_new()">Add</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->

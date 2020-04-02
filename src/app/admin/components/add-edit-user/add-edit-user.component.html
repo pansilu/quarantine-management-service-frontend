@@ -1,0 +1,123 @@
+<div class="container-fluid">
+    <!-- Page title -->
+    <div class="content-header">
+        <div class="header-icon">
+            <i class="material-icons-outlined">supervisor_account</i>
+        </div>
+        <div class="header-title">
+            <h1>Add / Edit Users</h1>
+            <small>Add or edit system users.</small>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-users"></i> Admin</a></li>
+                <li><a href="#">User</a></li>
+            </ol>
+        </div>
+    </div>
+    <!-- Page Content -->
+    <!-- <app-add-edit-person></app-add-edit-person> -->
+    <!-- Page content -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-bd">
+                <div class="panel-body">
+                    <div class="col-md-12">
+                        <div class="page_padding">
+                            <div class="col-md-5 one_form">
+                                <div class="row margin page_input">
+                                    <div class="col-md-3">
+                                        <label>Role</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <!-- [disabled]="checkUser()" -->
+                                        <select>
+                                            <option value="0" selected="selected">Select a role...</option>
+                                            <!-- <option [value]="role.id" *ngFor="let role of roleList">{{role.name}}
+                                            </option> -->
+                                            <option value="1" selected="selected">Admin</option>
+                                            <option value="2" selected="selected">Reporter</option>
+
+
+                                        </select>
+                                        <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role is required </div> -->
+                                    </div>
+                                </div>
+                                <div class="row margin page_input">
+                                    <div class="col-md-3">
+                                        <label>User Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text"/>
+                                        <!-- <div class="err_lo" >Username is required </div> -->
+                                    </div>
+                                </div>
+                                <div class="row margin page_input">
+                                    <div class="col-md-3">
+                                        <label>First Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" />
+                                        <div class="err_lo">First Name is required
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row margin page_input">
+                                    <div class="col-md-3">
+                                        <label>Last Name</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" />
+                                        <!-- <div class="err_lo">Last Name is required</div> -->
+                                    </div>
+                                </div>
+                                <div class="row margin page_input">
+                                    <div class="col-md-3">
+                                        <label>Mobile Number</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input type="text" />
+                                        <!-- <div class="err_lo">Last Name is required</div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pull-right">
+                        <div class="page_button pageptn">
+                            <button type="submit" [routerLink]="['/admin/user']">Cancel</button>
+                            <button type="submit" >Save</button>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div id="addNew" class="overlay">
+    <div class=" popup " style="width: 90%;">
+        <div class="popup_heading ">
+            <div class="row margin ">
+                <div class="pull-right ">
+                    <a class="close " (click)="close_add_new()">&times;</a>
+                </div>
+                <h2>Add New</h2>
+            </div>
+        </div>
+        <div class="content">
+            <app-add-edit-person></app-add-edit-person>
+        </div>
+        <hr />
+        <div class="poopup_footer">
+            <div class="row">
+                <div class="pull-right">
+                    <div class="page_button pageptn">
+                        <button type="submit" (click)="close_add_new()">Cancel</button>
+                        <button type="submit" (click)="close_add_new()">Add</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
