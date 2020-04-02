@@ -1,0 +1,51 @@
+<div id="sidebar-wrapper">
+    <div class="text-center avatar">
+        <img src="assets/img/avatar.jpg" alt="this">
+        <p>{{userName}}</p>
+        <p class="subtitle">dsjayamal</p>
+        <hr>
+    </div>
+    <ul class="sidebar-nav">
+        <div class="panel-group" id="accordion">
+            <li [routerLink]="['home']" [routerLinkActive]="['active']"><a class="material-ripple">
+                    <i class="material-icons">home</i>Dashboard</a>
+            </li>
+            <li data-toggle="collapse" data-target="#demo" data-parent="#accordion" [routerLinkActive]="['active']">
+                <a class="material-ripple">
+                    <i class="material-icons">person</i>Quarantine <span class="fa arrow"></span>
+                </a>
+                <div id="demo" class="collapse">
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <!-- <li> <a href="">Unit</a></li> -->
+                        <li [routerLink]="['quarantine/quarantine-person']"> <a>Persons</a></li>
+                        <!-- <li [routerLink]="['settings/dataType']"> <a>Data type</a></li> -->
+                    </ul>
+                </div>
+            </li>
+
+            <li *ngIf="isAllowed('admin')" data-toggle="collapse" data-target="#demo1" data-parent="#accordion" [routerLinkActive]="['active']">
+                <a class="material-ripple">
+                    <i class="material-icons">supervisor_account</i>Admin <span class="fa arrow"></span>
+                </a>
+                <div id="demo1" class="collapse">
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <!-- <li> <a href="">Unit</a></li> -->
+                        <li [routerLink]="['admin/user']"> <a>Users</a></li>
+                        <!-- <li [routerLink]="['settings/dataType']"> <a>Data type</a></li> -->
+                    </ul>
+                </div>
+            </li>
+            <!-- <li data-toggle="collapse" data-target="#demo1" data-parent="#accordion">
+                <a class="material-ripple">
+                    <i class="material-icons">account_circle</i>User <span class="fa arrow"></span>
+                </a>
+                <div id="demo1" class="collapse">
+                    <ul class="sidebar-nav sidebar-nav-sub">
+                        <li> <a href="">Sttings</a></li>
+                        <li> <a href="">Emails</a></li>
+                    </ul>
+                </div>
+            </li> -->
+        </div>
+    </ul>
+</div>

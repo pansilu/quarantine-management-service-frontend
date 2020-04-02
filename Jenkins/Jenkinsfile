@@ -1,0 +1,24 @@
+pipeline {
+	agent any
+    environment{
+    		BUILD_NUMBER="${env.BUILD_NUMBER}"
+   	}
+    stages {
+        stage('Build') {
+            steps {
+				println "Docker tag : v0.${BUILD_NUMBER}"
+                sh 'sh Jenkins/Build.sh'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'sh Jenkins/Deploy.sh'
+            }
+        }
+        stage('ClearDir') {
+            steps {
+                cleanWs()
+            }
+    	}
+    }
+}
