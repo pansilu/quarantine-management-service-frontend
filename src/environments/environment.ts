@@ -14,5 +14,5 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
-(window as any).apiHost = 'http://34.66.168.177:3000/';
+(window as any).apiHost = 'http://localhost:8085/';
 

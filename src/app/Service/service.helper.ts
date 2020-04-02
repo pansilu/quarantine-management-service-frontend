@@ -79,24 +79,24 @@ export class RequestBuilder implements IRequestBuilder {
 
     private getRequestOptions(): any {
         const r = this._request;
-        const requestOptions = {
-            headers: new HttpHeaders(),
-            params: new HttpParams(),
-            withCredentials: false
-        }
+        
+        var headers = new HttpHeaders()
+
         if (r.authorize) {
             const tokenInfo = this._tokenProvider.getTokenInfo();
             if (tokenInfo) {
-                r.headers.push({ name: tokenInfo.name, value: tokenInfo.value });
+                headers = headers.set(tokenInfo.name, tokenInfo.value);
             }
         }
         if (r.headers && r.headers.length) {
             r.headers.forEach(header => {
-                requestOptions.headers.append(header.name, header.value);
+                headers = headers.set(header.name, header.value);
             });
         }
-        requestOptions.withCredentials = false;
-        return requestOptions;
+        //requestOptions.withCredentials = false;
+        // headers.append('Accept', 'application/json')
+        // headers.append('Access-Control-Allow-Headers','Content-Type')
+        return headers;
     }
 
     url(url: string): IRequestBuilder {
@@ -152,8 +152,18 @@ export class RequestBuilder implements IRequestBuilder {
     // }
 
     post<T, E>(next: NextCallback<T>, error: ErrorCallback<E>) {
+        const headerDict = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Access-Control-Allow-Headers': 'Content-Type',
+        }
+
+        const requestOptions = {
+            headers: new Headers(headerDict),
+        };
+
         this._startEvent.emit();
-        const subscription = this._http.post(this._baseUrl + this._request.url, this._request.data, this.getRequestOptions())
+        const subscription = this._http.post(this._baseUrl + this._request.url, this._request.data, { headers: this.getRequestOptions() })
             .subscribe((response) => { this.next(next, response); this._endEvent.emit(); },
                 (e) => { subscription.unsubscribe(); this._endEvent.emit(); error(e); });
     }
@@ -161,35 +171,35 @@ export class RequestBuilder implements IRequestBuilder {
 
     put<T, E>(next: NextCallback<T>, error: ErrorCallback<E>) {
         this._startEvent.emit();
-        const subscription = this._http.put(this._baseUrl + this._request.url, this._request.data, this.getRequestOptions())
+        const subscription = this._http.put(this._baseUrl + this._request.url, this._request.data, { headers: this.getRequestOptions() })
             .subscribe((response) => { this.next(next, response); this._endEvent.emit(); },
                 (e) => { subscription.unsubscribe(); this._endEvent.emit(); error(e); });
     }
 
     patch<T, E>(next: NextCallback<T>, error: ErrorCallback<E>) {
         this._startEvent.emit();
-        const subscription = this._http.patch(this._baseUrl + this._request.url, this._request.data, this.getRequestOptions())
+        const subscription = this._http.patch(this._baseUrl + this._request.url, this._request.data, { headers: this.getRequestOptions() })
             .subscribe((response) => { this.next(next, response); this._endEvent.emit(); },
                 (e) => { subscription.unsubscribe(); this._endEvent.emit(); error(e); });
     }
 
     delete<T, E>(next: NextCallback<T>, error: ErrorCallback<E>) {
         this._startEvent.emit();
-        const subscription = this._http.delete(this._baseUrl + this._request.url, this.getRequestOptions())
+        const subscription = this._http.delete(this._baseUrl + this._request.url, { headers: this.getRequestOptions() })
             .subscribe((response) => { this.next(next, response); this._endEvent.emit(); },
                 (e) => { subscription.unsubscribe(); this._endEvent.emit(); error(e); });
     }
 
     get<T, E>(next: NextCallback<T>, error: ErrorCallback<E>, queyParameters = '') {
         this._startEvent.emit();
-        const subscription = this._http.get(this._baseUrl + this._request.url + '?' + queyParameters,  this.getRequestOptions())
+        const subscription = this._http.get(this._baseUrl + this._request.url + '?' + queyParameters, { headers: this.getRequestOptions() })
             .subscribe((response) => { this.next(next, response); this._endEvent.emit(); },
                 (e) => { subscription.unsubscribe(); this._endEvent.emit(); error(e); });
     }
 
     getObserve<T>(queyParameters = ''): Observable<T> {
         this._startEvent.emit();
-        return this._http.get(this._baseUrl + this._request.url + '?' + queyParameters, this.getRequestOptions()).pipe(
+        return this._http.get(this._baseUrl + this._request.url + '?' + queyParameters, { headers: this.getRequestOptions() }).pipe(
             map(r => this.next(null, r)));
     }
 
