@@ -7,34 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddEditPersonComponent implements OnInit {
 
-  isMigrated: boolean;
-  isInformed: boolean;
   isSuspected: boolean;
   isInfected: boolean;
 
   constructor() { }
 
   ngOnInit() {
-    this.isMigrated = false;
-    this.isInformed = false;
     this.isSuspected = false;
     this.isInfected = false;
-  }
-
-  checkIfMigrated(event){
-    if(event.target.checked){
-      this.isMigrated = true;
-    } else {
-      this.isMigrated = false;
-    }
-  }
-
-  checkIfInformed(event){
-    if(event.target.checked){
-      this.isInformed = true;
-    } else {
-      this.isInformed = false;
-    }
   }
 
   checkIfSuspected(event){

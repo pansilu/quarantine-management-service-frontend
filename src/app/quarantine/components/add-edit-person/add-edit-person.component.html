@@ -1,159 +1,93 @@
 <div class="row">
     <div class="col-lg-12">
+
         <div class="panel panel-bd">
             <div class="panel-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <div class="page_input">
-                            <label>
-                                Index(අ.අ)
-                            </label>
-                            <input type="text" disabled>
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="page_input">
-                            <label>
-                                Date(දිනය)
-                            </label>
-                            <input type="date">
-                            <label class="err_lo">
-                                Please fill this field
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="page_input">
-                            <label>
-                                File No(පොලිස් ස්ථානයේ ලේ.අ)
-                            </label>
-                            <input type="text">
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="page_input">
-                            <label>
-                                Name(නම)
-                            </label>
-                            <input type="text">
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="page_input">
-                            <label>
-                                Address(ලිපිනය)
-                            </label>
-                            <input type="text">
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="page_input">
-                            <label>
-                                NIC(ජා.හැ.අ)
-                            </label>
-                            <input type="text">
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-                        <div class="page_input">
-                            <label>
-                                Passport NO
-                            </label>
-                            <input type="text">
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="page_input">
-                            <div class="page_input">
-                                <label>
-                                    Date informed (වාර්ථාවු දිනය)
-                                </label>
-                                <input type="date">
-                                <!-- <label class="err_lo">
-                                    Please fill this field
-                                </label> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="checkbox">
-                            <label><input type="checkbox" (change) = "checkIfMigrated($event)" value="">පුද්ගලයා විදේශ ගතව පැමිණි අයෙක්ද ?</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="page_input">
-                            <label>
-                                Date (පැමිණි දිනය)
-                            </label>
-                            <input type="date" [disabled] = "!isMigrated">
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="page_input">
-                            <label>
-                                Country (පැමිණි රට)
-                            </label>
-                            <input type="text" [disabled] = "!isMigrated">
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="checkbox">
-                            <label><input type="checkbox" (change) = "checkIfInformed($event)" value="">සෞඛ්‍ය නිලධාරියෙක් දැනුවත් කර තිබේද?</label>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="col-md-4">
-                            <div class="page_input">
-                                <label>
-                                    Date (දැනුවත් කල දිනය)
-                                </label>
-                                <input type="date" [disabled] = "!isInformed">
-                                <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="form_sub_title">
-                    <p>නිවස සම්බන්දි කරන පොලිස් නිලධාරියාගේ දත්ත</p>
+                    <p>ස්ථානයේ තොරතුරු (Location Data)</p>
                     <hr>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Division (කොට්ඨාසය)
+                            </label>
+                            <select></select>
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Police Station (පොලිස් ස්ථානය)
+                            </label>
+                            <select></select>
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Village Offficer Division (ග්‍රාම නිලධාරී වසම)
+                            </label>
+                            <select></select>
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                File No (පොලිස් ස්ථානයේ ලේ.අ)
+                            </label>
+                            <input type="text">
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-bd">
+            <div class="panel-body">
+                <div class="form_sub_title">
+                    <p>නිරොධායනයට ලක්වන්න තැනැත්තාගේ ගේ පුත්ගලික තොරතුරු (Personal Details)</p>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="page_input">
+                            <label>
+                                NIC (ජා.හැ.අ)
+                            </label>
+                            <input type="text">
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="page_input">
+                            <label>
+                                Passport NO (විදේශ ගමන් බලපත් අංකය)
+                            </label>
+                            <input type="text">
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="page_input">
                             <label>
                                 Name (නම)
@@ -164,32 +98,12 @@
                             </label> -->
                         </div>
                     </div>
-                    <div class="col-md-3">
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
                         <div class="page_input">
                             <label>
-                                Rank (නිළය)
-                            </label>
-                            <input type="text">
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="page_input">
-                            <label>
-                                Badge No (නිළ අංකය)
-                            </label>
-                            <input type="text">
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="page_input">
-                            <label>
-                                Teliphone (දුරකථන අංකය)
+                                Address (ලිපිනය)
                             </label>
                             <input type="text">
                             <!-- <label class="err_lo">
@@ -198,11 +112,190 @@
                         </div>
                     </div>
                 </div>
-                <hr>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="page_input">
+                            <label>
+                                Age (වයස)
+                            </label>
+                            <input type="number">
+                            <!-- <label class="err_lo">
+                                    Please fill this field
+                                </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="page_input">
+                            <label>
+                                Date informed (වාර්ථාවු දිනය)
+                            </label>
+                            <input type="date">
+                            <!-- <label class="err_lo">
+                                    Please fill this field
+                                </label> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_sub_title">
+                    <p>සම්බන්ද කරගන්නා ආකාරය (Contact Details)</p>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Mobile Number (ජංගම දුරකතන අංකය)
+                            </label>
+                            <input type="text">
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Land Line (ස්ථාවර දුරකතන අංකය)
+                            </label>
+                            <input type="text">
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            <label><input type="checkbox" value="">ජංගම දුරකතන යෙදුමක් භාවිතා කිරීමේ හැකියාවක්
+                                ඇත්ද?</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-bd">
+            <div class="panel-body">
+                <div class="form_sub_title">
+                    <p>Other Information (වෙනත් කරුණු)</p>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="page_input">
+                            <label>
+
+                            </label>
+                            <textarea rows="5"></textarea>
+
+                            <!-- <label class="err_lo">
+                        Please fill this field
+                    </label> -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-bd">
+            <div class="panel-body">
+                <div class="form_sub_title">
+                    <p>විදේශ රටක සිට පැමිණියේ නම් (If came from forign country)</p>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="page_input">
+                            <label>
+                                Date (පැමිණි දිනය)
+                            </label>
+                            <input type="date">
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="page_input">
+                            <label>
+                                Country (පැමිණි රට)
+                            </label>
+                            <select></select>
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="form_sub_title">
+                    <p>සෞඛ්‍ය නිලධාරීන් දැනුවත් කලෙ නම් (If informed helth officer)</p>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="page_input">
+                            <label>
+                                Date (දැනුවත් කල දිනය)
+                            </label>
+                            <input type="date">
+                            <!-- <label class="err_lo">
+                            Please fill this field
+                        </label> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-bd">
+            <div class="panel-body">
+                <div class="form_sub_title">
+                    <p>නිවස සම්බන්දි කරන පොලිස් නිලධාරියාගේ දත්ත (Police Officer Details)</p>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Rank (නිළය)
+                            </label>
+                            <select></select>
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Officer (නිළධාරීන්)
+                            </label>
+                            <input type="text" ([ngModel])="officerBadgeNo" value="{{officerBadgeNo}}">
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-bd">
+            <div class="panel-body">
+                <div class="form_sub_title">
+                    <p>වෙනත් විශේෂ තොරතුරු (Other Special Data)</p>
+                    <hr>
+                </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="checkbox">
-                            <label><input type="checkbox" (change) = "checkIfSuspected($event)" value="">ආසධිතයකු ලෙස සැකකර රෝහල් ගතකරන ලද්දේද?</label>
+                            <p class="checkHedder"><input type="checkbox" (change)="checkIfSuspected($event)" value="">ආසධිතයකු ලෙස
+                                සැකකර රෝහල් ගතකරන ලද්දේද?</p>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -210,7 +303,7 @@
                             <label>
                                 Date (රෝහල් ගතකල දිනය)
                             </label>
-                            <input type="date" [disabled] = "!isSuspected">
+                            <input type="date" [disabled]="!isSuspected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -221,7 +314,7 @@
                             <label>
                                 Hospital (රෝහල)
                             </label>
-                            <input type="text" [disabled] = "!isSuspected">
+                            <input type="text" [disabled]="!isSuspected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -232,7 +325,7 @@
                             <label>
                                 Date (පිටවූ දිනය)
                             </label>
-                            <input type="date" [disabled] = "!isSuspected">
+                            <input type="date" [disabled]="!isSuspected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -242,7 +335,8 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="checkbox">
-                            <label><input type="checkbox" (change) = "checkIfInfected($event)" value="">ආසධිතයකු බවට හදුනා ගත්තේද?</label>
+                            <p class="checkHedder"><input type="checkbox" (change)="checkIfInfected($event)" value="">ආසධිතයකු බවට හදුනා
+                                ගත්තේද?</p>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -250,7 +344,7 @@
                             <label>
                                 Date (දිනය)
                             </label>
-                            <input type="date" [disabled] = "!isInfected">
+                            <input type="date" [disabled]="!isInfected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -261,44 +355,81 @@
                             <label>
                                 Hospital (රෝහල)
                             </label>
-                            <input type="text" [disabled] = "!isInfected">
+                            <input type="text" [disabled]="!isInfected">
                             <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="page_input">
-                            <label>
-                                Other Information (වෙනත් කරුණු)
-                            </label>
-                            <textarea rows="5"></textarea>
-
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                </div>
-                <!-- <div class="pull-right flot_none">
-                    <div class="pagefilter">
-                        <ul>
-                            <li>
-                                <div class="filterbtn">
-                                    <button type="submit">Add</button>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="filterbtn">
-                                    <button type="button">Add New</button>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div> -->
             </div>
         </div>
-    </div>
-</div>
+
+        <div class="panel panel-bd">
+            <div class="panel-body">
+                <div class="form_sub_title">
+                    <p>භාර කරුවෙකු සිටියි නම් එම තොරතුරු - ඇත්නම් පමණි (If Guardian Available)</p>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Name (නම)
+                            </label>
+                            <input type="text">
+                            <!-- <label class="err_lo">
+                                        Please fill this field
+                                    </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                NIC (ජා.හැ.අ)
+                            </label>
+                            <input type="text">
+                            <!-- <label class="err_lo">
+                                        Please fill this field
+                                    </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Passport No (විදේශ ගමන් බලපත් අංකය)
+                            </label>
+                            <input type="text">
+                            <!-- <label class="err_lo">
+                                        Please fill this field
+                                    </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Mobile No (ජංගම දුරකතන අංකය)
+                            </label>
+                            <input type="text">
+                            <!-- <label class="err_lo">
+                                        Please fill this field
+                                    </label> -->
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+
+        <div class="panel panel-bd">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="pull-right">
+                        <div class="page_button pageptn">
+                            <button type="submit" (click)="resetObject()">Cancel</button>
+                            <button type="submit" (click)="addNewPerson()">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
