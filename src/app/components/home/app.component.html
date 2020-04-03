@@ -3,7 +3,7 @@
     <nav-bar *ngIf="!fullScreen"></nav-bar>
     <div id="wrapper">
         <!-- Side navigationbar -->
-        <nav-side-bar *ngIf="!fullScreen"></nav-side-bar>
+        <!-- <nav-side-bar *ngIf="!fullScreen"></nav-side-bar> -->
         <!-- page content -->
         <div id="page-content-wrapper" [ngClass]="fullScreen ? 'hidepadding':''">
             <router-outlet></router-outlet>
