@@ -25,15 +25,14 @@ body {
 
 #page-content-wrapper {
   width: 100%;
-  height: 100%;
+  height: 90%;
   padding-left: 250px;
   position: absolute;
   padding-top: 15px;
   padding-right: 15px;
   padding-bottom: 15px;
   transition: 0.2s;
-  overflow:auto;
-
+  overflow: auto;
 
   /* border: 5px solid green; */
 }
@@ -48,9 +47,8 @@ body {
   padding-left: 0;
 }
 
-
 //custom full screen css
-.hidepadding{
+.hidepadding {
   padding-left: 0 !important;
 }
 
@@ -407,7 +405,7 @@ a span.fa.arrow::before {
   float: left;
   padding: 5px 12px;
   text-decoration: none;
-  transition: background-color .3s;
+  transition: background-color 0.3s;
   border: 1px solid #1b5630;
   margin: 0 4px;
   border-radius: 45px;
@@ -451,7 +449,7 @@ a span.fa.arrow::before {
   width: 45%;
   margin: auto;
   display: block;
-  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, 0.28);
   border-radius: 3px;
 }
 
@@ -554,7 +552,7 @@ a span.fa.arrow::before {
   color: #1d5632;
 }
 
-.login_intro{
+.login_intro {
   margin: auto;
 }
 
@@ -625,7 +623,7 @@ a span.fa.arrow::before {
 
 // Sub titles
 
-.form_sub_title{
+.form_sub_title {
   font-weight: bold;
   margin-top: 15px;
 }
@@ -652,7 +650,7 @@ a span.fa.arrow::before {
 }
 
 .popupe button:hover {
-  background: #06D85F;
+  background: #06d85f;
 }
 
 .overlay {
@@ -774,4 +772,17 @@ a span.fa.arrow::before {
 
 .one_form {
   width: 70%;
+}
+
+@media screen and (max-height: 600px) {
+  .popup .content {
+    max-height: 440px;
+  }
+}
+
+
+@media screen and (min-height: 601px) and (max-height: 800px) {
+  .popup .content {
+    max-height: 600px;
+  }
 }

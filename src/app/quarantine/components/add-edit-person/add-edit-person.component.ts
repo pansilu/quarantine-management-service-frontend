@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { QuarantinePersonEditModel } from '../../models/quarantine-person-edit.model';
+import { ToastService } from 'src/app/Service/toast.service';
 
 @Component({
   selector: 'app-add-edit-person',
@@ -54,7 +55,7 @@ export class AddEditPersonComponent implements OnInit {
   gr_passportNo: string
 
 
-  constructor(private _quarantineService: QuarantineService) {
+  constructor(private _quarantineService: QuarantineService,private _toast: ToastService) {
     this.q_person = new QuarantinePersonEditModel()
   }
 
@@ -169,6 +170,7 @@ export class AddEditPersonComponent implements OnInit {
 
   setQuarantinePerson() {
     this._quarantineService.setQuarantinePerson((d) => {
+      this._toast.success("Success","New person added");
       console.log(d);
     }, e => {
       console.log(e);
