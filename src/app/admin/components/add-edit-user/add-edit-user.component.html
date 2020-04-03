@@ -22,70 +22,126 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <div class="page_padding">
-                            <div class="col-md-5 one_form">
-                                <div class="row margin page_input">
-                                    <div class="col-md-3">
-                                        <label>Role</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <!-- [disabled]="checkUser()" -->
-                                        <select>
-                                            <option value="0" selected="selected">Select a role...</option>
-                                            <!-- <option [value]="role.id" *ngFor="let role of roleList">{{role.name}}
-                                            </option> -->
-                                            <option value="1" selected="selected">Admin</option>
-                                            <option value="2" selected="selected">Reporter</option>
-
-
-                                        </select>
-                                        <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role is required </div> -->
-                                    </div>
-                                </div>
-                                <div class="row margin page_input">
-                                    <div class="col-md-3">
-                                        <label>User Name</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text"/>
-                                        <!-- <div class="err_lo" >Username is required </div> -->
-                                    </div>
-                                </div>
-                                <div class="row margin page_input">
-                                    <div class="col-md-3">
-                                        <label>First Name</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" />
-                                        <div class="err_lo">First Name is required
+                            <form [formGroup]="form">
+                                <div class="col-md-5 one_form">
+                                    <!-- <div class="row margin page_input">
+                                        <div class="col-md-3">
+                                            <label>Role</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select formControlName="role">
+                                                <option value="0" selected="selected">Select a role...</option>
+                                                <option value="1" selected="selected">Root</option>
+                                                <option value="2" selected="selected">Admin</option>
+                                            </select>
+                                            <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role
+                                                is required </div>
+                                        </div>
+                                    </div> -->
+                                    <div class="row margin page_input">
+                                        <div class="col-md-3">
+                                            <label>NIC</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" formControlName="nic" />
+                                            <!-- <div class="err_lo" >Username is required </div> -->
+                                            <div class="err_lo"
+                                                *ngIf="submitted && form.controls['nic'].hasError('required')">NIC is
+                                                required </div>
                                         </div>
                                     </div>
+                                    <div class="row margin page_input">
+                                        <div class="col-md-3">
+                                            <label>Name</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" formControlName="name" />
+                                            <div class="err_lo"
+                                                *ngIf="submitted && form.controls['name'].hasError('required')">Name is
+                                                required </div>
+                                            <!-- <div class="err_lo">Last Name is required</div> -->
+                                        </div>
+                                    </div>
+                                    <div class="row margin page_input">
+                                        <div class="col-md-3">
+                                            <label>Mobile</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" formControlName="mobile" />
+                                            <div class="err_lo"
+                                                *ngIf="submitted && form.controls['mobile'].hasError('required')">Mobile
+                                                Number is
+                                                required </div>
+                                        </div>
+                                    </div>
+                                    <div class="row margin page_input">
+                                        <div class="col-md-3">
+                                            <label>Badge No </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" formControlName="officeId" />
+                                            <!-- <div class="err_lo">Last Name is required</div> -->
+                                        </div>
+                                    </div>
+                                    <div class="row margin page_input">
+                                        <div class="col-md-3">
+                                            <label>Passport No </label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="text" formControlName="passportNo" />
+                                            <!-- <div class="err_lo">Last Name is required</div> -->
+                                        </div>
+                                    </div>
+                                    <div class="row margin page_input">
+                                        <div class="col-md-3">
+                                            <label>Rank</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <select formControlName="rank">
+                                                <option value='null' selected="selected">Select Rank...</option>
+                                                <option value="ASP" >ASP</option>
+                                                <option value="SSP" >SSP</option>
+                                                <option value="SARJANT" >SARJANT</option>
+                                                <option value="PC" >PC</option>
+                                                <option value="IP" >IP</option>
+                                                <option value="Sp" >Sp</option>
+                                                <option value="VIG">VIG</option>
+                                            </select>
+                                            <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role
+                                                is required </div> -->
+                                        </div>
+                                    </div>
+                                    <div class="row margin page_input">
+                                        <div class="checkbox">
+                                            <p class="checkHedder"><input type="checkbox"
+                                                    formControlName="canCreateUser">Can Create User</p>
+                                        </div>
+                                    </div>
+                                    <div class="row margin page_input">
+                                        <div class="col-md-3">
+                                            <label>Locatios</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <!-- [disabled]="checkUser()" -->
+                                            <select (change)="addUserLocation($event)">
+                                                <option value="0" selected="selected">Select Locations</option>
+                                                <option [value]="e.id" *ngFor="let e of locations">{{e.name}}</option>
+                                            </select>
+                                            <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role is required </div> -->
+                                        </div>
+                                        <!-- <div> -->
+                                            <!-- Location list here -->
+                                            <!-- <p *ngFor="let e of user.stationIdList">{{e}}</p>
+                                        </div> -->
+                                    </div>
                                 </div>
-                                <div class="row margin page_input">
-                                    <div class="col-md-3">
-                                        <label>Last Name</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" />
-                                        <!-- <div class="err_lo">Last Name is required</div> -->
-                                    </div>
-                                </div>
-                                <div class="row margin page_input">
-                                    <div class="col-md-3">
-                                        <label>Mobile Number</label>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <input type="text" />
-                                        <!-- <div class="err_lo">Last Name is required</div> -->
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                     <div class="pull-right">
                         <div class="page_button pageptn">
                             <button type="submit" [routerLink]="['/admin/user']">Cancel</button>
-                            <button type="submit" >Save</button>
-    
+                            <button type="submit" (click)="submit()">Save</button>
                         </div>
                     </div>
                 </div>

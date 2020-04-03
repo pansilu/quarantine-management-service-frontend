@@ -113,29 +113,24 @@ export class AuthService {
     }
 
     private getToken(data:LoginModel, callback: NextCallback<LoginResultModel> = null, error: ErrorCallback<string> = null) {
-        console.log(data)
-
         this._.api()
             .url('api/user/authenticate')
             // .hasUrlencoded()
             // .rowData(rowData)
             .json(data)
             .post<LoginResultModel, string>((data) => {
-                console.log(data)
                 const token = data.token
                 let tokenInfo = jwt_decode(token);
-
-                const role = "admin"//tokenInfo.roles[0].role.toLowerCase();
+                // console.log(tokenInfo)
+                const role = "ADMIN"//tokenInfo.roles[0].role//.toLowerCase(); //"admin"//
                 data.userRole = role
                 data.userName = tokenInfo.name
                 data.access_token = token
                 data.userId = tokenInfo.userId
                 data.expires_in = tokenInfo.exp
 
-                
-
                 // /* Only admin can login to this application */
-                // if (!(role !== 'eusr')) {
+                // if (role === 'Q_USER' ||role === 'GUARDIAN' ) {
                 //     return error('Invalid user role');
                 // }
 

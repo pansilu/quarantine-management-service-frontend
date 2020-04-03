@@ -4,5 +4,5 @@ export const environment = {
   production: true
 };
 
-(window as any).apiHost = 'http://34.66.168.177:3000/';
+(window as any).apiHost = 'http://18.138.48.140/qms/';
 
