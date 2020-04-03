@@ -1,0 +1,11 @@
+.linkClick {
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+    padding: 10px;
+}
+
+.activeLink{
+    color: black !important;
+    text-decoration: none !important;
+}

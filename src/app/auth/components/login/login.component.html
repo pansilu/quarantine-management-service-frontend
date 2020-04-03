@@ -1,15 +1,17 @@
 <div class="container">
-    <div class="login_intro">
+    <p style="text-align: right;"> <span class="linkClick" (click) = "changeLanguage(1)" [ngClass]  = "language == 1 ? 'activeLink':''">English</span> <span  class="linkClick" (click) = "changeLanguage(2)" [ngClass]  = "language == 2 ? 'activeLink':''"> සිංහල‍‍</span> <span  class="linkClick" (click) = "changeLanguage(3)" [ngClass]  = "language == 3 ? 'activeLink':''">தமிழ்</span> </p>
+    <div class="login_intro" *ngIf = "language == 1">
         <h3 class="logi_title">COVID-19 Quarantine Management System</h3>
         <p>Through this system, the COVID-19 quarantined people can be monitored. They can update their health status
             daily to the Police and also they can send their requests for their daily needs. All the quarantined people
-            who are having a smartphone can install this StayHomeLK app. Through the app, they will be connected to the
+            who are having a smartphone can install this <b>StayHomeLK app</b>. Through the app, they will be connected
+            to the
             Central Quarantined People Management System. The Police will use the central system to check the health
             status and other daily requirements of the quarantined people that use the mobile app, through the Central
             system.
         </p>
-        <p>The <b>StayHomeLK</b> app is available in both the <b> Google Play Store</b> and <b>Apple App Store</b> Apple
-            App Store.</p>
+        <!-- <p>The <b>StayHomeLK</b> app is available in both the <b> Google Play Store</b> and <b>Apple App Store</b> Apple
+            App Store.</p> -->
         <p>The police department will notify the person to install the app.
             Only then will the person in quarantine be able to install the app and register into the system by providing
             his or her mobile phone number.
@@ -36,6 +38,93 @@
             </li>
         </ul>
     </div>
+
+    <div class="login_intro"  *ngIf = "language == 2">
+        <h3 class="logi_title">COVID-19 - නිරෝධායන කළමනාකරණ පද්ධතිය</h3>
+        <p>මෙම පද්ධතිය හරහා COVID-19 නිරෝධායන පුද්ගලයින් නිරීක්ෂණය කළ හැකිය. ඔවුනට දිනපතා ඔවුන්ගේ සෞඛ්‍ය තත්ත්වය පොලිස්
+            ස්ථානයට යාවත්කාලීන කළ හැකි අතර ඔවුන්ගේ දෛනික අවශ්‍යතා සඳහා ඔවුන්ගේ ඉල්ලීම් ද එවිය හැකිය. ස්මාර්ට් ජංගම
+            දුරකතනයක් ඇති සියලුම නිරෝධායන පුද්ගලයින්ට මෙම StayHomeLK යෙදුම ස්ථාපනය කළ හැකිය. මෙම යෙදුම හරහා, ඔවුන්
+            මධ්‍යම නිරෝධායන පුද්ගලයින් කළමනාකරණ පද්ධතියට සම්බන්ධ කරනු ඇත. ජංගම යෙදුම භාවිතා කරන නිරෝධායන පුද්ගලයින්ගේ
+            සෞඛ්‍ය තත්ත්වය සහ අනෙකුත් දෛනික අවශ්‍යතා පරීක්ෂා කිරීම සඳහා පොලීසිය මෙම මධ්‍යම ක්‍රමය භාවිතා කරනු ඇත.
+        </p>
+        <!-- <p>Google Play Store සහ Apple App Store ඔස්සේ StayHomeLK යෙදුම බාගත කර ගත හැකි ය.
+        </p> -->
+        <p>යෙදුම ස්ථාපනය කරන ලෙස පොලිස් දෙපාර්තමේන්තුව පුද්ගලයාට දැනුම් දෙනු ඇත.</p>
+        <p>නිරෝධායන පුද්ගලයාට ඔහුගේ හෝ ඇයගේ ජංගම දුරකථන අංකය ලබා දීමෙන් පමණක් යෙදුම ස්ථාපනය කර පද්ධතියට ලියාපදිංචි විය
+            හැකි ය.</p>
+        <P>නිරෝධායන පුද්ගලයෙකුට මෙම ජංගම යෙදුම භාවිතා කිරීමෙන්,</P>
+        <ul>
+            <li>ඔහුගේ හෝ ඇයගේ දෛනික සෞඛ්‍ය තත්ත්වය අදාළ පොලිස් ස්ථානයට යාවත්කාලීන කරන්න හැකි ය.</li>
+            <li>ඔවුන්ගේ දෛනික අවශ්‍යතා වන ආහාර, ඖෂධ සහ වෙනත් අවශ්‍යතා අදාළ පොලිස් ස්ථානයෙන් ලබා දෙන ලෙස ඉල්ලිමට හැකි ය.
+            </li>
+        </ul>
+
+        <p>මධ්‍යම පද්ධතිය භාවිතා කරමින් අදාළ පොලිස් ස්ථානයට / නිලධාරියාට</p>
+        <ul>
+            <li>ජංගම යෙදුම සමඟ ලියාපදිංචි වී දැනට නිරෝධායනයෙහි යෙදී සිටින පුද්ගලයින්ගේ සෞඛ්‍ය තත්ත්වය තනි තනිව නිරීක්ෂණය
+                කිරීමට හැකියාව පවති.
+
+            </li>
+            <li>ජංගම යෙදුම භාවිතා කරන්නන්ගේ දෛනික ඉල්ලීම් පහසුවෙන් ලබා හැකිය.
+
+            </li>
+            <li>පුද්ගලයා සිටින ස්ථානය සොයා ගැනිම සඳහා.
+
+            </li>
+            <li>පුද්ගලයින් පිළිබඳ වාර්තා සැකසිම සඳහා - දෛනික පදනම, සෞඛ්‍ය තත්ත්ව පදනම, නිරෝධායන තත්ත්ව පදනම යනාදිය.
+
+            </li>
+            <li>සිතියමක ජංගම යෙදුම් භාවිතා කරන්නන්ගේ ස්ථාන පෙන්නුම් කිරිම සඳහා.
+
+            </li>
+        </ul>
+    </div>
+
+    <div class="login_intro"  *ngIf = "language == 3">
+        <h3 class="logi_title">COVID 19 தொற்றுநோய் மேலாண்மை அமைப்பு</h3>
+        <p>இந்த அமைப்பு மூலம், COVID 19 தனிமைப்படுத்தப்பட்ட மக்களை கண்காணிக்கலாம். அவர்கள் காவல்துறைக்கு தினசரி தங்கள்
+            சுகாதார நிலை மற்றும் அவர்கள் தங்களது அன்றாட தேவைகளுக்கான தங்கள் கோரிக்கைகளை அனுப்பலாம். ஸ்மார்ட்போன்
+            வைத்திருக்கும் தனிமைப்படுத்தப்பட்ட அனைவரும் இந்த StayHomeLK பயன்பாட்டை நிறுவலாம். StayHomeLK பயன்பாட்டின்
+            மூலம், அவர்கள் மத்திய தனிமைப்படுத்தப்பட்ட மக்கள் நிர்வாகத்துடன் இணைக்கப்படுவார்கள். காவல்துறை மத்திய
+            அமைப்பைப் பயன்படுத்தி StayHomeLK பயன்பாட்டைப் பயன்படுத்தும் தனிமைப்படுத்தப்பட்ட நபர்களின் சுகாதார நிலை
+            மற்றும் தினசரி தேவைகளை சரிபார்க்கும்.
+        </p>
+        <!-- <p>Google Play Store மற்றும் Apple App Store இரண்டிலும் StayHomeLK பயன்பாடு கிடைக்கின்றது.
+        </p> -->
+        <p>காவல் துறை StayHomeLK பயன்பாட்டை நிறுவ குறித்த நபருக்கு தெரிவிக்கும். அப்போது தான் தனிமைப்படுத்தப்பட்ட நபர்
+            தனது கைபேசி எண் வழங்குவதன் மூலம் StayHomeLK பயன்பாட்டை நிறுவி அமைப்பில் பதிவு செய்ய முடியும்.
+
+        </p>
+        <p>இந்த மொபைல் பயன்பாட்டைப் பயன்படுத்தி ஒரு தனிமைப்படுத்தப்பட்ட நபர்,
+        </p>
+        <ul>
+            <li> அவரின் அன்றாட சுகாதார நிலையை சம்பந்தப்பட்ட தகவல்களை காவல் நிலையைத்துக்கு புதுப்பிக்க முடியும்.
+            </li>
+            <li>உணவு, மருந்து மற்றும் பிற தேவைகள் உள்ளிட்ட அவர்களின் அன்றாட தேவைகளை பற்றி கோரிக்கைகளை குறித்த காவல்
+                நிலையைத்துக்கு அனுப்பலாம்.
+            </li>
+        </ul>
+
+        <p>மத்திய அமைப்பைப் பயன்படுத்தி, சம்பந்தப்பட்ட காவல் நிலையம் / அதிகாரி,
+        </p>
+        <ul>
+            <li>StayHomeLK App பயன்பாட்டில் பதிவுசெய்த தனிமைப்படுத்தப்பட்ட நபர்களின் சுகாதார நிலையை தனித்தனியாக
+                கண்காணிக்கலாம்.
+
+            </li>
+            <li> இந்த App பயனர்களின் தினசரி கோரிக்கைகளைப் பெற முடியும்.
+            </li>
+            <li>தனிமைப்படுத்தப்பட்ட நபர்களின் நடமாட்டத்தை கண்காணிக்கலாம்.
+            </li>
+            <li> மக்களைப் பற்றிய அறிக்கைகளை உருவாக்கலாம் - தினசரி அடிப்படையில், சுகாதார நிலை அடிப்படையில்,
+                தனிமைப்படுத்தப்பட்ட நிலை அடிப்படையில் முதலியன.
+            </li>
+            <li>வரைபடத்தில் StayHomeLK App பயனரின் இருப்பிடங்களைக் காட்சிப்படுத்தலாம்.
+            </li>
+        </ul>
+    </div>
+
+
     <div>
         <div class="login_box">
             <!-- <div class="login_side">
