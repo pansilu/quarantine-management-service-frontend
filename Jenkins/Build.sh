@@ -6,8 +6,8 @@ build_services(){
     #npm rebuild node-sass
     #npm install -g @angular/cli@7.2.2
 
-    #sudo ng build --prod
-	ng build
+    ng build --prod
+	# ng build
 
     if [ $? -ne 0 ]
 	then
