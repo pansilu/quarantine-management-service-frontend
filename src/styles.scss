@@ -435,7 +435,7 @@ a span.fa.arrow::before {
 .login_form_side {
   float: left;
   width: 50%;
-  height: 503px;
+  height: 300px;
   display: flex;
   align-items: center;
 }
@@ -552,6 +552,14 @@ a span.fa.arrow::before {
 
 .login_link a:hover {
   color: #1d5632;
+}
+
+.login_intro{
+  margin: auto;
+}
+
+.logi_title {
+  text-align: center;
 }
 
 // Page inputs

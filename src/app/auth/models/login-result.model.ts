@@ -6,6 +6,7 @@ export class LoginResultModel {
     refresh_token: string;
     userImage: string;
     userRole: string;
+    token:string
     //loggedCompany: number;
     //loggedBranch: number;
     userId: number;

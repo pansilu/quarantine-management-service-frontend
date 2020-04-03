@@ -1,4 +1,4 @@
 export default {
-    administrator: 'admin',
-    root: 'root'
+    administrator: 'ADMIN',
+    root: 'ROOT'
 };

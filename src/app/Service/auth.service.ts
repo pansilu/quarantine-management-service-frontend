@@ -7,6 +7,8 @@ import { LoginResultModel } from '../auth/models/login-result.model';
 import { ErrorCallback, NextCallback, ServiceHelper } from '../Service/service.helper';
 import { Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import { LoginModel } from '../auth/models/login.model';
+import * as jwt_decode from "jwt-decode";
 
 @Injectable()
 export class AuthService {
@@ -25,8 +27,8 @@ export class AuthService {
         return this.getUserData() ? this.getUserData().userData : null;
     }
 
-    tryToLogIn(callback: NextCallback<LoginResultModel>, error: ErrorCallback<string>, username: string, password: string) {
-        this.getToken(`grant_type=password&username=${username}&password=${password}`, callback, error);
+    tryToLogIn(callback: NextCallback<LoginResultModel>, error: ErrorCallback<string>, data:LoginModel) {
+        this.getToken(data, callback, error);
     }
 
     logOut() {
@@ -90,43 +92,54 @@ export class AuthService {
     }
 
     private startTimer() {
-        if (this._subscribtion && !this._subscribtion.closed) {
-            this._subscribtion.unsubscribe();
-        }
-        const data = this.getUserData();
-        if (data) {
-            this._subscribtion = observableTimer(0, 2000)
-                .subscribe((time) => {
-                    const remainingTime = this.getRemainingTime(data.userData);
-                    if (remainingTime < 5000) {
-                        this._subscribtion.unsubscribe();
-                        this.refresh();
-                    }
-                });
-        }
+        // if (this._subscribtion && !this._subscribtion.closed) {
+        //     this._subscribtion.unsubscribe();
+        // }
+        // const data = this.getUserData();
+        // if (data) {
+        //     this._subscribtion = observableTimer(0, 2000)
+        //         .subscribe((time) => {
+        //             const remainingTime = this.getRemainingTime(data.userData);
+        //             if (remainingTime < 5000) {
+        //                 this._subscribtion.unsubscribe();
+        //                 this.refresh();
+        //             }
+        //         });
+        // }
     }
 
     private refresh() {
-        this.getToken(`grant_type=refresh_token&refresh_token=${this._loggedUser.refresh_token}`);
+        // this.getToken(`grant_type=refresh_token&refresh_token=${this._loggedUser.refresh_token}`);
     }
 
-    private getToken(rowData, callback: NextCallback<LoginResultModel> = null, error: ErrorCallback<string> = null) {
+    private getToken(data:LoginModel, callback: NextCallback<LoginResultModel> = null, error: ErrorCallback<string> = null) {
         this._.api()
-            .url('web-backend/getAuth')
-            .hasUrlencoded()
-            .rowData(rowData)
+            .url('api/user/authenticate')
+            // .hasUrlencoded()
+            // .rowData(rowData)
+            .json(data)
             .post<LoginResultModel, string>((data) => {
-                const role = data.userRole.toLowerCase();
-                /* Only admin can login to this application */
-                if (!(role !== 'eusr')) {
-                    return error('Invalid user role');
-                }
-                data.userRole = role;
+                const token = data.token
+                let tokenInfo = jwt_decode(token);
+                // console.log(tokenInfo)
+                const role = "ADMIN"//tokenInfo.roles[0].role//.toLowerCase(); //"admin"//
+                data.userRole = role
+                data.userName = tokenInfo.name
+                data.access_token = token
+                data.userId = tokenInfo.userId
+                data.expires_in = tokenInfo.exp
+
+                // /* Only admin can login to this application */
+                // if (role === 'Q_USER' ||role === 'GUARDIAN' ) {
+                //     return error('Invalid user role');
+                // }
+
                 this._.accessToken = data.access_token;
                 this._loggedUser = new LoginResultModel(data);
                 data.loggedTime = new Date();
                 this.saveDataInTheLocalStorage();
-                this.startTimer();
+                // this.startTimer();
+
                 if (callback) {
                     callback(this._loggedUser);
                 }
