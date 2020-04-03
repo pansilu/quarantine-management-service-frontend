@@ -51,7 +51,7 @@ class UserTokenProvider implements AuthTokenProvider {
     private _serviceHelper: ServiceHelper;
     constructor(serviceHelper: ServiceHelper) { this._serviceHelper = serviceHelper; }
     getTokenInfo(): { name: string, value: string } {
-        return this._serviceHelper.accessToken ? { name: 'Authorization', value: ` bearer ${this._serviceHelper.accessToken}` } : null;
+        return this._serviceHelper.accessToken ? { name: 'Authorization', value: `Bearer ${this._serviceHelper.accessToken}` } : null;
     }
 }
 
