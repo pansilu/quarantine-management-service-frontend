@@ -17,7 +17,7 @@ export class AddEditUserComponent implements OnInit {
   edit: boolean;
   form: FormGroup;
   user: UserModel;
-  locations: Array<LocationModel>
+  locations: Array<LocationModel>;
   submitted: boolean
   ngOnInit() {
     const id = parseInt(this._route.snapshot.params['id'], 10);
@@ -29,7 +29,8 @@ export class AddEditUserComponent implements OnInit {
       this.user = new UserModel();
       this.createForm();
     }
-    this.getLocations()
+    this.locations = new Array<LocationModel> ();
+    //this.getLocations()
   }
 
   createForm() {
@@ -50,6 +51,7 @@ export class AddEditUserComponent implements OnInit {
   getLocations() {
     this._userService.getLocations(d => {
       this.locations = d
+      console.log(this.locations[0].stations)
     }, e => {
       this._toast.error("Error", "Get Location Failed")
       //console.log(e);

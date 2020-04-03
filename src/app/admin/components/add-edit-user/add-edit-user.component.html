@@ -125,7 +125,10 @@
                                             <!-- [disabled]="checkUser()" -->
                                             <select (change)="addUserLocation($event)">
                                                 <option value="0" selected="selected">Select Locations</option>
-                                                <option [value]="e.id" *ngFor="let e of locations">{{e.name}}</option>
+                                                <option value="1" selected="selected">Moratuwa</option>
+                                                <option value="2" selected="selected">Ratmalana</option>
+                                                <option value="3" selected="selected">Nugegoda</option>
+                                                <!-- <option [value]="e.id" *ngFor="let e of locations[0].stations">{{e.name}}</option> -->
                                             </select>
                                             <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role is required </div> -->
                                         </div>

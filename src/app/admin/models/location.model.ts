@@ -5,4 +5,9 @@ export class LocationModel {
     name: string
     stations:Array<NameIdModel>
     gramaSewaDivisions:Array<NameIdModel>
+
+    constructor(){
+        this.stations = new Array<NameIdModel>();
+        this. gramaSewaDivisions = Array<NameIdModel>();
+    }
 }
