@@ -257,6 +257,12 @@ a span.fa.arrow::before {
   border-radius: 4px;
 }
 
+.breadcrumb li a {
+  color: #337ab7;
+  text-decoration: none !important;
+  cursor: default;
+}
+
 /* Panel */
 
 .panel-bd,
@@ -673,7 +679,7 @@ a span.fa.arrow::before {
 }
 
 .popup {
-  margin: 10px auto;
+  margin: 60px auto;
   padding: 0;
   background: #fff;
   border-radius: 5px;
@@ -686,7 +692,7 @@ a span.fa.arrow::before {
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   padding: 0;
-  height: 55px;
+  height: 48px;
   display: flex;
   align-items: center;
 }
@@ -695,7 +701,7 @@ a span.fa.arrow::before {
   margin-top: 0;
   color: #fff;
   text-align: center;
-  font-size: 23px;
+  font-size: 19px;
   padding: 19px;
   margin: 0;
 }
@@ -780,7 +786,6 @@ a span.fa.arrow::before {
     max-height: 440px;
   }
 }
-
 
 @media screen and (min-height: 700px) and (max-height: 800px) {
   .popup .content {
