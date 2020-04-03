@@ -39,8 +39,8 @@ export class AddEditUserComponent implements OnInit {
       name: new FormControl(this.user.name, Validators.required),
       mobile: new FormControl(this.user.mobile, Validators.required),
       canCreateUser: new FormControl(this.user.canCreateUser, Validators.required),
-      nic: new FormControl(this.user.nic, Validators.required),
-      officeId: new FormControl(this.user.officeId),
+      nic: new FormControl(this.user.nic),
+      officeId: new FormControl(this.user.officeId, Validators.required),
       passportNo: new FormControl(this.user.passportNo),
       // phone: new FormControl(this.user.phone),
       rank: new FormControl(this.user.rank)

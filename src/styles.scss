@@ -362,6 +362,37 @@ a span.fa.arrow::before {
   font-size: 13px;
 }
 
+.update_td {
+  width: 105px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #337abd !important;
+}
+
+.edti_td {
+  width: 58px;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #ca0748 !important;
+}
+
+.notupdate {
+  background-color: #ff000038 !important;
+  
+}
+
+// .notupdate td {
+//   color:red;
+// }
+
+.update {
+  background-color: #00ff8438 !important;
+}
+
+// .update td {
+//   color:green;
+// }
+
 .table-responsive {
   min-height: 0.01%;
   overflow-x: inherit;

@@ -30,11 +30,11 @@
                                             [ngModelOptions]="{standalone: true}" />
                                     </div>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <div class="filterbtn">
                                         <button type="submit" (click)="search()">Search</button>
                                     </div>
-                                </li>
+                                </li> -->
                                 <li>
                                     <div class="filterbtn">
                                         <button type="button" (click)="add_new()">Add New</button>
@@ -49,24 +49,41 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Id</th>
+                                        <th>ID</th>
                                         <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Officer</th>
+                                        <th>Telephone</th>
+                                        <th>Total Points</th>
+                                        <th>Last Update</th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr (click)="add_new()" style="cursor:pointer;">
+                                    <tr  class="notupdate" >
                                         <td>1</td>
                                         <td>John Doe</td>
-                                        <td>45/2, Lane, City</td>
-                                        <td>John Doe</td>
+                                        <td>0112546785</td>
+                                        <td>20</td>
+                                        <td>2020-04-01</td>
+                                        <td class="update_td">
+                                            Daily Updates
+                                        </td>
+                                        <td class="edti_td" (click)="add_new()">
+                                            Edit
+                                        </td>
                                     </tr>
-                                    <tr (click)="add_new()" style="cursor:pointer;">
-                                        <td>1</td>
+                                    <tr class="update"  >
+                                        <td>2</td>
                                         <td>John Doe</td>
-                                        <td>45/2, Lane1, City1</td>
-                                        <td>John Doe</td>
+                                        <td>0112245369</td>
+                                        <td>45</td>
+                                        <td>2020-04-01</td>
+                                        <td class="update_td">
+                                            Daily Updates
+                                        </td>
+                                        <td class="edti_td" (click)="add_new()">
+                                            Edit
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
