@@ -10,7 +10,7 @@ import { LoginModel } from '../../models/login.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  language:number = 1;
   username = '';
   password = '';
   loading = false;
@@ -70,5 +70,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
+    changeLanguage(value:number){
+      this.language = value;
+    }
 
 }
