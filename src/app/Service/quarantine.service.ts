@@ -35,17 +35,20 @@ export class QuarantineService {
             .get(data, error);
     }
 
-    getOfficerDetails(data: NextCallback<Array<OfficerDetailsModel>>, error: ErrorCallback<ErrorModel>) {
+    getOfficerDetails(data: NextCallback<Array<OfficerDetailsModel>>, error: ErrorCallback<ErrorModel>, officer : any) {
         this._.api()
             .url('api/user/admin/filter')
-            .json({
-                "ranks":null,
-                "stationIds": null
-              })
+            .json(officer)
             .needJson()
             .post(data, error);
     }
 
+    getHospitals(data: NextCallback<Array<CountryModel>>, error: ErrorCallback<ErrorModel>) {
+        this._.api()
+            .url('api/misc/all-hospitals')
+            .needJson()
+            .get(data, error);
+    }
 
     setQuarantinePerson(data: NextCallback<Array<QuarantinePersonEditModel>>, error: ErrorCallback<ErrorModel>, model : any) {
         this._.api()

@@ -4,6 +4,7 @@ import { QuarantinePersonEditModel } from '../../models/quarantine-person-edit.m
 import { ToastService } from 'src/app/Service/toast.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { OfficerRequestModel } from '../../models/officer-request.model';
 
 @Component({
   selector: 'app-add-edit-person',
@@ -36,14 +37,17 @@ export class AddEditPersonComponent implements OnInit {
   dropdownSettings = {};
 
   countries = [];
+  hospitals = [];
   qp_inspectorIds: []
 
   id: any;
   q_person: any;
+  getOfficer: any;
   officerRequestbody:any
 
   constructor(private _quarantineService: QuarantineService, private _toast: ToastService, private _formBuilder: FormBuilder, private _router: Router) {
-    this.q_person = new QuarantinePersonEditModel()
+    this.q_person = new QuarantinePersonEditModel(),
+    this.getOfficer = new OfficerRequestModel();
   }
 
 
@@ -69,7 +73,7 @@ export class AddEditPersonComponent implements OnInit {
 
     this.getCountries();
     this.getLocation();
-    this.getOfficerDetails()
+    this.getHospitals();
 
     if (this.edit) {
       this.id = 10
@@ -95,7 +99,7 @@ export class AddEditPersonComponent implements OnInit {
   createForm() {
     const model = {
       qp_division: new FormControl(this.person.division),
-      qp_policeStation: new FormControl(this.person.policeStation),
+      qp_policeStationId: new FormControl(this.person.policeStation),
       qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId),
       qp_fileNo: new FormControl(this.person.fileNo),
 
@@ -115,6 +119,7 @@ export class AddEditPersonComponent implements OnInit {
       qp_arrivalDate: new FormControl(this.person.arrivalDate),
       qp_countryId: new FormControl(this.person.countryId),
       qp_informedDate: new FormControl(this.person.informedDate),
+      qp_noticeDate:  new FormControl(this.person.informedDate),
 
       // Officer Data handled seperately
     };
@@ -138,11 +143,13 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   getOfficerDetails(){
+    console.log(this.getOfficer)
     this._quarantineService.getOfficerDetails((d) => {
+      console.log(d)
       this.officers = d
     }, e => {
       console.log(this.officers);
-    });
+    },this.getOfficer);
   }
 
   rankSelected(){
@@ -159,6 +166,7 @@ export class AddEditPersonComponent implements OnInit {
     })
   }
   }
+
 
   getCountries() {
     this._quarantineService.getCountries((d) => {
@@ -198,13 +206,18 @@ export class AddEditPersonComponent implements OnInit {
       if (element.name == this.form.value.qp_division) {
         const ps = element.stations
         ps.forEach(e => {
-          this.policeStations.push(e.name)
+          this.policeStations.push(e)
         })
       }
     })
   }
 
   policeStationSelected() {
+    this.getOfficer.ranks = null;
+    const ps = [];
+    ps.push(+this.form.value.qp_policeStationId)
+    this.getOfficer.stationIds = ps
+    this.getOfficerDetails()
     this.filterGramaSewaDivisions()
   }
 
@@ -230,6 +243,23 @@ export class AddEditPersonComponent implements OnInit {
     }
   }
 
+  getHospitals(){
+    this._quarantineService.getHospitals((d) => {
+      d.forEach(h => {
+        this.hospitals.push(h);
+      })
+    }, e => {
+      console.log(e);
+    });
+  }
+
+  admitHosSelected(){
+    //console.log(this.form2.value.qp_admitHosId)
+  }
+
+  confirmedHosSelected(){
+    //console.log(this.form2.value.qp_confirmedHosId)
+  }
 
   addNewPerson() {
     this.submitted = true;
@@ -265,6 +295,7 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.arrivalDate = this.form.value.qp_arrivalDate
       this.q_person.countryId = this.form.value.qp_countryId
       this.q_person.informedDate = this.form.value.qp_informedDate
+      //this.q_person. = this.form.value.qp_noticeDate
 
       this.q_person.inspectorIds = this.selectedOfficerIds
 
