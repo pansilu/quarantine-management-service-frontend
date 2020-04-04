@@ -34,6 +34,18 @@ export class QuarantineService {
             .get(data, error);
     }
 
+    getOfficerDetails(data: NextCallback<Array<OfficerDetailsModel>>, error: ErrorCallback<ErrorModel>) {
+        this._.api()
+            .url('api/user/admin/filter')
+            .json({
+                "ranks":null,
+                "stationIds": null
+              })
+            .needJson()
+            .post(data, error);
+    }
+
+
     setQuarantinePerson(data: NextCallback<Array<QuarantinePersonEditModel>>, error: ErrorCallback<ErrorModel>, model : any) {
         this._.api()
             .url('api/user/quarantine')
@@ -41,6 +53,5 @@ export class QuarantineService {
             .needJson()
             .post(data, error);
     }
-
 
 }

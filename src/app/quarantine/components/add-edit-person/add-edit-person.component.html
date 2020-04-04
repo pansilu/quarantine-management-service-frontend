@@ -13,7 +13,7 @@
                                 <label>
                                     Division (කොට්ඨාසය)
                                 </label>
-                                <select formControlName ="qp_division" (change)="divisionSelected()" >
+                                <select formControlName="qp_division" (change)="divisionSelected()">
                                     <option *ngFor="let division of divisions" [value]="division">{{division}}</option>
                                 </select>
                                 <!-- <label class="err_lo">
@@ -46,8 +46,9 @@
                                         [value]="gramaSewaDivision.id">{{gramaSewaDivision.name}}</option>
                                 </select>
                                 <div class="err_lo"
-                                    *ngIf="submitted && form.controls['qp_gramaSewaDivisionId'].hasError('required')">Village Offficer Division is
-                                required </div>
+                                    *ngIf="submitted && form.controls['qp_gramaSewaDivisionId'].hasError('required')">
+                                    Village Offficer Division is
+                                    required </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -78,9 +79,9 @@
                                     NIC (ජා.හැ.අ)
                                 </label>
                                 <input type="text" formControlName="qp_nic">
-                                <div class="err_lo"
-                                    *ngIf="submitted && form.controls['qp_nic'].hasError('required')">NIC is
-                                required </div>
+                                <div class="err_lo" *ngIf="submitted && form.controls['qp_nic'].hasError('required')">
+                                    NIC is
+                                    required </div>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -102,9 +103,9 @@
                                     Name (නම)
                                 </label>
                                 <input type="text" formControlName="qp_name">
-                                <div class="err_lo"
-                                    *ngIf="submitted && form.controls['qp_name'].hasError('required')">Name is
-                                required </div>
+                                <div class="err_lo" *ngIf="submitted && form.controls['qp_name'].hasError('required')">
+                                    Name is
+                                    required </div>
                             </div>
                         </div>
                     </div>
@@ -117,7 +118,7 @@
                                 <input type="text" formControlName="qp_address">
                                 <div class="err_lo"
                                     *ngIf="submitted && form.controls['qp_address'].hasError('required')">Address is
-                                required </div>
+                                    required </div>
                             </div>
                         </div>
                     </div>
@@ -128,9 +129,9 @@
                                     Age (වයස)
                                 </label>
                                 <input type="number" formControlName="qp_age">
-                                <div class="err_lo"
-                                    *ngIf="submitted && form.controls['qp_age'].hasError('required')">Age is
-                                required </div>
+                                <div class="err_lo" *ngIf="submitted && form.controls['qp_age'].hasError('required')">
+                                    Age is
+                                    required </div>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -141,7 +142,7 @@
                                 <input type="date" formControlName="qp_reportedDate">
                                 <div class="err_lo"
                                     *ngIf="submitted && form.controls['qp_reportedDate'].hasError('required')">Date is
-                                required </div>
+                                    required </div>
                             </div>
                         </div>
                     </div>
@@ -159,7 +160,7 @@
                                 <input type="text" formControlName="qp_mobile">
                                 <div class="err_lo"
                                     *ngIf="submitted && form.controls['qp_mobile'].hasError('required')">Mobile No. is
-                                required </div>
+                                    required </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -178,8 +179,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="checkbox">
-                                <label><input type="checkbox" value=""
-                                     formControlName="qp_appEnable">ජංගම දුරකතන යෙදුමක් භාවිතා කිරීමේ හැකියාවක්
+                                <label><input type="checkbox" value="" formControlName="qp_appEnable">ජංගම දුරකතන
+                                    යෙදුමක් භාවිතා කිරීමේ හැකියාවක්
                                     ඇත්ද?</label>
                             </div>
                         </div>
@@ -263,6 +264,7 @@
                     </div>
                 </div>
             </div>
+            </form>
 
             <div class="panel panel-bd">
                 <div class="panel-body">
@@ -276,7 +278,9 @@
                                 <label>
                                     Rank (නිළය)
                                 </label>
-                                <select></select>
+                                <select [(ngModel)]="selectedRank" (change)="rankSelected()">
+                                    <option *ngFor="let rank of OFFICER_RANK_ENUM" [value]="rank">{{rank}}</option>
+                                </select>
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -287,7 +291,11 @@
                                 <label>
                                     Officer (නිළධාරීන්)
                                 </label>
-                                <input type="text">
+                                <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="officersToShow"
+                                [(ngModel)]="selectedOfficers" [settings]="dropdownSettings"
+                                    (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                </ng-multiselect-dropdown>
+                                <!-- <input type="text"> -->
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -298,6 +306,7 @@
                 </div>
             </div>
 
+         <form [formGroup]="form2">
             <div class="panel panel-bd">
                 <div class="panel-body">
                     <div class="form_sub_title">
@@ -316,7 +325,7 @@
                                 <label>
                                     Date (රෝහල් ගතකල දිනය)
                                 </label>
-                                <input type="date" formControlName ="qp_admittedDate">
+                                <input type="date" formControlName="qp_admittedDate">
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -327,7 +336,7 @@
                                 <label>
                                     Hospital (රෝහල)
                                 </label>
-                                <input type="text" formControlName ="qp_admitHosId">
+                                <input type="text" formControlName="qp_admitHosId">
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -338,7 +347,7 @@
                                 <label>
                                     Date (පිටවූ දිනය)
                                 </label>
-                                <input type="date" formControlName ="qp_dischargedDate">
+                                <input type="date" formControlName="qp_dischargedDate">
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -357,7 +366,7 @@
                                 <label>
                                     Date (දිනය)
                                 </label>
-                                <input type="date" formControlName ="qp_confirmedDate">
+                                <input type="date" formControlName="qp_confirmedDate">
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -368,7 +377,7 @@
                                 <label>
                                     Hospital (රෝහල)
                                 </label>
-                                <input type="text" formControlName ="qp_confirmedHosId">
+                                <input type="text" formControlName="qp_confirmedHosId">
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -390,7 +399,7 @@
                                 <label>
                                     Name (නම)
                                 </label>
-                                <input type="text" formControlName ="gr_name">
+                                <input type="text" formControlName="gr_name">
                                 <!-- <label class="err_lo">
                                         Please fill this field
                                     </label> -->
@@ -401,7 +410,7 @@
                                 <label>
                                     NIC (ජා.හැ.අ)
                                 </label>
-                                <input type="text" formControlName ="gr_nic">
+                                <input type="text" formControlName="gr_nic">
                                 <!-- <label class="err_lo">
                                         Please fill this field
                                     </label> -->
@@ -412,7 +421,7 @@
                                 <label>
                                     Passport No (විදේශ ගමන් බලපත් අංකය)
                                 </label>
-                                <input type="text" formControlName ="gr_passportNo">
+                                <input type="text" formControlName="gr_passportNo">
                                 <!-- <label class="err_lo">
                                         Please fill this field
                                     </label> -->
@@ -423,7 +432,7 @@
                                 <label>
                                     Mobile No (ජංගම දුරකතන අංකය)
                                 </label>
-                                <input type="text" formControlName ="gr_mobile">
+                                <input type="text" formControlName="gr_mobile">
                                 <!-- <label class="err_lo">
                                         Please fill this field
                                     </label> -->

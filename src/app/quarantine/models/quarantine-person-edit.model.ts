@@ -1,6 +1,7 @@
 export class QuarantinePersonEditModel {
     public division:string
     public policeStation:string
+    public officers:[]
 
     public address:address
     public age:number

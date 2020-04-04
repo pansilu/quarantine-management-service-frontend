@@ -1,10 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { QuarantinePersonEditModel } from '../../models/quarantine-person-edit.model';
 import { ToastService } from 'src/app/Service/toast.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgIfContext } from '@angular/common';
 
 @Component({
   selector: 'app-add-edit-person',
@@ -12,8 +11,9 @@ import { NgIfContext } from '@angular/common';
   styleUrls: ['./add-edit-person.component.scss']
 })
 export class AddEditPersonComponent implements OnInit {
-  @Input('id') q_id:number
+
   form: FormGroup;
+  form2: FormGroup;
   person: QuarantinePersonEditModel;
 
   submitted: boolean;
@@ -27,11 +27,20 @@ export class AddEditPersonComponent implements OnInit {
   policeStations = [];
   gramaSewaDivisions = [];
 
+  officers = [];
+  officersToShow= [];
+  OFFICER_RANK_ENUM = ["All", "ASP", "SSP", "SARJANT", "PC", "IP", "Sp", "VIG"]
+  selectedRank:any
+  selectedOfficers = [];
+  selectedOfficerIds = [];
+  dropdownSettings = {};
+
   countries = [];
   qp_inspectorIds: []
 
   id: any;
   q_person: any;
+  officerRequestbody:any
 
   constructor(private _quarantineService: QuarantineService, private _toast: ToastService, private _formBuilder: FormBuilder, private _router: Router) {
     this.q_person = new QuarantinePersonEditModel()
@@ -40,15 +49,30 @@ export class AddEditPersonComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.q_id)
+    this.officers = [];
+    this.officersToShow = [];
 
-    this.edit = this.q_id > 0
+    this.selectedOfficers = [];
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      enableCheckAll:false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+
+    this.edit = false
 
     this.getCountries();
     this.getLocation();
+    this.getOfficerDetails()
 
     if (this.edit) {
-      this.id = this.q_id
+      this.id = 10
       // get user form back end
     } else {
       this.id = null;
@@ -58,6 +82,14 @@ export class AddEditPersonComponent implements OnInit {
 
     this.createForm();
 
+  }
+
+  onItemSelect(item: any) {
+  //  console.log(this.selectedOfficers)
+  }
+
+  onSelectAll(items: any) {
+    
   }
 
   createForm() {
@@ -85,7 +117,10 @@ export class AddEditPersonComponent implements OnInit {
       qp_informedDate: new FormControl(this.person.informedDate),
 
       // Officer Data handled seperately
+    };
+    this.form = this._formBuilder.group(model);
 
+    const model2 = {
       qp_admittedDate: new FormControl(this.person.admittedDate),
       qp_admitHosId: new FormControl(this.person.admitHosId),
       qp_dischargedDate: new FormControl(this.person.dischargedDate),
@@ -98,8 +133,31 @@ export class AddEditPersonComponent implements OnInit {
       gr_passportNo: new FormControl(this.person.guardianDetails.passportNo),
       gr_mobile: new FormControl(this.person.guardianDetails.mobile),
     };
-    this.form = this._formBuilder.group(model);
+    this.form2 = this._formBuilder.group(model2)
 
+  }
+
+  getOfficerDetails(){
+    this._quarantineService.getOfficerDetails((d) => {
+      this.officers = d
+    }, e => {
+      console.log(this.officers);
+    });
+  }
+
+  rankSelected(){
+    this.selectedOfficers = []
+    if(this.selectedRank == 'All'){
+      this.officersToShow = []
+      this.officersToShow = this.officers
+    }else{
+    this.officersToShow = []
+    this.officers.forEach(e=>{
+      if(e.rank == this.selectedRank){
+        this.officersToShow.push(e)
+      }
+    })
+  }
   }
 
   getCountries() {
@@ -176,6 +234,10 @@ export class AddEditPersonComponent implements OnInit {
   addNewPerson() {
     this.submitted = true;
 
+    this.selectedOfficers.forEach(e=>{
+      this.selectedOfficerIds.push(e.id)
+    })
+
     if (this.form.valid) {
 
       // ID use to seperate add or edit
@@ -204,26 +266,26 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.countryId = this.form.value.qp_countryId
       this.q_person.informedDate = this.form.value.qp_informedDate
 
-      this.q_person.inspectorIds = null
+      this.q_person.inspectorIds = this.selectedOfficerIds
 
-      this.q_person.admittedDate = this.form.value.qp_admittedDate
-      this.q_person.admitHosId = this.form.value.qp_admitHosId
-      this.q_person.dischargedDate = this.form.value.qp_dischargedDate
+      this.q_person.admittedDate = this.form2.value.qp_admittedDate
+      this.q_person.admitHosId = this.form2.value.qp_admitHosId
+      this.q_person.dischargedDate = this.form2.value.qp_dischargedDate
 
-      this.q_person.confirmedDate = this.form.value.qp_confirmedDate
-      this.q_person.confirmedHosId = this.form.value.qp_confirmedHosId
+      this.q_person.confirmedDate = this.form2.value.qp_confirmedDate
+      this.q_person.confirmedHosId = this.form2.value.qp_confirmedHosId
 
       this.q_person.guardianDetails = {
         id: null,
         //name
-        mobile: this.form.value.gr_mobile,
-        nic: this.form.value.gr_nic,
-        passportNo: this.form.value.gr_passportNo
+        mobile: this.form2.value.gr_mobile,
+        nic: this.form2.value.gr_nic,
+        passportNo: this.form2.value.gr_passportNo
       }
 
       this.q_person.secret = "hi"
 
-     // console.log(this.q_person)
+      console.log(this.q_person)
       this.setQuarantinePerson()
 
     } else {
