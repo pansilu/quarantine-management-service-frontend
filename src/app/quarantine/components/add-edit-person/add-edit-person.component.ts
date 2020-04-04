@@ -313,6 +313,9 @@ export class AddEditPersonComponent implements OnInit {
 
   resetForm() {
     this.form.reset()
+    this.selectedOfficers = [];
+    this.selectedRank = null
+    this.officersToShow = []
   }
 
 }
