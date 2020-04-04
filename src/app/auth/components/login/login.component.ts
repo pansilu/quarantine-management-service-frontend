@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
       this._authService.tryToLogIn(data => {
         this.loading = false;
-        this._router.navigate(['/home']);
+        this._router.navigate(['/quarantine/quarantine-person']);
       }, error => {
         this._toast.error('Login Failed!', 'Please check your username, password and try again.');
         this.loading = false;

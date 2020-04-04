@@ -8,8 +8,8 @@
             <h1>Add / Edit Users</h1>
             <small>Add or edit system users.</small>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-users"></i> Admin</a></li>
-                <li><a href="#">User</a></li>
+                <li><a><i class="fa fa-users"></i> Admin</a></li>
+                <li><a>User</a></li>
             </ol>
         </div>
     </div>
@@ -38,18 +38,18 @@
                                                 is required </div>
                                         </div>
                                     </div> -->
-                                    <div class="row margin page_input">
+                                    <!-- <div class="row margin page_input">
                                         <div class="col-md-3">
                                             <label>NIC</label>
                                         </div>
                                         <div class="col-md-8">
                                             <input type="text" formControlName="nic" />
-                                            <!-- <div class="err_lo" >Username is required </div> -->
+                                            <div class="err_lo" >Username is required </div>
                                             <div class="err_lo"
                                                 *ngIf="submitted && form.controls['nic'].hasError('required')">NIC is
                                                 required </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="row margin page_input">
                                         <div class="col-md-3">
                                             <label>Name</label>
@@ -81,17 +81,20 @@
                                         <div class="col-md-8">
                                             <input type="text" formControlName="officeId" />
                                             <!-- <div class="err_lo">Last Name is required</div> -->
+                                            <div class="err_lo"
+                                                *ngIf="submitted && form.controls['officeId'].hasError('required')">Badge No is
+                                                required </div>
                                         </div>
                                     </div>
-                                    <div class="row margin page_input">
+                                    <!-- <div class="row margin page_input">
                                         <div class="col-md-3">
                                             <label>Passport No </label>
                                         </div>
                                         <div class="col-md-8">
                                             <input type="text" formControlName="passportNo" />
-                                            <!-- <div class="err_lo">Last Name is required</div> -->
+                                            <div class="err_lo">Last Name is required</div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="row margin page_input">
                                         <div class="col-md-3">
                                             <label>Rank</label>
@@ -99,12 +102,12 @@
                                         <div class="col-md-8">
                                             <select formControlName="rank">
                                                 <option value='null' selected="selected">Select Rank...</option>
-                                                <option value="ASP" >ASP</option>
-                                                <option value="SSP" >SSP</option>
-                                                <option value="SARJANT" >SERGEANT</option>
-                                                <option value="PC" >PC</option>
-                                                <option value="IP" >IP</option>
-                                                <option value="Sp" >SP</option>
+                                                <option value="ASP">ASP</option>
+                                                <option value="SSP">SSP</option>
+                                                <option value="SARJANT">SERGEANT</option>
+                                                <option value="PC">PC</option>
+                                                <option value="IP">IP</option>
+                                                <option value="Sp">SP</option>
                                                 <option value="VIG">DIG</option>
                                             </select>
                                             <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role
@@ -133,8 +136,8 @@
                                             <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role is required </div> -->
                                         </div>
                                         <!-- <div> -->
-                                            <!-- Location list here -->
-                                            <!-- <p *ngFor="let e of user.stationIdList">{{e}}</p>
+                                        <!-- Location list here -->
+                                        <!-- <p *ngFor="let e of user.stationIdList">{{e}}</p>
                                         </div> -->
                                     </div>
                                 </div>

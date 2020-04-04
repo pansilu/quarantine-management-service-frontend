@@ -3,14 +3,44 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">C19dms.org</a>
         </div>
-        <ul class="nav navbar-nav">
+        <!-- <ul class="nav navbar-nav">
             <li id="menu-toggle"><a href="#"><i class="material-icons">apps</i></a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                    aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu nav_dropdown">
+                    <li><a  [routerLink]="['admin/contacts']">Customer / Supplier</a></li>
+                    <li><a  [routerLink]="['admin/teaproducttypes']">Tea Product Types</a>
+                    </li>
+                    <li><a  [routerLink]="['admin/teastandards']">Tea Standards</a></li>
+                    <li><a  [routerLink]="['admin/teagrades']">Tea Grades</a></li>
+                    <li><a  [routerLink]="['admin/packages']">Package Types</a></li>
+                    <li><a  [routerLink]="['admin/serving-types']">Serving Types</a></li>
+                    <li><a  [routerLink]="['admin/estates']">Estates</a></li>
+                    <li><a  [routerLink]="['admin/flavours']">Flavours</a></li>
+                    <li><a  [routerLink]="['admin/herbals']">Herbals</a></li>
+                </ul>
+            </li>
+        </ul> -->
+
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Admin
+                   <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <!-- <li><a>Account settings</a></li> -->
+                    <li ><a [routerLink]="['admin/user']">Users</a></li>
+                </ul>
+            </li>
+            <li><a [routerLink]="['quarantine/quarantine-person']">Quarantine</a></li>
         </ul>
+        
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="material-icons">perm_identity</i><span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{userName}} <i class="fa fa-user-o" style="margin-left: 4px;"></i> <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a>Account settings</a></li>
+                    <!-- <li><a>Account settings</a></li> -->
                     <li (click)="logOut()"><a>Logout</a></li>
                 </ul>
             </li>

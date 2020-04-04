@@ -1,5 +1,9 @@
 export class QuarantinePersonEditModel {
-    public address:address[]
+    public division:string
+    public policeStation:string
+    public officers:[]
+
+    public address:address
     public age:number
     public appEnable:boolean
     public id:number
@@ -17,15 +21,28 @@ export class QuarantinePersonEditModel {
     public nic:string
     public passportNo:string
     public secret: string
+    public otherFacts:string
+    public admittedDate:string
+    public admitHosId:number
+    public dischargedDate:string
+    public confirmedDate:string
+    public confirmedHosId:number
+
+
+    constructor(){
+        this.address = new address()
+        this.guardianDetails = new guardianDetails()
+    }
 }
 
-interface address{
+export class address{
     id:number
     line:string
 }
 
-interface guardianDetails{
+export class guardianDetails{
     id:number
+    name: string
     mobile:string
     nic:string
     passportNo:string

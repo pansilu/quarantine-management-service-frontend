@@ -8,6 +8,7 @@ import { NavSideBarComponent } from './components/nav/components/nav-side-bar/na
 import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     SharedModule.forRoot(),
     SimpleNotificationsModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot()
   ],
     providers: [HttpClient],
   bootstrap: [AppComponent]

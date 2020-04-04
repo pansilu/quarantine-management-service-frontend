@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { ToastService } from 'src/app/Service/toast.service';
+import { Router } from '@angular/router';
+import { QuarantinePersonViewModel } from '../../models/quarantine-person-view.model';
 
 @Component({
   selector: 'app-person-grid',
@@ -8,12 +10,16 @@ import { ToastService } from 'src/app/Service/toast.service';
   styleUrls: ['./person-grid.component.scss']
 })
 export class PersonGridComponent implements OnInit {
-
+  totalPages:number
+  persons:Array<QuarantinePersonViewModel>
+  show_q_person_model:boolean = false;
+  q_person_id:number = 0;
   count = 30;
   offset = 0;
   limit = 10;
+  pageNumber = 1
   search_text = ""
-  constructor(private _quarantineService: QuarantineService,private _toast: ToastService) { }
+  constructor(private _quarantineService: QuarantineService,private _toast: ToastService,public _router: Router) { }
 
   ngOnInit() {
     this.load_data_types();
@@ -27,11 +33,12 @@ export class PersonGridComponent implements OnInit {
   load_data_types() {
     const pageSize = this.limit;
     this._quarantineService.getDatatypes((d) => {
-      console.log(d);
-      this.count = d.total;
+      this.persons = d.users;
+      console.log(this.persons)
+      this.totalPages = d.totalPages;
     }, e => {
       console.log(e);
-    }, this.offset, pageSize, this.search_text); 
+    }, this.offset, pageSize, this.pageNumber);
   }
 
   search() {
@@ -47,14 +54,21 @@ export class PersonGridComponent implements OnInit {
   }
 
 
-  add_new() {
+  add_new(id:number) {
+    this.q_person_id = id;
+    this.show_q_person_model = true;
     document.getElementById('addNew').style.visibility = 'visible';
     document.getElementById('addNew').style.opacity = '1';
   }
 
   close_add_new() {
+    this.show_q_person_model = false;
     document.getElementById('addNew').style.visibility = 'hidden';
     document.getElementById('addNew').style.opacity = '0';
+  }
+
+  OnDailyUpdatesClick(id:number){
+    this._router.navigate(['quarantine/dailyUpdates', id]);
   }
 
 }
