@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { QuarantinePersonEditModel } from '../../models/quarantine-person-edit.model';
 import { ToastService } from 'src/app/Service/toast.service';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-edit-person.component.scss']
 })
 export class AddEditPersonComponent implements OnInit {
-
+  @Output() pageRefersh: EventEmitter<boolean> = new EventEmitter<boolean>();
   form: FormGroup;
   form2: FormGroup;
   person: QuarantinePersonEditModel;
@@ -254,7 +254,7 @@ export class AddEditPersonComponent implements OnInit {
         line: this.form.value.qp_address
       }
       this.q_person.age = this.form.value.mainForm
-      this.q_person.reportedDate = this.form.value.qp_reportedDate
+      this.q_person.reportDate = this.form.value.qp_reportedDate
 
       this.q_person.mobile = this.form.value.qp_mobile
       this.q_person.phone = this.form.value.qp_phone
@@ -296,6 +296,7 @@ export class AddEditPersonComponent implements OnInit {
   setQuarantinePerson() {
     this._quarantineService.setQuarantinePerson((d) => {
       console.log(d);
+      this.pageRefersh.emit(true);
       this._toast.success("Success", "Person saved");
       this.close_add_new();
     }, e => {
