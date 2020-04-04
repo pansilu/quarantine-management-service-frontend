@@ -1,4 +1,4 @@
 export class PagedResultModel<T> {
-    users: Array<T>;
+    data: Array<T>;
     totalPages: number;
 }

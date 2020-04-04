@@ -16,7 +16,7 @@ export class PersonGridComponent implements OnInit {
   q_person_id:number = 0;
   count = 30;
   offset = 0;
-  limit = 10;
+  limit = 1;
   pageNumber = 1
   search_text = ""
   constructor(private _quarantineService: QuarantineService,private _toast: ToastService,public _router: Router) { }
@@ -33,9 +33,9 @@ export class PersonGridComponent implements OnInit {
   load_data_types() {
     const pageSize = this.limit;
     this._quarantineService.getDatatypes((d) => {
-      this.persons = d.users;
-      // console.log(this.persons)
+      this.persons = d.data;
       this.totalPages = d.totalPages;
+      // console.log(this.persons)
     }, e => {
       console.log(e);
     }, this.offset, pageSize, this.pageNumber);

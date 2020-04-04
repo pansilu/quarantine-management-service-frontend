@@ -55,4 +55,12 @@ export class QuarantineService {
             .post(data, error);
     }
 
+    getDailyUpdates(data: NextCallback<Array<LocationModel>>, error: ErrorCallback<ErrorModel>,id:number) {
+        this._.api()
+            .url(`api/user/quarantine/point/${id}`)
+            .needJson()
+            .get(data, error);
+    }
+
+
 }
