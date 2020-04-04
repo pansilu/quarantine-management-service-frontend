@@ -96,17 +96,17 @@ export class AddEditPersonComponent implements OnInit {
     const model = {
       qp_division: new FormControl(this.person.division),
       qp_policeStation: new FormControl(this.person.policeStation),
-      qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId, Validators.required),
+      qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId),
       qp_fileNo: new FormControl(this.person.fileNo),
 
-      qp_nic: new FormControl(this.person.nic, Validators.required),
+      qp_nic: new FormControl(this.person.nic),
       qp_passportNo: new FormControl(this.person.passportNo),
-      qp_name: new FormControl(this.person.name, Validators.required),
-      qp_address: new FormControl(this.person.address.line, Validators.required),
-      qp_age: new FormControl(this.person.age, Validators.required),
+      qp_name: new FormControl(this.person.name),
+      qp_address: new FormControl(this.person.address.line),
+      qp_age: new FormControl(this.person.age),
       qp_reportedDate: new FormControl(this.person.reportedDate, Validators.required),
 
-      qp_mobile: new FormControl(this.person.mobile, Validators.required),
+      qp_mobile: new FormControl(this.person.mobile),
       qp_phone: new FormControl(this.person.phone),
       qp_appEnable: new FormControl(this.person.appEnable),
 
