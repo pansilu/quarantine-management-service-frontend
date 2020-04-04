@@ -26,9 +26,9 @@
                                 <label>
                                     Police Station (පොලිස් ස්ථානය)
                                 </label>
-                                <select formControlName="qp_policeStation" (change)="policeStationSelected()">
-                                    <option *ngFor="let policeStation of policeStations" [value]="policeStation">
-                                        {{policeStation}}</option>
+                                <select formControlName="qp_policeStationId" (change)="policeStationSelected()">
+                                    <option *ngFor="let policeStation of policeStations" [value]="policeStation.id">
+                                        {{policeStation.name}}</option>
                                 </select>
                                 <!-- <label class="err_lo">
                                 Please fill this field
@@ -49,6 +49,9 @@
                                     *ngIf="submitted && form.controls['qp_gramaSewaDivisionId'].hasError('required')">
                                     Village Offficer Division is
                                     required </div>
+                                 <label class="err_lo" *ngIf = "errGramaSewaDivision">
+                                    Please select valid Division
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -157,10 +160,10 @@
                                 <label>
                                     Mobile Number (ජංගම දුරකතන අංකය)
                                 </label>
-                                <input type="text" formControlName="qp_mobile">
+                                <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()" >
                                 <div class="err_lo"
                                     *ngIf="submitted && form.controls['qp_mobile'].hasError('required')">Mobile No. is
-                                    required </div>
+                                    not valid </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -179,7 +182,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="checkbox">
-                                <label><input type="checkbox" value="" formControlName="qp_appEnable">ජංගම දුරකතන
+                                <label><input type="checkbox" value="" formControlName="qp_appEnable" >ජංගම දුරකතන
                                     යෙදුමක් භාවිතා කිරීමේ හැකියාවක්
                                     ඇත්ද?</label>
                             </div>
@@ -246,7 +249,7 @@
                         </div>
                     </div>
                     <div class="form_sub_title">
-                        <p>සෞඛ්‍ය නිලධාරීන් දැනුවත් කලෙ නම් (If informed helth officer)</p>
+                        <p>සෞඛ්‍ය නිලධාරීන් දැනුවත් කලේ නම් (If informed helth officer)</p>
                         <hr>
                     </div>
                     <div class="row">
@@ -256,6 +259,24 @@
                                     Date (දැනුවත් කල දිනය)
                                 </label>
                                 <input type="date" formControlName="qp_informedDate">
+                                <!-- <label class="err_lo">
+                            Please fill this field
+                        </label> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form_sub_title">
+                        <p>දැන්වීම් අලවා දැනුවත් කලේ නම් (If noticeed by officer)</p>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="page_input">
+                                <label>
+                                    Date (දැනුවත් කල දිනය)
+                                </label>
+                                <input type="date" formControlName="qp_noticeDate">
                                 <!-- <label class="err_lo">
                             Please fill this field
                         </label> -->
@@ -336,10 +357,10 @@
                                 <label>
                                     Hospital (රෝහල)
                                 </label>
-                                <input type="text" formControlName="qp_admitHosId">
-                                <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
+                                <select formControlName="qp_admitHosId" (change)="admitHosSelected()">
+                                    <option *ngFor="let hospital of hospitals" [value]="hospital.id">
+                                        {{hospital.name}}</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -377,17 +398,17 @@
                                 <label>
                                     Hospital (රෝහල)
                                 </label>
-                                <input type="text" formControlName="qp_confirmedHosId">
-                                <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
+                                <select formControlName="qp_confirmedHosId" (change)="confirmedHosSelected()">
+                                    <option *ngFor="let hospital of hospitals" [value]="hospital.id">
+                                        {{hospital.name}}</option>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="panel panel-bd">
+            <!-- <div class="panel panel-bd">
                 <div class="panel-body">
                     <div class="form_sub_title">
                         <p>භාර කරුවෙකු සිටියි නම් එම තොරතුරු - ඇත්නම් පමණි (If Guardian Available)</p>
@@ -400,9 +421,6 @@
                                     Name (නම)
                                 </label>
                                 <input type="text" formControlName="gr_name">
-                                <!-- <label class="err_lo">
-                                        Please fill this field
-                                    </label> -->
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -411,9 +429,6 @@
                                     NIC (ජා.හැ.අ)
                                 </label>
                                 <input type="text" formControlName="gr_nic">
-                                <!-- <label class="err_lo">
-                                        Please fill this field
-                                    </label> -->
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -422,9 +437,6 @@
                                     Passport No (විදේශ ගමන් බලපත් අංකය)
                                 </label>
                                 <input type="text" formControlName="gr_passportNo">
-                                <!-- <label class="err_lo">
-                                        Please fill this field
-                                    </label> -->
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -433,15 +445,13 @@
                                     Mobile No (ජංගම දුරකතන අංකය)
                                 </label>
                                 <input type="text" formControlName="gr_mobile">
-                                <!-- <label class="err_lo">
-                                        Please fill this field
-                                    </label> -->
                             </div>
                         </div>
                     </div>
 
                 </div>
-            </div>
+            </div> -->
+
         </form>
         <div class="panel panel-bd">
             <div class="panel-body">

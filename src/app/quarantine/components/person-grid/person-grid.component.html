@@ -54,8 +54,8 @@
                                         <th>Telephone</th>
                                         <th>Total Points</th>
                                         <th>Last Update</th>
-                                        <!-- <th></th>
-                                        <th></th> -->
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -65,12 +65,12 @@
                                         <td>{{p.mobile}}</td>
                                         <td>{{p.totalPoints ? p.totalPoints : 0}}</td>
                                         <td>{{p.lastUpdateDate  ?(p.lastUpdateDate.dayOfMonth.toString() + " -" +p.lastUpdateDate.month+"-" +p.lastUpdateDate.year.toString())  : 'No Update' }}</td>
-                                        <!-- <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
+                                        <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
                                             Daily Updates
                                         </td>
                                         <td class="edti_td" (click)="add_new(p.id)">
                                             Edit
-                                        </td> -->
+                                        </td>
                                     </tr>
                                     <!-- <tr class="update"  >
                                         <td>2</td>
@@ -89,8 +89,8 @@
                             </table>
                         </div>
                     </div>
-                    <!-- <app-pagination [offset]="offset" [limit]="limit" [size]="count"
-                        (pageChange)="onPageChange($event)"></app-pagination> -->
+                    <app-pagination [offset]="offset" [limit]="limit" [size]="count"
+                        (pageChange)="onPageChange($event)"></app-pagination>
                 </div>
             </div>
         </div>
