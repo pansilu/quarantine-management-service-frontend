@@ -54,52 +54,70 @@
                                     <tr *ngFor="let u of updates.dailyUpdates">
                                         <td>{{u.date.year + "-" + u.date.monthValue + "-" + u.date.dayOfMonth}}</td>
                                         <td>
-                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                            <span class="normal" *ngIf="!u.pointValues.THROAT">NO</span>
+                                            <span class="danger" *ngIf="u.pointValues.THROAT">YES</span>
+                                            <!-- <i class="fa fa-times fa-2x normal" aria-hidden="true"
                                                 *ngIf="!u.pointValues.THROAT"></i>
                                             <i class="fa fa-check fa-2x danger" aria-hidden="true"
-                                                *ngIf="u.pointValues.THROAT"></i>
+                                                *ngIf="u.pointValues.THROAT"></i> -->
                                         </td>
                                         <td>
-                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                            <span class="normal" *ngIf="!u.pointValues.DIARRHEA">NO</span>
+                                            <span class="danger" *ngIf="u.pointValues.DIARRHEA">YES</span>
+                                            <!-- <i class="fa fa-times fa-2x normal" aria-hidden="true"
                                                 *ngIf="!u.pointValues.DIARRHEA"></i>
                                             <i class="fa fa-check fa-2x danger" aria-hidden="true"
-                                                *ngIf="u.pointValues.DIARRHEA"></i>
+                                                *ngIf="u.pointValues.DIARRHEA"></i> -->
                                         </td>
                                         <td>
+                                            <span class="normal" *ngIf="!u.pointValues.BREATH">NO</span>
+                                            <span class="danger" *ngIf="u.pointValues.BREATH">YES</span>
+<!-- 
                                             <i class="fa fa-times fa-2x normal" aria-hidden="true"
                                                 *ngIf="!u.pointValues.BREATH"></i>
                                             <i class="fa fa-check fa-2x danger" aria-hidden="true"
-                                                *ngIf="u.pointValues.BREATH"></i>
+                                                *ngIf="u.pointValues.BREATH"></i> -->
                                         </td>
                                         <td>
-                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                            <span class="normal" *ngIf="!u.pointValues.HEADACHE">NO</span>
+                                            <span class="danger" *ngIf="u.pointValues.HEADACHE">YES</span>
+
+                                            <!-- <i class="fa fa-times fa-2x normal" aria-hidden="true"
                                                 *ngIf="!u.pointValues.HEADACHE"></i>
                                             <i class="fa fa-check fa-2x danger" aria-hidden="true"
-                                                *ngIf="u.pointValues.HEADACHE"></i>
+                                                *ngIf="u.pointValues.HEADACHE"></i> -->
                                         </td>
                                         <td>
-                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                            <span class="normal" *ngIf="!u.pointValues.COLD">N</span>
+                                            <span class="danger" *ngIf="u.pointValues.COLD">YES</span>
+                                            <!-- <i class="fa fa-times fa-2x normal" aria-hidden="true"
                                                 *ngIf="!u.pointValues.COLD"></i>
                                             <i class="fa fa-check fa-2x danger" aria-hidden="true"
-                                                *ngIf="u.pointValues.COLD"></i>
+                                                *ngIf="u.pointValues.COLD"></i> -->
                                         </td>
                                         <td>
-                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                            <span class="normal" *ngIf="!u.pointValues.COMYALGIALD">NO</span>
+                                            <span class="danger" *ngIf="u.pointValues.MYALGIA">YES</span>
+                                            <!-- <i class="fa fa-times fa-2x normal" aria-hidden="true"
                                                 *ngIf="!u.pointValues.MYALGIA"></i>
                                             <i class="fa fa-check fa-2x danger" aria-hidden="true"
-                                                *ngIf="u.pointValues.MYALGIA"></i>
+                                                *ngIf="u.pointValues.MYALGIA"></i> -->
                                         </td>
                                         <td>
-                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                            <span class="normal" *ngIf="!u.pointValues.COUGH">NO</span>
+                                            <span class="danger" *ngIf="u.pointValues.COUGH">YES</span>
+                                            <!-- <i class="fa fa-times fa-2x normal" aria-hidden="true"
                                                 *ngIf="!u.pointValues.COUGH"></i>
                                             <i class="fa fa-check fa-2x danger" aria-hidden="true"
-                                                *ngIf="u.pointValues.COUGH"></i>
+                                                *ngIf="u.pointValues.COUGH"></i> -->
                                         </td>
                                         <td>
-                                            <i class="fa fa-times fa-2x" aria-hidden="true"
+                                            <span class="normal" *ngIf="!u.pointValues.FEVER">NO</span>
+                                            <span class="danger" *ngIf="u.pointValues.FEVER">YES</span>
+                                            <!-- <i class="fa fa-times fa-2x" aria-hidden="true"
                                                 *ngIf="!u.pointValues.FEVER"></i>
                                             <i class="fa fa-check fa-2x" aria-hidden="true"
-                                                *ngIf="u.pointValues.FEVER"></i>
+                                                *ngIf="u.pointValues.FEVER"></i> -->
                                         </td>
                                     </tr>
                                 </tbody>
