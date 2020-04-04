@@ -49,6 +49,9 @@
                                     *ngIf="submitted && form.controls['qp_gramaSewaDivisionId'].hasError('required')">
                                     Village Offficer Division is
                                     required </div>
+                                 <label class="err_lo" *ngIf = "errGramaSewaDivision">
+                                    Please select valid Division
+                                </label>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -157,10 +160,10 @@
                                 <label>
                                     Mobile Number (ජංගම දුරකතන අංකය)
                                 </label>
-                                <input type="text" formControlName="qp_mobile">
+                                <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()" >
                                 <div class="err_lo"
                                     *ngIf="submitted && form.controls['qp_mobile'].hasError('required')">Mobile No. is
-                                    required </div>
+                                    not valid </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -179,7 +182,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="checkbox">
-                                <label><input type="checkbox" value="" formControlName="qp_appEnable">ජංගම දුරකතන
+                                <label><input type="checkbox" value="" formControlName="qp_appEnable" >ජංගම දුරකතන
                                     යෙදුමක් භාවිතා කිරීමේ හැකියාවක්
                                     ඇත්ද?</label>
                             </div>
