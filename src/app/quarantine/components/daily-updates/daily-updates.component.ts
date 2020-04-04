@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { QuarantineService } from 'src/app/Service/quarantine.service';
+import { ToastService } from 'src/app/Service/toast.service';
+import { DailyUpdatesViewModel } from '../../models/daily-updates-view.model';
 
 @Component({
   selector: 'app-daily-updates',
@@ -8,11 +11,23 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DailyUpdatesComponent implements OnInit {
 
-  constructor(private _route: ActivatedRoute) { }
+  constructor(private _route: ActivatedRoute,private _quarantineService: QuarantineService, private _toast: ToastService) { }
   id:number
+  updates:DailyUpdatesViewModel = new DailyUpdatesViewModel();
   ngOnInit() {
     this.id = parseInt(this._route.snapshot.params['id'], 10);
-    console.log(this.id)
+    this.getDailyUpdates()
+  }
+
+  getDailyUpdates(){
+    this._quarantineService.getDailyUpdates(data=>{
+      console.log(data)
+      this.updates = data;
+    },
+    e=>{
+      console.log(e);
+      
+    },this.id)
   }
 
 }
