@@ -9,13 +9,20 @@ import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { AuthGuard } from '../Service/auth.guard';
 import roles from '../Service/roles';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { DailyUpdatesComponent } from './components/daily-updates/daily-updates.component';
 
 
 
 const routes: Routes = [
   {
-    path:'quarantine-person',
-    component:PersonGridComponent,
+    path: 'quarantine-person',
+    component: PersonGridComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [roles.administrator] },
+  },
+  {
+    path: 'dailyUpdates/:id',
+    component: DailyUpdatesComponent,
     canActivate: [AuthGuard],
     data: { roles: [roles.administrator] },
   }
@@ -23,7 +30,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [PersonGridComponent, AddEditPersonComponent],
+  declarations: [PersonGridComponent, AddEditPersonComponent, DailyUpdatesComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,

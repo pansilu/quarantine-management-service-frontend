@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { ToastService } from 'src/app/Service/toast.service';
+import { Router } from '@angular/router';
+import { QuarantinePersonViewModel } from '../../models/quarantine-person-view.model';
 
 @Component({
   selector: 'app-person-grid',
@@ -8,13 +10,16 @@ import { ToastService } from 'src/app/Service/toast.service';
   styleUrls: ['./person-grid.component.scss']
 })
 export class PersonGridComponent implements OnInit {
+  totalPages:number
+  persons:Array<QuarantinePersonViewModel>
   show_q_person_model:boolean = false;
   q_person_id:number = 0;
   count = 30;
   offset = 0;
   limit = 10;
+  pageNumber = 1
   search_text = ""
-  constructor(private _quarantineService: QuarantineService,private _toast: ToastService) { }
+  constructor(private _quarantineService: QuarantineService,private _toast: ToastService,public _router: Router) { }
 
   ngOnInit() {
     this.load_data_types();
@@ -59,6 +64,10 @@ export class PersonGridComponent implements OnInit {
     this.show_q_person_model = false;
     document.getElementById('addNew').style.visibility = 'hidden';
     document.getElementById('addNew').style.opacity = '0';
+  }
+
+  OnDailyUpdatesClick(id:number){
+    this._router.navigate(['quarantine/dailyUpdates', id]);
   }
 
 }
