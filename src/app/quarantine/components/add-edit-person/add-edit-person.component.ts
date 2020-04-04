@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { QuarantinePersonEditModel } from '../../models/quarantine-person-edit.model';
 import { ToastService } from 'src/app/Service/toast.service';
@@ -13,6 +13,7 @@ import { OfficerRequestModel } from '../../models/officer-request.model';
 })
 export class AddEditPersonComponent implements OnInit {
   @Output() pageRefersh: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Input('id') q_id:number 
   form: FormGroup;
   form2: FormGroup;
   person: QuarantinePersonEditModel;
@@ -53,6 +54,9 @@ export class AddEditPersonComponent implements OnInit {
 
   ngOnInit() {
 
+    console.log(this.q_id)
+    this.edit = false
+
     this.officers = [];
     this.officersToShow = [];
 
@@ -68,8 +72,6 @@ export class AddEditPersonComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
-
-    this.edit = false
 
     this.getCountries();
     this.getLocation();
