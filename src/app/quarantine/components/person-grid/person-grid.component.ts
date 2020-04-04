@@ -10,17 +10,17 @@ import { QuarantinePersonViewModel } from '../../models/quarantine-person-view.m
   styleUrls: ['./person-grid.component.scss']
 })
 export class PersonGridComponent implements OnInit {
-  totalPages:number
-  persons:Array<QuarantinePersonViewModel>
-  show_q_person_model:boolean = false;
-  q_person_id:number = 0;
+  totalPages: number
+  persons: Array<QuarantinePersonViewModel>
+  show_q_person_model: boolean = false;
+  q_person_id: number = 0;
   count = 30;
   offset = 0;
   limit = 2;
   pageNumber = 0
   search_text = ""
-  sort:string = ''
-  constructor(private _quarantineService: QuarantineService,private _toast: ToastService,public _router: Router) { }
+  sort: string = ''
+  constructor(private _quarantineService: QuarantineService, private _toast: ToastService, public _router: Router) { }
 
   ngOnInit() {
     this.load_data_types();
@@ -29,7 +29,7 @@ export class PersonGridComponent implements OnInit {
   onPageChange(offset) {
     console.log(offset)
     this.offset = offset;
-    this.pageNumber = Math.floor(offset/this.limit);
+    this.pageNumber = Math.floor(offset / this.limit);
     this.load_data_types();
   }
 
@@ -39,16 +39,16 @@ export class PersonGridComponent implements OnInit {
       this.persons = d.data;
       this.count = d.totalPages * pageSize;
     }, e => {
-      console.log(e);
-    }, pageSize, this.pageNumber,this.sort);
+      this._toast.error("Error","Canot get quarantine users")
+      // console.log(e);
+    }, pageSize, this.pageNumber, this.sort);
   }
 
-  onPageRefresh(value:boolean){
+  onPageRefresh(value: boolean) {
     this.load_data_types();
   }
 
   search() {
-    // this._toast.error("Error","Search")
     this.offset = 0;
     this.load_data_types();
   }
@@ -60,7 +60,7 @@ export class PersonGridComponent implements OnInit {
   }
 
 
-  add_new(id:number) {
+  add_new(id: number) {
     this.q_person_id = id;
     this.show_q_person_model = true;
     document.getElementById('addNew').style.visibility = 'visible';
@@ -73,7 +73,7 @@ export class PersonGridComponent implements OnInit {
     document.getElementById('addNew').style.opacity = '0';
   }
 
-  OnDailyUpdatesClick(id:number){
+  OnDailyUpdatesClick(id: number) {
     this._router.navigate(['quarantine/dailyUpdates', id]);
   }
 
