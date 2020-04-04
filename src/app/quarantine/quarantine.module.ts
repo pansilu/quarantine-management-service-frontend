@@ -8,6 +8,7 @@ import { AddEditPersonComponent } from './components/add-edit-person/add-edit-pe
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { AuthGuard } from '../Service/auth.guard';
 import roles from '../Service/roles';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DailyUpdatesComponent } from './components/daily-updates/daily-updates.component';
 
 
@@ -35,7 +36,8 @@ const routes: Routes = [
     CommonModule,
     SharedComponentsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [QuarantineService],
 })
