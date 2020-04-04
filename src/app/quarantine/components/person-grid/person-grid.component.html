@@ -59,12 +59,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr  [ngClass] = "p.needToRemind?'update':'notupdate'" *ngFor = "let p of persons">
+                                    <tr  [ngClass] = "p.needToRemind?'notupdate':'update'" *ngFor = "let p of persons">
                                         <td>{{p.id}}</td>
                                         <td>{{p.name}}</td>
                                         <td>{{p.mobile}}</td>
                                         <td>{{p.totalPoints ? p.totalPoints : 0}}</td>
-                                        <td>{{p.lastUpdateDate ?(p.lastUpdateDate.dayOfMonth.toString() + " -" +p.lastUpdateDate.month+"-" +p.lastUpdateDate.year.toString())  : 'No Update' }}</td>
+                                        <td>{{p.lastUpdateDate  ?(p.lastUpdateDate.dayOfMonth.toString() + " -" +p.lastUpdateDate.month+"-" +p.lastUpdateDate.year.toString())  : 'No Update' }}</td>
                                         <!-- <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
                                             Daily Updates
                                         </td>
