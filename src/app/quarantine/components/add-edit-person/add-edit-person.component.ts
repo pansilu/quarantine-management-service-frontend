@@ -46,6 +46,8 @@ export class AddEditPersonComponent implements OnInit {
   getOfficer: any;
   officerRequestbody:any
 
+  appEnebleFlag: boolean
+
   constructor(private _quarantineService: QuarantineService, private _toast: ToastService, private _formBuilder: FormBuilder, private _router: Router) {
     this.q_person = new QuarantinePersonEditModel(),
     this.getOfficer = new OfficerRequestModel();
@@ -62,6 +64,8 @@ export class AddEditPersonComponent implements OnInit {
 
     this.selectedOfficers = [];
 
+    this.appEnebleFlag = false;
+
     this.dropdownSettings = {
       singleSelection: false,
       enableCheckAll:false,
@@ -77,8 +81,8 @@ export class AddEditPersonComponent implements OnInit {
     this.getLocation();
     this.getHospitals();
 
-    if (this.edit) {
-      this.id = 10
+    if ( this.q_id > 0) {
+      this.id = this.q_id
       // get user form back end
     } else {
       this.id = null;
@@ -87,7 +91,6 @@ export class AddEditPersonComponent implements OnInit {
     }
 
     this.createForm();
-
   }
 
   onItemSelect(item: any) {
@@ -107,8 +110,8 @@ export class AddEditPersonComponent implements OnInit {
 
       qp_nic: new FormControl(this.person.nic),
       qp_passportNo: new FormControl(this.person.passportNo),
-      qp_name: new FormControl(this.person.name),
-      qp_address: new FormControl(this.person.address.line),
+      qp_name: new FormControl(this.person.name,Validators.required),
+      qp_address: new FormControl(this.person.address.line,Validators.required),
       qp_age: new FormControl(this.person.age),
       qp_reportedDate: new FormControl(this.person.reportedDate, Validators.required),
 
@@ -142,12 +145,11 @@ export class AddEditPersonComponent implements OnInit {
     };
     this.form2 = this._formBuilder.group(model2)
 
+    this.form.get('qp_appEnable').disable();
   }
 
   getOfficerDetails(){
-    console.log(this.getOfficer)
     this._quarantineService.getOfficerDetails((d) => {
-      console.log(d)
       this.officers = d
     }, e => {
       console.log(this.officers);
@@ -240,7 +242,7 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   gramaSewaDivisionSelected() {
-    if (this.form.value.gramaSewaDivisionId == NaN) {
+    if (this.form.value.gramaSewaDivisionId === undefined) {
       this.errGramaSewaDivision = true
     }
   }
@@ -261,6 +263,10 @@ export class AddEditPersonComponent implements OnInit {
 
   confirmedHosSelected(){
     //console.log(this.form2.value.qp_confirmedHosId)
+  }
+
+  fillMobileNo(){
+    this.form.get('qp_appEnable').enable();
   }
 
   addNewPerson() {
@@ -318,7 +324,7 @@ export class AddEditPersonComponent implements OnInit {
 
       this.q_person.secret = "hi"
 
-      console.log(this.q_person)
+      //console.log(this.q_person)
       this.setQuarantinePerson()
 
     } else {
