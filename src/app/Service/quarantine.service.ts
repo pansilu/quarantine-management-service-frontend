@@ -4,6 +4,7 @@ import { PagedResultModel } from '../common/models/paged-result.model';
 import { ErrorModel } from '../common/models/error-model';
 import { HttpClient } from '@angular/common/http';
 import { QuarantinePersonEditModel } from '../quarantine/models/quarantine-person-edit.model';
+import { QuarantinePersonViewModel } from '../quarantine/models/quarantine-person-view.model';
 
 @Injectable({
     providedIn: 'root'
@@ -13,11 +14,11 @@ export class QuarantineService {
     constructor(private _: ServiceHelper, private _http: HttpClient) { }
 
     // Sample api call
-    getDatatypes(data: NextCallback<PagedResultModel<String>>, error: ErrorCallback<ErrorModel>, skip: number, take: number, search?: string) {
+    getDatatypes(data: NextCallback<PagedResultModel<QuarantinePersonViewModel>>, error: ErrorCallback<ErrorModel>, offset: number, pageNumber: number, pageSize: number) {
         this._.api()
-            .url('api/DataType')
+            .url('api/user/quarantine')
             .needJson()
-            .get(data, error, `skip=${skip}&take=${take}&searchText=${search}`);
+            .get(data, error, `offset=${offset}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
     }
 
     getCountries(data: NextCallback<Array<CountryModel>>, error: ErrorCallback<ErrorModel>) {

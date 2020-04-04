@@ -33,11 +33,12 @@ export class PersonGridComponent implements OnInit {
   load_data_types() {
     const pageSize = this.limit;
     this._quarantineService.getDatatypes((d) => {
-      console.log(d);
-      this.count = d.total;
+      this.persons = d.users;
+      console.log(this.persons)
+      this.totalPages = d.totalPages;
     }, e => {
       console.log(e);
-    }, this.offset, pageSize, this.search_text); 
+    }, this.offset, pageSize, this.pageNumber);
   }
 
   search() {
