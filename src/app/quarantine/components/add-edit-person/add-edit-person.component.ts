@@ -145,9 +145,7 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   getOfficerDetails(){
-    console.log(this.getOfficer)
     this._quarantineService.getOfficerDetails((d) => {
-      console.log(d)
       this.officers = d
     }, e => {
       console.log(this.officers);
