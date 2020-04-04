@@ -37,7 +37,7 @@
                                 </li> -->
                                 <li>
                                     <div class="filterbtn">
-                                        <button type="button" (click)="add_new()">Add New</button>
+                                        <button type="button" (click)="add_new(0)">Add New</button>
                                     </div>
                                 </li>
                             </ul>
@@ -68,7 +68,7 @@
                                         <td class="update_td">
                                             Daily Updates
                                         </td>
-                                        <td class="edti_td" (click)="add_new()">
+                                        <td class="edti_td" (click)="add_new(1)">
                                             Edit
                                         </td>
                                     </tr>
@@ -81,7 +81,7 @@
                                         <td class="update_td">
                                             Daily Updates
                                         </td>
-                                        <td class="edti_td" (click)="add_new()">
+                                        <td class="edti_td" (click)="add_new(2)">
                                             Edit
                                         </td>
                                     </tr>
@@ -108,7 +108,9 @@
             </div>
         </div>
         <div class="content">
-            <app-add-edit-person></app-add-edit-person>
+            <div *ngIf = "show_q_person_model">
+            <app-add-edit-person [id] = "q_person_id"></app-add-edit-person>
+        </div>
         </div>
 
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { QuarantinePersonEditModel } from '../../models/quarantine-person-edit.model';
 import { ToastService } from 'src/app/Service/toast.service';
@@ -12,7 +12,7 @@ import { NgIfContext } from '@angular/common';
   styleUrls: ['./add-edit-person.component.scss']
 })
 export class AddEditPersonComponent implements OnInit {
-
+  @Input('id') q_id:number
   form: FormGroup;
   person: QuarantinePersonEditModel;
 
@@ -40,13 +40,15 @@ export class AddEditPersonComponent implements OnInit {
 
   ngOnInit() {
 
-    this.edit = false
+    console.log(this.q_id)
+
+    this.edit = this.q_id > 0
 
     this.getCountries();
     this.getLocation();
 
     if (this.edit) {
-      this.id = 10
+      this.id = this.q_id
       // get user form back end
     } else {
       this.id = null;
