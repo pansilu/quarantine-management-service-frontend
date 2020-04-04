@@ -14,11 +14,11 @@ export class QuarantineService {
     constructor(private _: ServiceHelper, private _http: HttpClient) { }
 
     // Sample api call
-    getDatatypes(data: NextCallback<PagedResultModel<QuarantinePersonViewModel>>, error: ErrorCallback<ErrorModel>, offset: number, pageNumber: number, pageSize: number) {
+    getQUsers(data: NextCallback<PagedResultModel<QuarantinePersonViewModel>>, error: ErrorCallback<ErrorModel>, size: number, page: number, sort: string) {
         this._.api()
             .url('api/user/quarantine')
             .needJson()
-            .get(data, error, `offset=${offset}&pageNumber=${pageNumber}&pageSize=${pageSize}`);
+            .get(data, error, `size=${size}&page=${page}&sort=${sort}`);
     }
 
     getCountries(data: NextCallback<Array<CountryModel>>, error: ErrorCallback<ErrorModel>) {

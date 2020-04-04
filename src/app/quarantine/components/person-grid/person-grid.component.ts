@@ -16,9 +16,10 @@ export class PersonGridComponent implements OnInit {
   q_person_id:number = 0;
   count = 30;
   offset = 0;
-  limit = 1;
-  pageNumber = 1
+  limit = 2;
+  pageNumber = 0
   search_text = ""
+  sort:string = ''
   constructor(private _quarantineService: QuarantineService,private _toast: ToastService,public _router: Router) { }
 
   ngOnInit() {
@@ -26,19 +27,20 @@ export class PersonGridComponent implements OnInit {
   }
 
   onPageChange(offset) {
+    console.log(offset)
     this.offset = offset;
+    this.pageNumber = Math.floor(offset/this.limit);
     this.load_data_types();
   }
 
   load_data_types() {
     const pageSize = this.limit;
-    this._quarantineService.getDatatypes((d) => {
+    this._quarantineService.getQUsers((d) => {
       this.persons = d.data;
-      this.totalPages = d.totalPages;
-      // console.log(this.persons)
+      this.count = d.totalPages * pageSize;
     }, e => {
       console.log(e);
-    }, this.offset, pageSize, this.pageNumber);
+    }, pageSize, this.pageNumber,this.sort);
   }
 
   onPageRefresh(value:boolean){
