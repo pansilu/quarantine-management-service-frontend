@@ -29,4 +29,11 @@ export class UserService {
       .needJson()
       .post(data, error);
   }
+
+  getUsers(data: NextCallback<Array<LocationModel>>, error: ErrorCallback<ErrorModel>) {
+    this._.api()
+      .url('api/user/admin/filter')
+      .needJson()
+      .get(data, error);
+  }
 }
