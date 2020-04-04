@@ -823,3 +823,15 @@ a span.fa.arrow::before {
     max-height: 600px;
   }
 }
+
+.danger {
+  color:red;
+}
+
+.normal {
+  color: green;
+}
+
+.list_table td, tr{
+  border: 0 !important;
+}
