@@ -5,6 +5,7 @@ import { UserModel } from '../../models/user.model';
 import { UserService } from 'src/app/Service/user.service';
 import { LocationModel } from '../../models/location.model';
 import { ToastService } from 'src/app/Service/toast.service';
+import { NameIdModel } from 'src/app/shared/models/name-id.model';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -17,7 +18,7 @@ export class AddEditUserComponent implements OnInit {
   edit: boolean;
   form: FormGroup;
   user: UserModel;
-  locations: Array<LocationModel>;
+  locations: Array<NameIdModel>;
   submitted: boolean
   ngOnInit() {
     const id = parseInt(this._route.snapshot.params['id'], 10);
@@ -28,6 +29,7 @@ export class AddEditUserComponent implements OnInit {
     } else {
       this.user = new UserModel();
       this.createForm();
+      this.getLocations();
     }
     this.locations = new Array<LocationModel> ();
     //this.getLocations()
@@ -50,8 +52,7 @@ export class AddEditUserComponent implements OnInit {
 
   getLocations() {
     this._userService.getLocations(d => {
-      this.locations = d
-      console.log(this.locations[0].stations)
+      this.locations = d[0].stations
     }, e => {
       this._toast.error("Error", "Get Location Failed")
       //console.log(e);

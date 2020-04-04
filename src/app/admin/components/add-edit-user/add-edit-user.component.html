@@ -107,8 +107,8 @@
                                                 <option value="SARJANT">SERGEANT</option>
                                                 <option value="PC">PC</option>
                                                 <option value="IP">IP</option>
-                                                <option value="Sp">SP</option>
-                                                <option value="VIG">DIG</option>
+                                                <option value="SP">SP</option>
+                                                <option value="DIG">DIG</option>
                                             </select>
                                             <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role
                                                 is required </div> -->
@@ -128,10 +128,10 @@
                                             <!-- [disabled]="checkUser()" -->
                                             <select (change)="addUserLocation($event)">
                                                 <option value="0" selected="selected">Select Locations</option>
-                                                <option value="1">Moratuwa</option>
+                                                <!-- <option value="1">Moratuwa</option>
                                                 <option value="2">Ratmalana</option>
-                                                <option value="3">Nugegoda</option>
-                                                <!-- <option [value]="e.id" *ngFor="let e of locations[0].stations">{{e.name}}</option> -->
+                                                <option value="3">Nugegoda</option> -->
+                                                <option [value]="e.id" *ngFor="let e of locations">{{e.name}}</option>
                                             </select>
                                             <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role is required </div> -->
                                         </div>
