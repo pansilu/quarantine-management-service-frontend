@@ -254,7 +254,7 @@ export class AddEditPersonComponent implements OnInit {
         line: this.form.value.qp_address
       }
       this.q_person.age = this.form.value.mainForm
-      this.q_person.reportedDate = this.form.value.qp_reportedDate
+      this.q_person.reportDate = this.form.value.qp_reportedDate
 
       this.q_person.mobile = this.form.value.qp_mobile
       this.q_person.phone = this.form.value.qp_phone
