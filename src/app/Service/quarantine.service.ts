@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { QuarantinePersonEditModel } from '../quarantine/models/quarantine-person-edit.model';
 import { QuarantinePersonViewModel } from '../quarantine/models/quarantine-person-view.model';
 import { DailyUpdatesViewModel } from '../quarantine/models/daily-updates-view.model';
+import { UserViewModel } from '../quarantine/models/user-view.model';
 
 @Injectable({
     providedIn: 'root'
@@ -18,6 +19,13 @@ export class QuarantineService {
     getQUsers(data: NextCallback<PagedResultModel<QuarantinePersonViewModel>>, error: ErrorCallback<ErrorModel>, size: number, page: number, sort: string) {
         this._.api()
             .url('api/user/quarantine')
+            .needJson()
+            .get(data, error, `size=${size}&page=${page}&sort=${sort}`);
+    }
+
+    getUsers(data: NextCallback<PagedResultModel<UserViewModel>>, error: ErrorCallback<ErrorModel>, size: number, page: number, sort: string) {
+        this._.api()
+            .url('api/user/admin')
             .needJson()
             .get(data, error, `size=${size}&page=${page}&sort=${sort}`);
     }

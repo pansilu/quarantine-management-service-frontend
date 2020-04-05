@@ -31,9 +31,9 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="filterbtn">
+                                    <!-- <div class="filterbtn">
                                         <button type="submit" (click)="search()">Search</button>
-                                    </div>
+                                    </div> -->
                                 </li>
                                 <li>
                                     <div class="filterbtn">
@@ -50,23 +50,18 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Role</th>
+                                        <th>Mobile</th>
+                                        <th>Office ID</th>
+                                        <th>Rank</th>
                                         <!-- <th>Officer</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="cursor:pointer;">
-                                        <!-- <td>1</td> -->
-                                        <td>John Doe</td>
-                                        <td>45/2, Lane, City</td>
-                                        <td>Root</td>
-                                    </tr>
-                                    <tr style="cursor:pointer;">
-                                        <!-- <td>1</td> -->
-                                        <td>John Doe</td>
-                                        <td>45/2, Lane1, City1</td>
-                                        <td>Addmin</td>
+                                    <tr style="cursor:pointer;" *ngFor = "let u of users">
+                                        <td>{{u.name}}</td>
+                                        <td>{{u.mobile}}</td>
+                                        <td>{{u.officeId}}</td>
+                                        <td>{{u.rank}}</td>
                                     </tr>
                                 </tbody>
                             </table>
