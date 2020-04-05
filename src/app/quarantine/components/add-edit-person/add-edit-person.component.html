@@ -177,7 +177,7 @@
                                 <label>
                                     Mobile Number (ජංගම දුරකතන අංකය) - 07XXXXXXX
                                 </label>
-                                <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()">
+                                <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()" title="0 න් පටන් ගන්නා හා අංක 10 කින් යුතු විය යුතුය. උදා: 07XXXXXXX">
                                 <div class="err_lo" *ngIf="submitted && form.controls['qp_mobile'].hasError('pattern')">
                                     Mobile No. is
                                     not valid </div>
