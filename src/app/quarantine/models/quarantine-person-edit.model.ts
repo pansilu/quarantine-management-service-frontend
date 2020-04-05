@@ -27,6 +27,7 @@ export class QuarantinePersonEditModel {
     public dischargedDate:string
     public confirmedDate:string
     public confirmedHosId:number
+    public noticeAttachDate:string
 
 
     constructor(){
