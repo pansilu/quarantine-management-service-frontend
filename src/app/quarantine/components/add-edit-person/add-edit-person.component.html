@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <form [formGroup]="form">
+        <form [formGroup]="form" *ngIf="form">
             <div class="panel panel-bd">
                 <div class="panel-body">
                     <div class="form_sub_title">
@@ -182,7 +182,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="checkbox">
-                                <label><input type="checkbox" value="" formControlName="qp_appEnable">ජංගම දුරකතන
+                                <label><input type="checkbox" formControlName="qp_appEnable">ජංගම දුරකතන
                                     යෙදුමක් භාවිතා කිරීමේ හැකියාවක්
                                     ඇත්ද?</label>
                             </div>
@@ -327,7 +327,7 @@
             </div>
         </div>
 
-        <form [formGroup]="form2">
+        <form [formGroup]="form2" *ngIf="form2">
             <div class="panel panel-bd">
                 <div class="panel-body">
                     <div class="form_sub_title">
@@ -357,10 +357,23 @@
                                 <label>
                                     Hospital (රෝහල)
                                 </label>
-                                <select formControlName="qp_admitHosId" (change)="admitHosSelected()">
-                                    <option *ngFor="let hospital of hospitals" [value]="hospital.id">
-                                        {{hospital.name}}</option>
-                                </select>
+                                <div class="ng-autocomplete auto_width">
+                                    <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
+                                        placeHolder="Enter Hospital Name" (selected)='selectEventAd($event)'
+                                        (inputChanged)='onChangeSearchAd($event)' (inputFocused)='onFocusedAd($event)'
+                                        formControlName ="qp_admitHosId"
+                                        historyIdentifier="hospital" [itemTemplate]="itemTemplate"
+                                        [notFoundTemplate]="notFoundTemplate">
+                                    </ng-autocomplete>
+
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.name"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -405,21 +418,22 @@
                                 <div class="ng-autocomplete auto_width">
                                     <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
                                         placeHolder="Enter Hospital Name" (selected)='selectEvent($event)'
+                                        formControlName = "qp_confirmedHosId"
                                         (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
                                         historyIdentifier="countries" [itemTemplate]="itemTemplate"
                                         [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
-    
+
                                     <ng-template #itemTemplate let-item>
                                         <a [innerHTML]="item.name"></a>
                                     </ng-template>
-    
+
                                     <ng-template #notFoundTemplate let-notFound>
                                         <div [innerHTML]="notFound"></div>
                                     </ng-template>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>

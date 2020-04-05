@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { QuarantinePersonEditModel } from '../quarantine/models/quarantine-person-edit.model';
 import { QuarantinePersonViewModel } from '../quarantine/models/quarantine-person-view.model';
 import { DailyUpdatesViewModel } from '../quarantine/models/daily-updates-view.model';
+import { QuarantinePersonGetModel } from '../quarantine/models/quarantine-person-get.model';
 
 @Injectable({
     providedIn: 'root'
@@ -66,7 +67,7 @@ export class QuarantineService {
             .get(data, error);
     }
 
-    getQPerson(data: NextCallback<PagedResultModel<QuarantinePersonEditModel>>, error: ErrorCallback<ErrorModel>, id: number ) {
+    getQPerson(data: NextCallback<QuarantinePersonEditModel>, error: ErrorCallback<ErrorModel>, id: number ) {
         this._.api()
             .url(`api/user/quarantine/${id}`)
             .needJson()
