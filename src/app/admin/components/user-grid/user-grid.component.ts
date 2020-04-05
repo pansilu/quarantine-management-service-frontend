@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastService } from 'src/app/Service/toast.service';
+import { UserViewModel } from 'src/app/quarantine/models/user-view.model';
+import { QuarantineService } from 'src/app/Service/quarantine.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-grid',
@@ -8,11 +11,14 @@ import { ToastService } from 'src/app/Service/toast.service';
 })
 export class UserGridComponent implements OnInit {
 
+  users: Array<UserViewModel>
   count = 30;
   offset = 0;
   limit = 10;
   search_text = ""
-  constructor(/*private _quarantineService: QuarantineService,*/private _toast: ToastService) { }
+  pageNumber = 0
+  sort: string = ''
+  constructor(private _quarantineService: QuarantineService,private _toast: ToastService, private _router :Router) { }
 
   ngOnInit() {
     this.load_data_types();
@@ -20,17 +26,24 @@ export class UserGridComponent implements OnInit {
 
   onPageChange(offset) {
     this.offset = offset;
+    this.pageNumber = Math.floor(offset / this.limit);
     this.load_data_types();
   }
 
   load_data_types() {
     const pageSize = this.limit;
-    // this._quarantineService.getDatatypes((d) => {
-    //   console.log(d);
-    //   this.count = d.total;
-    // }, e => {
-    //   console.log(e);
-    // }, this.offset, pageSize, this.search_text); 
+    this._quarantineService.getUsers((d) => {
+      this.users = d.data;
+      this.count = d.totalPages * pageSize;
+    }, e => {
+      this._toast.error("Error","Canot get quarantine users")
+      // console.log(e);
+    }, pageSize, this.pageNumber, this.sort);
+  }
+
+
+  onPageRefresh(value: boolean) {
+    this.load_data_types();
   }
 
   search() {
@@ -44,16 +57,9 @@ export class UserGridComponent implements OnInit {
     }
   }
 
-
-  // add_new() {
-  //   document.getElementById('addNew').style.visibility = 'visible';
-  //   document.getElementById('addNew').style.opacity = '1';
-  // }
-
-  // close_add_new() {
-  //   document.getElementById('addNew').style.visibility = 'hidden';
-  //   document.getElementById('addNew').style.opacity = '0';
-  // }
+  edit(id:number){
+    this._router.navigate(['admin/user', id]);
+  }
 
 
 }

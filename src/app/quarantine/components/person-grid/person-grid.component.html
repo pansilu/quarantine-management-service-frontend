@@ -5,8 +5,8 @@
             <i class="material-icons-outlined">person</i>
         </div>
         <div class="header-title">
-            <h1>Quarantine Persons</h1>
-            <small>Information about quarantine Persons up to now.</small>
+            <h1>Quarantine Persons <span class="sinhalaTitle">(නිරෝධායනය වන පුද්ගලයින්)</span></h1>
+            <small>Information about quarantine Persons up to now (මේ වන විට නිරෝධායනයේ පසුවන පුද්ගලයින්)</small>
             <ol class="breadcrumb">
                 <li><a ><i class="fa fa-home"></i> Quarantine</a></li>
                 <li><a >Persons</a></li>
@@ -37,7 +37,7 @@
                                 </li> -->
                                 <li>
                                     <div class="filterbtn">
-                                        <button type="button" (click)="add_new(0)">Add New</button>
+                                        <button type="button" (click)="OnEditClick(0)">Add New</button>
                                     </div>
                                 </li>
                             </ul>
@@ -49,28 +49,30 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Telephone</th>
-                                        <th>Total Points</th>
-                                        <th>Last Update</th>
-                                        <th></th>
+                                        <!-- <th>ID</th> -->
+                                        <th>Name <br/> (නම)</th>
+                                        <th>Mobile Number<br/>(ජංගම දුරකථන අංකය)</th>
+                                        <th>Total Points<br/>(අවදානම් මට්ටම)</th>
+                                        <th>Remaining Days<br/>(ඉතිරි දින ගනන)</th>
+                                        <th>Last Update<br/>(යාවත්කලීන කළ දිනය) </th>
+                                        <th colspan="2">More..<br/>(වෙනත්)</th>
                                         <!-- <th></th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr  [ngClass] = "p.needToRemind?'notupdate':'update'" *ngFor = "let p of persons">
-                                        <td>{{p.id}}</td>
+                                        <!-- <td>{{p.id}}</td> -->
                                         <td>{{p.name}}</td>
                                         <td>{{p.mobile}}</td>
                                         <td>{{p.totalPoints ? p.totalPoints : 0}}</td>
+                                        <td>{{p.remainingDays}}</td>
                                         <td>{{p.lastUpdateDate  ?(p.lastUpdateDate.dayOfMonth.toString() + " -" +p.lastUpdateDate.month+"-" +p.lastUpdateDate.year.toString())  : 'No Update' }}</td>
                                         <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
                                             Daily Updates
                                         </td>
-                                        <!-- <td class="edti_td" (click)="add_new(p.id)">
+                                        <td class="edti_td" (click)="OnEditClick(p.id)">
                                             Edit
-                                        </td> -->
+                                        </td>
                                     </tr>
                                     <!-- <tr class="update"  >
                                         <td>2</td>
@@ -97,7 +99,7 @@
     </div>
 </div>
 
-<div id="addNew" class="overlay">
+<!-- <div id="addNew" class="overlay">
     <div class=" popup " style="width: 90%;">
         <div class="popup_heading ">
             <div class="row margin ">
@@ -114,4 +116,4 @@
         </div>
 
     </div>
-</div>
+</div> -->

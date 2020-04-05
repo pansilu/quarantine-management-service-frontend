@@ -12,6 +12,11 @@ declare var $: any
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  options = {
+    position: ["top", "right"],
+  }
+
   title = 'client';
   fullScreen: boolean = true;
   public static notificationService: NotificationsService;

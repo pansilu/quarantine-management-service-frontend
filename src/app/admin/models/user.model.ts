@@ -1,3 +1,5 @@
+import { NameIdModel } from 'src/app/shared/models/name-id.model'
+
 export class UserModel {
     public canCreateUser: boolean
     public id: number
@@ -6,6 +8,7 @@ export class UserModel {
     public nic: string
     public officeId: string
     public passportNo:string
+    public stations:Array<NameIdModel>
     // public phone: string
     public rank: string
     // public role: number

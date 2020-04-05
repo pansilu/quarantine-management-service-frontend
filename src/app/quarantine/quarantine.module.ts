@@ -10,6 +10,7 @@ import { AuthGuard } from '../Service/auth.guard';
 import roles from '../Service/roles';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DailyUpdatesComponent } from './components/daily-updates/daily-updates.component';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 
 
 
@@ -25,6 +26,12 @@ const routes: Routes = [
     component: DailyUpdatesComponent,
     canActivate: [AuthGuard],
     data: { roles: [roles.administrator] },
+  },
+  {
+    path: 'add-edit/:id',
+    component: AddEditPersonComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [roles.administrator] },
   }
 ];
 
@@ -32,6 +39,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [PersonGridComponent, AddEditPersonComponent, DailyUpdatesComponent],
   imports: [
+    AutocompleteLibModule,
     RouterModule.forChild(routes),
     CommonModule,
     SharedComponentsModule,

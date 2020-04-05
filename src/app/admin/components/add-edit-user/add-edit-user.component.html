@@ -5,8 +5,8 @@
             <i class="material-icons-outlined">supervisor_account</i>
         </div>
         <div class="header-title">
-            <h1>Add / Edit Users</h1>
-            <small>Add or edit system users.</small>
+            <h1>Add / Edit Users <span class="sinhalaTitle">(පරිශිලකයින් එකතු කිරීම / සන්ස්කරණය)</span></h1>
+            <small>Add or edit system users.(පද්ධති පරිශිලකයින් එකතු කිරීම හෝ සන්ස්කරණය)</small>
             <ol class="breadcrumb">
                 <li><a><i class="fa fa-users"></i> Admin</a></li>
                 <li><a>User</a></li>
@@ -22,7 +22,7 @@
                 <div class="panel-body">
                     <div class="col-md-12">
                         <div class="page_padding">
-                            <form [formGroup]="form">
+                            <form [formGroup]="form" *ngIf="form">
                                 <div class="col-md-5 one_form">
                                     <!-- <div class="row margin page_input">
                                         <div class="col-md-3">
@@ -52,7 +52,7 @@
                                     </div> -->
                                     <div class="row margin page_input">
                                         <div class="col-md-3">
-                                            <label>Name</label>
+                                            <label>Name <br /> (නම)</label>
                                         </div>
                                         <div class="col-md-8">
                                             <input type="text" formControlName="name" />
@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="row margin page_input">
                                         <div class="col-md-3">
-                                            <label>Mobile</label>
+                                            <label>Mobile <br />(ජංගම දුරකථන අංකය)</label>
                                         </div>
                                         <div class="col-md-8">
                                             <input type="text" formControlName="mobile" />
@@ -76,13 +76,14 @@
                                     </div>
                                     <div class="row margin page_input">
                                         <div class="col-md-3">
-                                            <label>Badge No </label>
+                                            <label>Badge No <br /> (නිළ අංකය)</label>
                                         </div>
                                         <div class="col-md-8">
                                             <input type="text" formControlName="officeId" />
                                             <!-- <div class="err_lo">Last Name is required</div> -->
                                             <div class="err_lo"
-                                                *ngIf="submitted && form.controls['officeId'].hasError('required')">Badge No is
+                                                *ngIf="submitted && form.controls['officeId'].hasError('required')">
+                                                Badge No is
                                                 required </div>
                                         </div>
                                     </div>
@@ -97,11 +98,12 @@
                                     </div> -->
                                     <div class="row margin page_input">
                                         <div class="col-md-3">
-                                            <label>Rank</label>
+                                            <label>Rank <br />(තනතුර)</label>
                                         </div>
                                         <div class="col-md-8">
                                             <select formControlName="rank">
-                                                <option value='null' selected="selected">Select Rank...</option>
+                                                <option value='null' selected="selected">Select Rank (තනතුර තොරන්න)
+                                                </option>
                                                 <option value="ASP">ASP</option>
                                                 <option value="SSP">SSP</option>
                                                 <option value="SARJANT">SERGEANT</option>
@@ -117,37 +119,47 @@
                                     <div class="row margin page_input">
                                         <div class="checkbox">
                                             <p class="checkHedder"><input type="checkbox"
-                                                    formControlName="canCreateUser">Can Create User</p>
+                                                    formControlName="canCreateUser">Can Create User <br /> (නව
+                                                පරිශිලකයින් එකතු කළ හැකිද ?)</p>
                                         </div>
-                                    </div>
-                                    <div class="row margin page_input">
-                                        <div class="col-md-3">
-                                            <label>Locatios</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <!-- [disabled]="checkUser()" -->
-                                            <select (change)="addUserLocation($event)">
-                                                <option value="0" selected="selected">Select Locations</option>
-                                                <!-- <option value="1">Moratuwa</option>
-                                                <option value="2">Ratmalana</option>
-                                                <option value="3">Nugegoda</option> -->
-                                                <option [value]="e.id" *ngFor="let e of locations">{{e.name}}</option>
-                                            </select>
-                                            <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role is required </div> -->
-                                        </div>
-                                        <!-- <div> -->
-                                        <!-- Location list here -->
-                                        <!-- <p *ngFor="let e of user.stationIdList">{{e}}</p>
-                                        </div> -->
                                     </div>
                                 </div>
                             </form>
+
+                            <div class="col-md-5 one_form">
+                                <div class="row margin page_input">
+                                    <div class="col-md-3">
+                                        <label>Locatios<br /> (පොලිස් ස්ථානය)</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <!-- [disabled]="checkUser()" -->
+                                        <!-- <select (change)="addUserLocation($event)">
+                                            <option value="0" selected="selected">Select Locations <br /> (පොලිස්
+                                                ස්ථානය තොරන්න)</option> -->
+                                        <!-- <option value="1">Moratuwa</option>
+                                            <option value="2">Ratmalana</option>
+                                            <option value="3">Nugegoda</option> -->
+                                        <!-- <option [value]="e.id" *ngFor="let e of locations">{{e.name}}</option>
+                                        </select> -->
+                                        <!-- <div class="err_lo" *ngIf="submitted && form.controls['role'].value<=0">Role is required </div> -->
+                                        <ng-multiselect-dropdown [placeholder]="'-- Please Select --'"
+                                            [data]="locations" [(ngModel)]="selectedLocations"
+                                            [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+                                            (onSelectAll)="onSelectAll($event)">
+                                        </ng-multiselect-dropdown>
+                                    </div>
+                                    <!-- <div> -->
+                                    <!-- Location list here -->
+                                    <!-- <p *ngFor="let e of user.stationIdList">{{e}}</p>
+                                    </div> -->
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="pull-right">
                         <div class="page_button pageptn">
                             <button type="submit" [routerLink]="['/admin/user']">Cancel</button>
-                            <button type="submit" (click)="submit()">Save</button>
+                            <button type="submit" (click)="submit()">Save </button>
                         </div>
                     </div>
                 </div>

@@ -30,9 +30,9 @@ export class UserService {
       .post(data, error);
   }
 
-  getUsers(data: NextCallback<Array<LocationModel>>, error: ErrorCallback<ErrorModel>) {
+  getUsers(data: NextCallback<UserModel>, error: ErrorCallback<ErrorModel>,id:number) {
     this._.api()
-      .url('api/user/admin/filter')
+      .url(`api/user/admin/${id}`)
       .needJson()
       .get(data, error);
   }

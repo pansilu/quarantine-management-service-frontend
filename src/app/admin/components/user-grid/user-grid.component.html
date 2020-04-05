@@ -5,8 +5,8 @@
             <i class="material-icons-outlined">supervisor_account</i>
         </div>
         <div class="header-title">
-            <h1>System Users</h1>
-            <small>Information about registered users.</small>
+            <h1>System Users <span class="sinhalaTitle">(පද්ධති පරිශීලකයින්)</span></h1>
+            <small>Information about registered users. (ලියාපදින්චි පරිශීලකයින් ගේ තොරතුරු)</small>
             <ol class="breadcrumb">
                 <li><a ><i class="fa fa-users"></i> Admin</a></li>
                 <li><a >User</a></li>
@@ -31,9 +31,9 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="filterbtn">
+                                    <!-- <div class="filterbtn">
                                         <button type="submit" (click)="search()">Search</button>
-                                    </div>
+                                    </div> -->
                                 </li>
                                 <li>
                                     <div class="filterbtn">
@@ -49,24 +49,23 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Address</th>
-                                        <th>Role</th>
+                                        <th>Name <br/>(නම) </th>
+                                        <th>Mobile <br/>(ජංගම දුරකථන අංකය) </th>
+                                        <th>Office ID <br/>(නිළ අංකය)</th>
+                                        <th>Rank<br/> (තනතුර)</th>
+                                        <th>More..<br/>(වෙනත්)</th>
                                         <!-- <th>Officer</th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr style="cursor:pointer;">
-                                        <!-- <td>1</td> -->
-                                        <td>John Doe</td>
-                                        <td>45/2, Lane, City</td>
-                                        <td>Root</td>
-                                    </tr>
-                                    <tr style="cursor:pointer;">
-                                        <!-- <td>1</td> -->
-                                        <td>John Doe</td>
-                                        <td>45/2, Lane1, City1</td>
-                                        <td>Addmin</td>
+                                    <tr style="cursor:pointer;" *ngFor = "let u of users">
+                                        <td>{{u.name}}</td>
+                                        <td>{{u.mobile}}</td>
+                                        <td>{{u.officeId}}</td>
+                                        <td>{{u.rank}}</td>
+                                        <td class="edti_td" (click)="edit(u.id)">
+                                            Edit
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
