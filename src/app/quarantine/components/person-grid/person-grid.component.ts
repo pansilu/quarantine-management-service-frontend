@@ -16,7 +16,7 @@ export class PersonGridComponent implements OnInit {
   q_person_id: number = 0;
   count = 30;
   offset = 0;
-  limit = 2;
+  limit = 10;
   pageNumber = 0
   search_text = ""
   sort: string = ''

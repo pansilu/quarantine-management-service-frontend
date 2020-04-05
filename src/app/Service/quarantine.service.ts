@@ -5,6 +5,7 @@ import { ErrorModel } from '../common/models/error-model';
 import { HttpClient } from '@angular/common/http';
 import { QuarantinePersonEditModel } from '../quarantine/models/quarantine-person-edit.model';
 import { QuarantinePersonViewModel } from '../quarantine/models/quarantine-person-view.model';
+import { DailyUpdatesViewModel } from '../quarantine/models/daily-updates-view.model';
 
 @Injectable({
     providedIn: 'root'
@@ -58,7 +59,7 @@ export class QuarantineService {
             .post(data, error);
     }
 
-    getDailyUpdates(data: NextCallback<Array<LocationModel>>, error: ErrorCallback<ErrorModel>,id:number) {
+    getDailyUpdates(data: NextCallback<DailyUpdatesViewModel>, error: ErrorCallback<ErrorModel>,id:number) {
         this._.api()
             .url(`api/user/quarantine/point/${id}`)
             .needJson()

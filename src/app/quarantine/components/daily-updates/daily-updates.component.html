@@ -17,29 +17,90 @@
         <div class="col-lg-12">
             <div class="panel panel-bd">
                 <div class="panel-body">
-                    <div>
-                        <p>Id : John Doe</p>
-                        <p>Name : 0711502365</p>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <table class="table table-borderless list_table">
+                                <thead><th></th> <th></th></thead>
+                                <tbody>
+                                <tr>
+                                    <td scope="row">ID</td>
+                                    <td>{{updates.userId}}</td>
+                                </tr>
+                                <tr scope="row">
+                                    <td>Name</td>
+                                    <td>{{updates.name}}</td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="page_table page_table_list">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Telephone</th>
-                                        <th>Total Points</th>
-                                        <th>Last Update</th>
+                                        <th>Date</th>
+                                        <th>THROAT</th>
+                                        <th>DIARRHEA</th>
+                                        <th>BREATH</th>
+                                        <th>HEADACHE</th>
+                                        <th>COLD</th>
+                                        <th>MYALGIA</th>
+                                        <th>COUGH</th>
+                                        <th>FEVER</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>John Doe</td>
-                                        <td>0112546785</td>
-                                        <td>20</td>
-                                        <td>2020-04-01</td>
+                                    <tr *ngFor="let u of updates.dailyUpdates">
+                                        <td>{{u.date.year + "-" + u.date.monthValue + "-" + u.date.dayOfMonth}}</td>
+                                        <td>
+                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                                *ngIf="!u.pointValues.THROAT"></i>
+                                            <i class="fa fa-check fa-2x danger" aria-hidden="true"
+                                                *ngIf="u.pointValues.THROAT"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                                *ngIf="!u.pointValues.DIARRHEA"></i>
+                                            <i class="fa fa-check fa-2x danger" aria-hidden="true"
+                                                *ngIf="u.pointValues.DIARRHEA"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                                *ngIf="!u.pointValues.BREATH"></i>
+                                            <i class="fa fa-check fa-2x danger" aria-hidden="true"
+                                                *ngIf="u.pointValues.BREATH"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                                *ngIf="!u.pointValues.HEADACHE"></i>
+                                            <i class="fa fa-check fa-2x danger" aria-hidden="true"
+                                                *ngIf="u.pointValues.HEADACHE"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                                *ngIf="!u.pointValues.COLD"></i>
+                                            <i class="fa fa-check fa-2x danger" aria-hidden="true"
+                                                *ngIf="u.pointValues.COLD"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                                *ngIf="!u.pointValues.MYALGIA"></i>
+                                            <i class="fa fa-check fa-2x danger" aria-hidden="true"
+                                                *ngIf="u.pointValues.MYALGIA"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-times fa-2x normal" aria-hidden="true"
+                                                *ngIf="!u.pointValues.COUGH"></i>
+                                            <i class="fa fa-check fa-2x danger" aria-hidden="true"
+                                                *ngIf="u.pointValues.COUGH"></i>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-times fa-2x" aria-hidden="true"
+                                                *ngIf="!u.pointValues.FEVER"></i>
+                                            <i class="fa fa-check fa-2x" aria-hidden="true"
+                                                *ngIf="u.pointValues.FEVER"></i>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -51,7 +112,8 @@
                         <div class="row">
                             <div class="pull-right">
                                 <div class="page_button pageptn">
-                                    <button type="submit" [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
+                                    <button type="submit"
+                                        [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
                                 </div>
                             </div>
                         </div>
