@@ -313,46 +313,6 @@
 
         </form>
 
-        <div class="panel panel-bd">
-            <div class="panel-body">
-                <div class="form_sub_title">
-                    <p>නිවස සම්බන්දි කරන පොලිස් නිලධාරියාගේ දත්ත (Police Officer Details)</p>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="page_input">
-                            <label>
-                                Rank (නිළය)
-                            </label>
-                            <select [(ngModel)]="selectedRank" (change)="rankSelected()">
-                                <option *ngFor="let rank of OFFICER_RANK_ENUM" [value]="rank">{{rank}}</option>
-                            </select>
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="page_input">
-                            <label>
-                                Officer (නිළධාරීන්)
-                            </label>
-                            <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="officersToShow"
-                                [(ngModel)]="selectedOfficers" [settings]="dropdownSettings"
-                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                            </ng-multiselect-dropdown>
-                            <!-- <input type="text"> -->
-                            <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
         <form [formGroup]="form2" *ngIf="form2">
             <div class="panel panel-bd">
                 <div class="panel-body">
@@ -508,6 +468,46 @@
             </div> -->
 
         </form>
+
+        <div class="panel panel-bd">
+            <div class="panel-body">
+                <div class="form_sub_title">
+                    <p>නිවස සම්බන්දි කරන පොලිස් නිලධාරියාගේ දත්ත (Police Officer Details)</p>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Rank (නිළය)
+                            </label>
+                            <select [(ngModel)]="selectedRank" (change)="rankSelected()">
+                                <option *ngFor="let rank of OFFICER_RANK_ENUM" [value]="rank">{{rank}}</option>
+                            </select>
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Officer (නිළධාරීන්)
+                            </label>
+                            <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="officersToShow"
+                                [(ngModel)]="selectedOfficers" [settings]="dropdownSettings"
+                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                            </ng-multiselect-dropdown>
+                            <!-- <input type="text"> -->
+                            <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
         <div class = "footer">
