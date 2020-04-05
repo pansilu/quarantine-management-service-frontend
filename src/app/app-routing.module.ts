@@ -21,7 +21,7 @@ const routes: Routes = [
   ,
   {
     path: 'home',
-    loadChildren: './dashboard/dashboard.module#DashboardModule'
+    loadChildren: '#'
   },
   {
     path: '**',

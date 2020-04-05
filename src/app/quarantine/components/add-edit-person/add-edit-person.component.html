@@ -517,7 +517,7 @@
                     <div class="pull-right">
                         <div class="page_button pageptn">
                             <button type="submit" (click)="resetForm()">Clear</button>
-                            <button type="submit" (click)="addNewPerson()">Save</button>
+                            <button type="submit" (click)="addNewPerson()" *ngIf = "saveButtonFlag">Save</button>
                             <button type="submit" (click)="addNewPerson(true)">Save & Exit</button>
                             <button type="submit" [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
                         </div>

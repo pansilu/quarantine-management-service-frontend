@@ -25,6 +25,7 @@ export class AddEditPersonComponent implements OnInit {
   edit: boolean;
 
   errGramaSewaDivision: boolean;
+  saveButtonFlag: boolean
 
   locationData: any
 
@@ -87,6 +88,8 @@ export class AddEditPersonComponent implements OnInit {
     };
 
     if (this.q_id > 0) {
+      this.saveButtonFlag = false
+
       this._quarantineService.getQPerson((d) => {
         this.person = d;
         this.person.division = this.person.gramaSewaDivision.station.division.name
@@ -121,6 +124,7 @@ export class AddEditPersonComponent implements OnInit {
       // get user form back end
     } else {
       this.id = null;
+      this.saveButtonFlag = true
       this.person = new QuarantinePersonEditModel();
       this.createForm();
     }
