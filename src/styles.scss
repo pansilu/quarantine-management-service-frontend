@@ -298,64 +298,35 @@ a span.fa.arrow::before {
   width: 100%;
   margin-bottom: 0;
   margin-top: 10px;
+  border-radius: 5px !important;
 }
 
 .page_table th {
   padding: 10px;
   background-color: #2f0144;
   color: #fff;
-  font-weight: normal;
   font-size: 12px;
   /* background-image: linear-gradient(to bottom right, #4eb75d, #0f7d34); */
   vertical-align: middle !important;
+  font-weight: bold;
+}
+
+
+.page_table tr:hover {
+  background-color: #2f0144;
 }
 
 .page_table_list td {
   text-align: left;
 }
 
-.page_table td {
-  padding: 5px 10px !important;
-  font-size: 12px;
-}
-
-.page_table td {
-  padding: 5px 10px !important;
-  font-size: 12px;
-}
-
-.page_table td {
-  padding: 5px 10px !important;
-  font-size: 12px;
-}
-
-.page_table td {
-  padding: 5px 10px !important;
-  font-size: 12px;
-}
-
-.page_table td {
-  padding: 5px 10px !important;
-  font-size: 12px;
-}
-
-.page_table td {
-  padding: 1px 10px !important;
-  font-size: 12px;
-}
-
 .page_table_list th {
   font-size: 12px;
 }
-.page_table td {
-  font-size: 11px;
-}
 
 .page_table td {
-  padding: 10px;
-  padding: 10px;
+  padding: 5px 10px !important;
   color: #000;
-  /* font-weight: bold; */
   border: 1px solid #ddd;
   border: 1px solid #ddd;
   text-align: left;
