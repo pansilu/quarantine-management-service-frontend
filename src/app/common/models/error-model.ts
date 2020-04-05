@@ -1,4 +1,7 @@
 export class ErrorModel {
-    message: string;
+  status: string;
+  error: {
+    errorCode: string,
+    errorDesc: string
   }
-  
+}

@@ -53,6 +53,7 @@
                                         <th>Mobile <br/>(ජංගම දුරකථන අංකය) </th>
                                         <th>Office ID <br/>(නිළ අංකය)</th>
                                         <th>Rank<br/> (තනතුර)</th>
+                                        <th>More..<br/>(වෙනත්)</th>
                                         <!-- <th>Officer</th> -->
                                     </tr>
                                 </thead>
@@ -62,6 +63,9 @@
                                         <td>{{u.mobile}}</td>
                                         <td>{{u.officeId}}</td>
                                         <td>{{u.rank}}</td>
+                                        <td class="edti_td" (click)="edit(u.id)">
+                                            Edit
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastService } from 'src/app/Service/toast.service';
 import { UserViewModel } from 'src/app/quarantine/models/user-view.model';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-grid',
@@ -17,7 +18,7 @@ export class UserGridComponent implements OnInit {
   search_text = ""
   pageNumber = 0
   sort: string = ''
-  constructor(private _quarantineService: QuarantineService,private _toast: ToastService) { }
+  constructor(private _quarantineService: QuarantineService,private _toast: ToastService, private _router :Router) { }
 
   ngOnInit() {
     this.load_data_types();
@@ -56,16 +57,9 @@ export class UserGridComponent implements OnInit {
     }
   }
 
-
-  // add_new() {
-  //   document.getElementById('addNew').style.visibility = 'visible';
-  //   document.getElementById('addNew').style.opacity = '1';
-  // }
-
-  // close_add_new() {
-  //   document.getElementById('addNew').style.visibility = 'hidden';
-  //   document.getElementById('addNew').style.opacity = '0';
-  // }
+  edit(id:number){
+    this._router.navigate(['admin/user', id]);
+  }
 
 
 }

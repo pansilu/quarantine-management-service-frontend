@@ -396,8 +396,9 @@ export class AddEditPersonComponent implements OnInit {
         this.resetForm();
       }
     }, e => {
-      this._toast.error("Error", "Canot Save user please recheck your data")
-      console.log(e);
+      // this._toast.error("Error", "Canot Save user please recheck your data")
+      this._toast.error("Error", e.error.errorDesc)
+      // console.log(e);
     }, this.q_person);
   }
 

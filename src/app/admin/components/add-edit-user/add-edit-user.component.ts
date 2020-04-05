@@ -18,20 +18,44 @@ export class AddEditUserComponent implements OnInit {
   edit: boolean;
   form: FormGroup;
   user: UserModel;
-  locations: Array<NameIdModel>;
   submitted: boolean
+
+  dropdownSettings = {
+    singleSelection: false,
+    enableCheckAll: false,
+    idField: 'id',
+    textField: 'name',
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
+
+  locations: Array<NameIdModel>;
+  selectedLocations = new Array<NameIdModel>();
+
   ngOnInit() {
     const id = parseInt(this._route.snapshot.params['id'], 10);
     this.edit = id > 0;
 
     if (this.edit) {
       // get user form back end
+      this._userService.getUsers(d => {
+
+        console.log(d);
+        this.getLocations();
+        this.user = d;
+        this.selectedLocations = d.stations;
+        this.createForm();
+      }, e => {
+        console.log(e)
+      }, id)
     } else {
       this.user = new UserModel();
       this.createForm();
       this.getLocations();
     }
-    this.locations = new Array<LocationModel> ();
+    this.locations = new Array<LocationModel>();
     //this.getLocations()
   }
 
@@ -67,7 +91,8 @@ export class AddEditUserComponent implements OnInit {
 
   submit() {
     this.submitted = true;
-    if (this.form.valid && this.user.stationIdList.length > 0) {
+    if (this.form.valid && this.selectedLocations.length > 0) {
+      this.setLocationArray();
       const value = this.form.value
       value.id = this.user.id;
       value.stationIdList = this.user.stationIdList;
@@ -75,14 +100,29 @@ export class AddEditUserComponent implements OnInit {
         this._toast.success("Success", "User saved")
         this._router.navigate(['admin/user']);
       }, (e) => {
-        this._toast.error("Error", "Canot Save user")
-
+        console.log(e.status)
+        this._toast.error("Error", e.status + " " + e.error.errorDesc)
       }, value);
     }
     else {
-      if (this.user.stationIdList.length <= 0) {
+      if (this.selectedLocations.length <= 0) {
         this._toast.error("Error", "Need to select at least one station")
       }
     }
+  }
+
+  setLocationArray(){
+    this.user.stationIdList = new Array<number>();
+    this.selectedLocations.forEach(e=>{
+      this.user.stationIdList.push(e.id);
+    })
+  }
+
+  onItemSelect($event){
+    // console.log($event)
+  }
+
+  onSelectAll($event){
+    // console.log($event)
   }
 }
