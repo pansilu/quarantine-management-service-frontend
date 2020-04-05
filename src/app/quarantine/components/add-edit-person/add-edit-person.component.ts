@@ -124,7 +124,7 @@ export class AddEditPersonComponent implements OnInit {
       qp_arrivalDate: new FormControl(this.person.arrivalDate),
       qp_countryId: new FormControl(this.person.countryId),
       qp_informedDate: new FormControl(this.person.informedDate),
-      qp_noticeDate:  new FormControl(this.person.informedDate),
+      qp_noticeDate:  new FormControl(this.person.noticeAttachDate),
 
       // Officer Data handled seperately
     };
@@ -303,7 +303,7 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.arrivalDate = this.form.value.qp_arrivalDate
       this.q_person.countryId = this.form.value.qp_countryId
       this.q_person.informedDate = this.form.value.qp_informedDate
-      //this.q_person. = this.form.value.qp_noticeDate
+      this.q_person.noticeAttachDate = this.form.value.qp_noticeDate
 
       this.q_person.inspectorIds = this.selectedOfficerIds
 

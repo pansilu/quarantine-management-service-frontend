@@ -65,5 +65,11 @@ export class QuarantineService {
             .get(data, error);
     }
 
+    getQPerson(data: NextCallback<PagedResultModel<QuarantinePersonEditModel>>, error: ErrorCallback<ErrorModel>, id: number ) {
+        this._.api()
+            .url(`api/user/quarantine/${id}`)
+            .needJson()
+            .get(data, error);
+    }
 
 }
