@@ -37,7 +37,7 @@
                                 </li> -->
                                 <li>
                                     <div class="filterbtn">
-                                        <button type="button" (click)="add_new(0)">Add New</button>
+                                        <button type="button" (click)="OnEditClick(0)">Add New</button>
                                     </div>
                                 </li>
                             </ul>
@@ -55,7 +55,7 @@
                                         <th>Total Points<br/>(අවදානම් මට්ටම)</th>
                                         <th>Remaining Days<br/>(ඉතිරි දින ගනන)</th>
                                         <th>Last Update<br/>(යාවත්කලීන කළ දිනය) </th>
-                                        <th>More..<br/>(වෙනත්)</th>
+                                        <th colspan="2">More..<br/>(වෙනත්)</th>
                                         <!-- <th></th> -->
                                     </tr>
                                 </thead>
@@ -70,7 +70,7 @@
                                         <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
                                             Daily Updates
                                         </td>
-                                        <td class="edti_td" (click)="add_new(p.id)">
+                                        <td class="edti_td" (click)="OnEditClick(p.id)">
                                             Edit
                                         </td>
                                     </tr>
@@ -99,7 +99,7 @@
     </div>
 </div>
 
-<div id="addNew" class="overlay">
+<!-- <div id="addNew" class="overlay">
     <div class=" popup " style="width: 90%;">
         <div class="popup_heading ">
             <div class="row margin ">
@@ -116,4 +116,4 @@
         </div>
 
     </div>
-</div>
+</div> -->

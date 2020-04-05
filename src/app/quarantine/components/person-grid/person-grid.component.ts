@@ -77,4 +77,8 @@ export class PersonGridComponent implements OnInit {
     this._router.navigate(['quarantine/dailyUpdates', id]);
   }
 
+  OnEditClick(id: number) {
+    this._router.navigate(['quarantine/add-edit', id]);
+  }
+
 }

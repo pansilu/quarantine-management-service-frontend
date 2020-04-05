@@ -3,7 +3,7 @@ import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { QuarantinePersonEditModel } from '../../models/quarantine-person-edit.model';
 import { ToastService } from 'src/app/Service/toast.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { OfficerRequestModel } from '../../models/officer-request.model';
 import { NameIdModel } from 'src/app/shared/models/name-id.model';
 import { QuarantinePersonGetModel } from '../../models/quarantine-person-get.model';
@@ -14,8 +14,9 @@ import { QuarantinePersonGetModel } from '../../models/quarantine-person-get.mod
   styleUrls: ['./add-edit-person.component.scss']
 })
 export class AddEditPersonComponent implements OnInit {
-  @Output() pageRefersh: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Input('id') q_id: number
+  // @Output() pageRefersh: EventEmitter<boolean> = new EventEmitter<boolean>();
+  // @Input('id') q_id: number
+  q_id: number;
   form: FormGroup;
   form2: FormGroup;
   person: QuarantinePersonEditModel;
@@ -52,16 +53,17 @@ export class AddEditPersonComponent implements OnInit {
 
   keyword = 'name';
 
-  constructor(private _quarantineService: QuarantineService, private _toast: ToastService, private _formBuilder: FormBuilder, private _router: Router) {
+  constructor(private _quarantineService: QuarantineService, private _toast: ToastService, private _formBuilder: FormBuilder, private _router: Router, private _route: ActivatedRoute) {
     this.q_person = new QuarantinePersonEditModel(),
       this.getOfficer = new OfficerRequestModel();
   }
 
 
   ngOnInit() {
-
-    this.getCountries();
+    this.q_id = parseInt(this._route.snapshot.params['id'], 10);
+    this.id = this.q_id
     this.getLocation();
+    this.getCountries();
     this.getHospitals();
     // console.log(this.q_id)
     this.edit = false
@@ -85,15 +87,25 @@ export class AddEditPersonComponent implements OnInit {
     };
 
     if (this.q_id > 0) {
-      this.id = this.q_id
       this._quarantineService.getQPerson((d) => {
         this.person = d;
-        console.log(d);
         this.person.division = this.person.gramaSewaDivision.station.division.name
         this.person.policeStation = this.person.gramaSewaDivision.station.id;
         this.person.gramaSewaDivisionId = this.person.gramaSewaDivision.id;
         this.person.reportedDate = this.person.reportDate;
-        this.person.countryId =  this.person.arrivedCountry.id
+
+        if (this.person.arrivedCountry) {
+          this.person.countryId = this.person.arrivedCountry.id
+        }
+
+        if (this.person.admitHos == null) {
+          this.person.admitHos = new NameIdModel('', null)
+        }
+
+        if (this.person.confirmedHos == null) {
+          this.person.confirmedHos = new NameIdModel('', null)
+        }
+
 
         this.createForm();
         this.filterPoliceStation();
@@ -105,7 +117,7 @@ export class AddEditPersonComponent implements OnInit {
       },
         e => {
 
-        }, this.id)
+        }, this.q_id)
       // get user form back end
     } else {
       this.id = null;
@@ -130,7 +142,7 @@ export class AddEditPersonComponent implements OnInit {
     const model = {
       qp_division: new FormControl(this.person.division),
       qp_policeStationId: new FormControl(this.person.policeStation),
-      qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId),
+      qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId, [Validators.required, Validators.min(1)]),
       qp_fileNo: new FormControl(this.person.fileNo),
 
       qp_nic: new FormControl(this.person.nic),
@@ -140,8 +152,8 @@ export class AddEditPersonComponent implements OnInit {
       qp_age: new FormControl(this.person.age),
       qp_reportedDate: new FormControl(this.person.reportedDate, Validators.required),
 
-      qp_mobile: new FormControl(this.person.mobile),
-      qp_phone: new FormControl(this.person.phone),
+      qp_mobile: new FormControl(this.person.mobile,[Validators.required,Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)]),
+      qp_phone: new FormControl(this.person.phone,[Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)]),
       qp_appEnable: new FormControl(this.person.appEnable),
 
       qp_otherFacts: new FormControl(this.person.otherFacts),
@@ -176,7 +188,7 @@ export class AddEditPersonComponent implements OnInit {
   getOfficerDetails() {
     this._quarantineService.getOfficerDetails((d) => {
       this.officers = d;
-      this.officersToShow =d;
+      this.officersToShow = d;
     }, e => {
       console.log(e);
     }, this.getOfficer);
@@ -215,7 +227,7 @@ export class AddEditPersonComponent implements OnInit {
   getLocation() {
     this._quarantineService.getLocation((d) => {
       this.locationData = d;
-      console.log(d)
+      // console.log(d)
       this.filterDivision();
     }, e => {
       console.log(e);
@@ -296,7 +308,7 @@ export class AddEditPersonComponent implements OnInit {
     // this.form.get('qp_appEnable').enable();
   }
 
-  addNewPerson() {
+  addNewPerson(exit: boolean = false) {
     this.submitted = true;
 
     this.selectedOfficers.forEach(e => {
@@ -366,30 +378,26 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.secret = "hi"
 
       //console.log(this.q_person)
-      console.log(this.q_person)
-      this.setQuarantinePerson()
+      // console.log(this.q_person)
+      this.setQuarantinePerson(exit)
 
     } else {
       this._toast.error("Error", "Please Fill Required Fields")
     }
   }
 
-  setQuarantinePerson() {
+  setQuarantinePerson(exit: boolean = false) {
     this._quarantineService.setQuarantinePerson((d) => {
-      console.log(d);
-      this.pageRefersh.emit(true);
       this._toast.success("Success", "Person saved");
-      this.resetForm();
-      this.close_add_new();
+      if (exit) {
+        this._router.navigate(['quarantine/quarantine-person']);
+      }
+      else {
+        this.resetForm();
+      }
     }, e => {
       console.log(e);
     }, this.q_person);
-  }
-
-  close_add_new() {
-    document.getElementById('addNew').style.visibility = 'hidden';
-    document.getElementById('addNew').style.opacity = '0';
-    this.resetForm();
   }
 
   resetForm() {

@@ -26,6 +26,12 @@ const routes: Routes = [
     component: DailyUpdatesComponent,
     canActivate: [AuthGuard],
     data: { roles: [roles.administrator] },
+  },
+  {
+    path: 'add-edit/:id',
+    component: AddEditPersonComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [roles.administrator] },
   }
 ];
 

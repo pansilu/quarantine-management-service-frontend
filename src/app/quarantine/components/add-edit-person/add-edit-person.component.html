@@ -41,12 +41,12 @@
                                     Village Offficer Division (ග්‍රාම නිලධාරී වසම)
                                 </label>
                                 <select formControlName="qp_gramaSewaDivisionId" (change)="gramaSewaDivisionSelected()">
-                                    <option>-- Please Select --</option>
+                                    <option value="0">-- Please Select --</option>
                                     <option *ngFor="let gramaSewaDivision of gramaSewaDivisions"
                                         [value]="gramaSewaDivision.id">{{gramaSewaDivision.name}}</option>
                                 </select>
                                 <div class="err_lo"
-                                    *ngIf="submitted && form.controls['qp_gramaSewaDivisionId'].hasError('required')">
+                                    *ngIf="submitted && (form.controls['qp_gramaSewaDivisionId'].hasError('required')||form.controls['qp_gramaSewaDivisionId'].hasError('min'))">
                                     Village Offficer Division is
                                     required </div>
                                 <label class="err_lo" *ngIf="errGramaSewaDivision">
@@ -161,10 +161,17 @@
                                     Mobile Number (ජංගම දුරකතන අංකය)
                                 </label>
                                 <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()">
-                                <div class="err_lo"
-                                    *ngIf="submitted && form.controls['qp_mobile'].hasError('required')">Mobile No. is
+                                <div class="err_lo" *ngIf="submitted && form.controls['qp_mobile'].hasError('pattern')">
+                                    Mobile No. is
                                     not valid </div>
                             </div>
+
+                            <div class="err_lo" *ngIf="submitted && form.controls['qp_mobile'].hasError('required')">
+                                Mobile No. is
+                                required </div>
+
+
+
                         </div>
                         <div class="col-md-3">
                             <div class="page_input">
@@ -172,6 +179,10 @@
                                     Land Line (ස්ථාවර දුරකතන අංකය)
                                 </label>
                                 <input type="text" formControlName="qp_phone">
+                                <div class="err_lo" *ngIf="submitted && form.controls['qp_phone'].hasError('pattern')">
+                                    Land Line No. is
+                                    not valid </div>
+
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
@@ -361,9 +372,8 @@
                                     <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
                                         placeHolder="Enter Hospital Name" (selected)='selectEventAd($event)'
                                         (inputChanged)='onChangeSearchAd($event)' (inputFocused)='onFocusedAd($event)'
-                                        formControlName ="qp_admitHosId"
-                                        historyIdentifier="hospital" [itemTemplate]="itemTemplate"
-                                        [notFoundTemplate]="notFoundTemplate">
+                                        formControlName="qp_admitHosId" historyIdentifier="hospital"
+                                        [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
 
                                     <ng-template #itemTemplate let-item>
@@ -418,10 +428,9 @@
                                 <div class="ng-autocomplete auto_width">
                                     <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
                                         placeHolder="Enter Hospital Name" (selected)='selectEvent($event)'
-                                        formControlName = "qp_confirmedHosId"
-                                        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
-                                        historyIdentifier="countries" [itemTemplate]="itemTemplate"
-                                        [notFoundTemplate]="notFoundTemplate">
+                                        formControlName="qp_confirmedHosId" (inputChanged)='onChangeSearch($event)'
+                                        (inputFocused)='onFocused($event)' historyIdentifier="countries"
+                                        [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
                                     </ng-autocomplete>
 
                                     <ng-template #itemTemplate let-item>
@@ -490,7 +499,9 @@
                     <div class="pull-right">
                         <div class="page_button pageptn">
                             <button type="submit" (click)="resetForm()">Clear</button>
-                            <button type="submit" (click)="addNewPerson()">Add</button>
+                            <button type="submit" (click)="addNewPerson()">Svae</button>
+                            <button type="submit" (click)="addNewPerson(true)">Save & Exit</button>
+                            <button type="submit" [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
                         </div>
                     </div>
                 </div>
