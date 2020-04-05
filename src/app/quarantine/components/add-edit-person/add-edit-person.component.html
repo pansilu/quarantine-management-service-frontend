@@ -49,7 +49,7 @@
                                     *ngIf="submitted && form.controls['qp_gramaSewaDivisionId'].hasError('required')">
                                     Village Offficer Division is
                                     required </div>
-                                 <label class="err_lo" *ngIf = "errGramaSewaDivision">
+                                <label class="err_lo" *ngIf="errGramaSewaDivision">
                                     Please select valid Division
                                 </label>
                             </div>
@@ -160,7 +160,7 @@
                                 <label>
                                     Mobile Number (ජංගම දුරකතන අංකය)
                                 </label>
-                                <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()" >
+                                <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()">
                                 <div class="err_lo"
                                     *ngIf="submitted && form.controls['qp_mobile'].hasError('required')">Mobile No. is
                                     not valid </div>
@@ -182,7 +182,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="checkbox">
-                                <label><input type="checkbox" value="" formControlName="qp_appEnable" >ජංගම දුරකතන
+                                <label><input type="checkbox" value="" formControlName="qp_appEnable">ජංගම දුරකතන
                                     යෙදුමක් භාවිතා කිරීමේ හැකියාවක්
                                     ඇත්ද?</label>
                             </div>
@@ -285,49 +285,49 @@
                     </div>
                 </div>
             </div>
-            </form>
+        </form>
 
-            <div class="panel panel-bd">
-                <div class="panel-body">
-                    <div class="form_sub_title">
-                        <p>නිවස සම්බන්දි කරන පොලිස් නිලධාරියාගේ දත්ත (Police Officer Details)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Rank (නිළය)
-                                </label>
-                                <select [(ngModel)]="selectedRank" (change)="rankSelected()">
-                                    <option *ngFor="let rank of OFFICER_RANK_ENUM" [value]="rank">{{rank}}</option>
-                                </select>
-                                <!-- <label class="err_lo">
+        <div class="panel panel-bd">
+            <div class="panel-body">
+                <div class="form_sub_title">
+                    <p>නිවස සම්බන්දි කරන පොලිස් නිලධාරියාගේ දත්ත (Police Officer Details)</p>
+                    <hr>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Rank (නිළය)
+                            </label>
+                            <select [(ngModel)]="selectedRank" (change)="rankSelected()">
+                                <option *ngFor="let rank of OFFICER_RANK_ENUM" [value]="rank">{{rank}}</option>
+                            </select>
+                            <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
-                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Officer (නිළධාරීන්)
-                                </label>
-                                <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="officersToShow"
+                    </div>
+                    <div class="col-md-3">
+                        <div class="page_input">
+                            <label>
+                                Officer (නිළධාරීන්)
+                            </label>
+                            <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="officersToShow"
                                 [(ngModel)]="selectedOfficers" [settings]="dropdownSettings"
-                                    (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                                </ng-multiselect-dropdown>
-                                <!-- <input type="text"> -->
-                                <!-- <label class="err_lo">
+                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                            </ng-multiselect-dropdown>
+                            <!-- <input type="text"> -->
+                            <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
-                            </div>
                         </div>
-
                     </div>
+
                 </div>
             </div>
+        </div>
 
-         <form [formGroup]="form2">
+        <form [formGroup]="form2">
             <div class="panel panel-bd">
                 <div class="panel-body">
                     <div class="form_sub_title">
@@ -398,11 +398,28 @@
                                 <label>
                                     Hospital (රෝහල)
                                 </label>
-                                <select formControlName="qp_confirmedHosId" (change)="confirmedHosSelected()">
+                                <!-- <select formControlName="qp_confirmedHosId" (change)="confirmedHosSelected()">
                                     <option *ngFor="let hospital of hospitals" [value]="hospital.id">
                                         {{hospital.name}}</option>
-                                </select>
+                                </select> -->
+                                <div class="ng-autocomplete auto_width">
+                                    <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
+                                        placeHolder="Enter Hospital Name" (selected)='selectEvent($event)'
+                                        (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+                                        historyIdentifier="countries" [itemTemplate]="itemTemplate"
+                                        [notFoundTemplate]="notFoundTemplate">
+                                    </ng-autocomplete>
+    
+                                    <ng-template #itemTemplate let-item>
+                                        <a [innerHTML]="item.name"></a>
+                                    </ng-template>
+    
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
                             </div>
+                            
                         </div>
                     </div>
                 </div>

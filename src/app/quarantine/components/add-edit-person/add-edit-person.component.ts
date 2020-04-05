@@ -5,6 +5,7 @@ import { ToastService } from 'src/app/Service/toast.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { OfficerRequestModel } from '../../models/officer-request.model';
+import { NameIdModel } from 'src/app/shared/models/name-id.model';
 
 @Component({
   selector: 'app-add-edit-person',
@@ -47,6 +48,8 @@ export class AddEditPersonComponent implements OnInit {
   officerRequestbody:any
 
   appEnebleFlag: boolean
+
+  keyword = 'name';
 
   constructor(private _quarantineService: QuarantineService, private _toast: ToastService, private _formBuilder: FormBuilder, private _router: Router) {
     this.q_person = new QuarantinePersonEditModel(),
@@ -359,4 +362,23 @@ export class AddEditPersonComponent implements OnInit {
     this.officersToShow = []
   }
 
+  selectEvent(item) {
+    // do something with selected item
+    console.log(item)
+  }
+
+  onChangeSearch(search: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+    console.log(search)
+   var value = new NameIdModel(search,0);
+    console.log(value);
+  }
+
+  onFocused(e) {
+    // do something
+  }
+
 }
+
+

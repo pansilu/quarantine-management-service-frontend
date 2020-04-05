@@ -378,7 +378,6 @@ a span.fa.arrow::before {
 
 .notupdate {
   background-color: #ff000038 !important;
-  
 }
 
 // .notupdate td {
@@ -825,13 +824,29 @@ a span.fa.arrow::before {
 }
 
 .danger {
-  color:red;
+  color: red;
 }
 
 .normal {
   color: green;
 }
 
-.list_table td, tr{
+.list_table td,
+tr {
   border: 0 !important;
+}
+
+.auto_width {
+  width: auto !important;
+}
+
+.input-container {
+  // border: solid 1px red;
+  // border-radius: 4px;
+  // width: 100%;
+  border-radius: 4px;
+  color: #555;
+  border: 1px solid #e8e4e4cc;
+  // padding: 9px;
+  // font-size: 13px;
 }
