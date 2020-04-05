@@ -152,8 +152,8 @@ export class AddEditPersonComponent implements OnInit {
       qp_age: new FormControl(this.person.age),
       qp_reportedDate: new FormControl(this.person.reportedDate, Validators.required),
 
-      qp_mobile: new FormControl(this.person.mobile,[Validators.required,Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)]),
-      qp_phone: new FormControl(this.person.phone,[Validators.pattern(/^(\+\d{1,3}[- ]?)?\d{10}$/)]),
+      qp_mobile: new FormControl(this.person.mobile,[Validators.required,Validators.pattern(/^0[0-9]{9}$/)]),
+      qp_phone: new FormControl(this.person.phone,[Validators.pattern(/^0[0-9]{9}$/)]),
       qp_appEnable: new FormControl(this.person.appEnable),
 
       qp_otherFacts: new FormControl(this.person.otherFacts),
@@ -396,6 +396,7 @@ export class AddEditPersonComponent implements OnInit {
         this.resetForm();
       }
     }, e => {
+      this._toast.error("Error", "Canot Save user please recheck your data")
       console.log(e);
     }, this.q_person);
   }
