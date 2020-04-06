@@ -37,7 +37,7 @@ body {
   /* border: 5px solid green; */
 }
 
-.sinhalaTitle{
+.sinhalaTitle {
   font-size: 20px;
 }
 
@@ -314,7 +314,6 @@ a span.fa.arrow::before {
   vertical-align: middle !important;
   font-weight: bold;
 }
-
 
 .page_table tr:hover {
   background-color: #2f0144;
@@ -824,4 +823,13 @@ tr {
   border: 1px solid #e8e4e4cc;
   // padding: 9px;
   // font-size: 13px;
+}
+
+.loading {
+  height: auto;
+}
+
+.image_Loading {
+  display: block;
+  margin: auto;
 }

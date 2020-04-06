@@ -7,6 +7,7 @@ export class LoginResultModel {
     userImage: string;
     userRole: string;
     token:string
+    createUser:boolean
     //loggedCompany: number;
     //loggedBranch: number;
     userId: number;
@@ -22,5 +23,6 @@ export class LoginResultModel {
         //this.loggedCompany = obj.loggedCompany;
         //this.loggedBranch = obj.loggedBranch;
         this.userId = obj.userId;
+        this.createUser = obj.createUser
     }
 }

@@ -14,13 +14,13 @@ const routes: Routes = [
     path:'user',
     component:UserGridComponent,
     canActivate: [AuthGuard],
-    data: { roles: [roles.administrator] },
+    data: { roles: [roles.administrator,roles.root] },
   },
   {
     path:'user/:id',
     component:AddEditUserComponent,
     canActivate: [AuthGuard],
-    data: { roles: [roles.administrator] },
+    data: { roles: [roles.administrator,roles.root] },
   }
 ];
 

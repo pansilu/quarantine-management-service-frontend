@@ -19,7 +19,7 @@ export class PersonGridComponent implements OnInit {
   limit = 10;
   pageNumber = 0
   search_text = ""
-  sort: string = ''
+  sort: string = 'id,desc'
   constructor(private _quarantineService: QuarantineService, private _toast: ToastService, public _router: Router) { }
 
   ngOnInit() {

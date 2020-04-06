@@ -19,19 +19,19 @@ const routes: Routes = [
     path: 'quarantine-person',
     component: PersonGridComponent,
     canActivate: [AuthGuard],
-    data: { roles: [roles.administrator] },
+    data: { roles: [roles.administrator, roles.root] },
   },
   {
     path: 'dailyUpdates/:id',
     component: DailyUpdatesComponent,
     canActivate: [AuthGuard],
-    data: { roles: [roles.administrator] },
+    data: { roles: [roles.administrator, roles.root] },
   },
   {
     path: 'add-edit/:id',
     component: AddEditPersonComponent,
     canActivate: [AuthGuard],
-    data: { roles: [roles.administrator] },
+    data: { roles: [roles.administrator, roles.root] },
   }
 ];
 

@@ -59,7 +59,7 @@
                                         <!-- <th></th> -->
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody >
                                     <tr  [ngClass] = "p.needToRemind?'notupdate':'update'" *ngFor = "let p of persons">
                                         <!-- <td>{{p.id}}</td> -->
                                         <td>{{p.name}}</td>
@@ -88,7 +88,11 @@
                                         </td>
                                     </tr> -->
                                 </tbody>
+                                
                             </table>
+                            <!-- <div class="loading" *ngIf="loading">
+                                <img class="image_Loading" src="../../../../assets/img/loader.gif" />
+                            </div> -->
                         </div>
                     </div>
                     <app-pagination [offset]="offset" [limit]="limit" [size]="count"
