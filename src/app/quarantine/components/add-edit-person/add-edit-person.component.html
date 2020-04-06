@@ -5,8 +5,8 @@
         <i class="material-icons-outlined">supervisor_account</i>
     </div>
     <div class="header-title">
-        <h1>Add / Edit Quarantine Person <span class="sinhalaTitle">(නිරොදයනයේ නිරත පුද්ගලයින්)</span></h1>
-        <small>Information about Quarantine Persons. (නිරොදයනයේ නිරත පුද්ගලයින් ගේ තොරතුරු)</small>
+        <h1>Add / Edit Quarantine Person <span class="sinhalaTitle">(නිරෝධායනයේ නිරත පුද්ගලයින් එක්කිරීම / සංස්කරණය)</span></h1>
+        <small>Information about Quarantine Persons. (නිරෝධායනයේ නිරත පුද්ගලයින් ගේ තොරතුරු)</small>
         <ol class="breadcrumb">
             <li><a ><i class="fa fa-users"></i> Quarantine</a></li>
             <li><a >Add-Edit Persons</a></li>
@@ -89,7 +89,7 @@
             <div class="panel panel-bd">
                 <div class="panel-body">
                     <div class="form_sub_title">
-                        <p>නිරොධායනයට ලක්වන්න තැනැත්තාගේ ගේ පුත්ගලික තොරතුරු (Personal Details)</p>
+                        <p>නිරෝධායනයට ලක්වන්න තැනැත්තාගේ ගේ පුද්ගලික තොරතුරු (Personal Details)</p>
                         <hr>
                     </div>
                     <div class="row">
@@ -175,9 +175,9 @@
                         <div class="col-md-3">
                             <div class="page_input">
                                 <label>
-                                    Mobile Number (ජංගම දුරකතන අංකය)
+                                    Mobile Number (ජංගම දුරකතන අංකය) - 07XXXXXXX
                                 </label>
-                                <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()">
+                                <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()" title="0 න් පටන් ගන්නා හා අංක 10 කින් යුතු විය යුතුය. උදා: 07XXXXXXX">
                                 <div class="err_lo" *ngIf="submitted && form.controls['qp_mobile'].hasError('pattern')">
                                     Mobile No. is
                                     not valid </div>
@@ -299,7 +299,7 @@
                         <div class="col-md-4">
                             <div class="page_input">
                                 <label>
-                                    Date (දැනුවත් කල දිනය)
+                                    Date (දැන්වීම් අලවූ දිනය)
                                 </label>
                                 <input type="date" formControlName="qp_noticeDate">
                                 <!-- <label class="err_lo">
@@ -323,7 +323,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="checkbox">
-                                <p>ආසධිතයකු ලෙස
+                                <p>ආසාධිතයකු ලෙස
                                     සැකකර රෝහල් ගතකරන ලද්දේද?</p>
                             </div>
                         </div>
@@ -376,7 +376,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="checkbox">
-                                <p>ආසධිතයකු බවට හදුනා
+                                <p>ආසාධිතයකු බවට හදුනා
                                     ගත්තේද?</p>
                             </div>
                         </div>
@@ -472,14 +472,14 @@
         <div class="panel panel-bd">
             <div class="panel-body">
                 <div class="form_sub_title">
-                    <p>නිවස සම්බන්දි කරන පොලිස් නිලධාරියාගේ දත්ත (Police Officer Details)</p>
+                    <p>නිවස සම්බන්ද කරන පොලිස් නිලධාරියාගේ දත්ත (Police Officer Details)</p>
                     <hr>
                 </div>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="page_input">
                             <label>
-                                Rank (නිළය)
+                                Rank (නිලය)
                             </label>
                             <select [(ngModel)]="selectedRank" (change)="rankSelected()">
                                 <option *ngFor="let rank of OFFICER_RANK_ENUM" [value]="rank">{{rank}}</option>
@@ -492,7 +492,7 @@
                     <div class="col-md-3">
                         <div class="page_input">
                             <label>
-                                Officer (නිළධාරීන්)
+                                Officer (නිලධාරීන්)
                             </label>
                             <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="officersToShow"
                                 [(ngModel)]="selectedOfficers" [settings]="dropdownSettings"
@@ -517,7 +517,7 @@
                     <div class="pull-right">
                         <div class="page_button pageptn">
                             <button type="submit" (click)="resetForm()">Clear</button>
-                            <button type="submit" (click)="addNewPerson()">Svae</button>
+                            <button type="submit" (click)="addNewPerson()" *ngIf = "saveButtonFlag">Save</button>
                             <button type="submit" (click)="addNewPerson(true)">Save & Exit</button>
                             <button type="submit" [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
                         </div>

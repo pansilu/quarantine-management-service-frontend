@@ -106,7 +106,7 @@ export class AddEditUserComponent implements OnInit {
     }
     else {
       if (this.selectedLocations.length <= 0) {
-        this._toast.error("Error", "Need to select at least one station")
+        this._toast.error("Error", "Need to select at least one police station")
       }
     }
   }

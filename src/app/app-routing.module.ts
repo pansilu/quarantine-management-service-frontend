@@ -4,7 +4,7 @@ import roles from './Service/roles';
 
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: '', pathMatch: 'full', redirectTo: 'quarantine/quarantine-person' },
   {
     path: 'auth',
     loadChildren: './auth/auth.module#AuthModule',
@@ -12,16 +12,17 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
-    data: { roles: [roles.administrator] },
+    data: { roles: [roles.administrator,roles.root] },
   },
   {
     path: 'quarantine',
-    loadChildren: './quarantine/quarantine.module#QuarantineModule'
+    loadChildren: './quarantine/quarantine.module#QuarantineModule',
+    data: { roles: [roles.administrator,roles.root] },
   }
   ,
   {
     path: 'home',
-    loadChildren: './dashboard/dashboard.module#DashboardModule'
+    loadChildren: '#'
   },
   {
     path: '**',

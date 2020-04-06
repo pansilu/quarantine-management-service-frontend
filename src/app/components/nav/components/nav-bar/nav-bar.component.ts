@@ -12,6 +12,7 @@ export class NavBarComponent implements OnInit {
 
   allowedPaths = Array<string>();
   userName: string;
+  createUser:boolean
   constructor(public _authService: AuthService, private _router: Router) { }
 
   ngOnInit() {
@@ -23,6 +24,7 @@ export class NavBarComponent implements OnInit {
 
     this.allowedPaths = this.getRoleDetails();
     this.userName = this._authService.loggedUser.userName;
+    this.createUser = this._authService.loggedUser.createUser;
   }
 
 
@@ -34,6 +36,14 @@ export class NavBarComponent implements OnInit {
   isAllowed(currentPath: string) {
     const exist = this.allowedPaths.find(r => r === currentPath);
     if (exist) {
+      return true;
+    }
+    return false;
+  }
+
+  isAllowedWithCanCreate(currentPath: string){
+    const exist = this.allowedPaths.find(r => r === currentPath);
+    if (exist && this.createUser) {
       return true;
     }
     return false;

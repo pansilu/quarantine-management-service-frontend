@@ -21,11 +21,12 @@ export class DailyUpdatesComponent implements OnInit {
 
   getDailyUpdates(){
     this._quarantineService.getDailyUpdates(data=>{
-      console.log(data)
+      // console.log(data)
       this.updates = data;
     },
     e=>{
       console.log(e);
+      this._toast.error("Error",e.error.errorDesc);
       
     },this.id)
   }
