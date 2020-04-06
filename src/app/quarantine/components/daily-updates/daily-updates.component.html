@@ -5,7 +5,7 @@
             <i class="material-icons-outlined">person</i>
         </div>
         <div class="header-title">
-            <h1>Daily Updates <span class="sinhalaTitle">(දෙයිනික තොරතුරු)</span></h1>
+            <h1>Daily Updates <span class="sinhalaTitle">(දෛනික තොරතුරු)</span></h1>
             <small>Information about quarantine Person (නිරෝධායනයේ පසුවන අයගේ දිනපතා තොරතුරු)</small>
             <ol class="breadcrumb">
                 <li><a><i class="fa fa-home"></i> Quarantine</a></li>
@@ -88,7 +88,7 @@
                                                 *ngIf="u.pointValues.HEADACHE"></i> -->
                                         </td>
                                         <td>
-                                            <span class="normal" *ngIf="!u.pointValues.COLD">N</span>
+                                            <span class="normal" *ngIf="!u.pointValues.COLD">NO</span>
                                             <span class="danger" *ngIf="u.pointValues.COLD">YES</span>
                                             <!-- <i class="fa fa-times fa-2x normal" aria-hidden="true"
                                                 *ngIf="!u.pointValues.COLD"></i>
@@ -131,7 +131,7 @@
                             <div class="pull-right">
                                 <div class="page_button pageptn">
                                     <button type="submit"
-                                        [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
+                                        [routerLink]="['/quarantine/quarantine-person']">Back</button>
                                 </div>
                             </div>
                         </div>
