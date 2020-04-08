@@ -91,11 +91,17 @@ export class AddEditPersonComponent implements OnInit {
       this.saveButtonFlag = false
 
       this._quarantineService.getQPerson((d) => {
+        // console.log(d);
         this.person = d;
-        this.person.division = this.person.gramaSewaDivision.station.division.name
-        this.person.policeStation = this.person.gramaSewaDivision.station.id;
-        this.person.gramaSewaDivisionId = this.person.gramaSewaDivision.id;
+        // this.person.division = this.person.gramaSewaDivision.station.division.name
+        // this.person.policeStation = this.person.gramaSewaDivision.station.id;
+        // this.person.gramaSewaDivisionId = this.person.gramaSewaDivision.id;
         this.person.reportedDate = this.person.reportDate;
+
+        if(this.person.stationResDto){
+          this.person.division = this.person.stationResDto.division.name
+          this.person.stationId = this.person.stationResDto.id
+        }
 
         if (this.person.arrivedCountry) {
           this.person.countryId = this.person.arrivedCountry.id
@@ -112,10 +118,10 @@ export class AddEditPersonComponent implements OnInit {
 
         this.createForm();
         this.filterPoliceStation();
-        this.filterGramaSewaDivisions()
+        // this.filterGramaSewaDivisions()
         this.selectedOfficers = d.inspectorDetails;
         this.getOfficer.ranks = null
-        this.getOfficer.stationIds = [+this.person.gramaSewaDivision.station.id]
+        this.getOfficer.stationIds = [+this.person.stationResDto.id]
         this.getOfficerDetails()
       },
         e => {
@@ -145,8 +151,8 @@ export class AddEditPersonComponent implements OnInit {
   createForm() {
     const model = {
       qp_division: new FormControl(this.person.division),
-      qp_policeStationId: new FormControl(this.person.policeStation),
-      qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId, [Validators.required, Validators.min(1)]),
+      qp_policeStationId: new FormControl(this.person.stationId,[Validators.required, Validators.min(1)]),
+      // qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId, [Validators.required, Validators.min(1)]),
       qp_fileNo: new FormControl(this.person.fileNo),
 
       qp_nic: new FormControl(this.person.nic),
@@ -265,30 +271,30 @@ export class AddEditPersonComponent implements OnInit {
     ps.push(+this.form.value.qp_policeStationId)
     this.getOfficer.stationIds = ps
     this.getOfficerDetails()
-    this.filterGramaSewaDivisions()
+    // this.filterGramaSewaDivisions()
   }
 
-  filterGramaSewaDivisions() {
-    this.gramaSewaDivisions = []
-    this.locationData.forEach(element => {
-      const ps = element.stations
-      ps.forEach(e => {
-        if (e.id == this.form.value.qp_policeStationId) {
-          const gsd = e.gramaSewaDivisions
-          gsd.forEach(e => {
-            this.gramaSewaDivisions.push(e)
-          })
-        }
-      })
+  // filterGramaSewaDivisions() {
+  //   this.gramaSewaDivisions = []
+  //   this.locationData.forEach(element => {
+  //     const ps = element.stations
+  //     ps.forEach(e => {
+  //       if (e.id == this.form.value.qp_policeStationId) {
+  //         const gsd = e.gramaSewaDivisions
+  //         gsd.forEach(e => {
+  //           this.gramaSewaDivisions.push(e)
+  //         })
+  //       }
+  //     })
 
-    })
-  }
+  //   })
+  // }
 
-  gramaSewaDivisionSelected() {
-    if (this.form.value.qp_gramaSewaDivisionId === undefined) {
-      this.errGramaSewaDivision = true
-    }
-  }
+  // gramaSewaDivisionSelected() {
+  //   if (this.form.value.qp_gramaSewaDivisionId === undefined) {
+  //     this.errGramaSewaDivision = true
+  //   }
+  // }
 
   getHospitals() {
     this._quarantineService.getHospitals((d) => {
@@ -323,8 +329,8 @@ export class AddEditPersonComponent implements OnInit {
 
       // ID use to seperate add or edit
       this.q_person.id = this.id
-
-      this.q_person.gramaSewaDivisionId = +this.form.value.qp_gramaSewaDivisionId
+      this.q_person.stationId =  +this.form.value.qp_policeStationId
+      // this.q_person.gramaSewaDivisionId = +this.form.value.qp_gramaSewaDivisionId
       this.q_person.fileNo = this.form.value.qp_fileNo
 
       this.q_person.nic = this.form.value.qp_nic
@@ -381,7 +387,7 @@ export class AddEditPersonComponent implements OnInit {
 
       this.q_person.secret = "hi"
 
-      //console.log(this.q_person)
+      // console.log(this.q_person)
       // console.log(this.q_person)
       this.setQuarantinePerson(exit)
 

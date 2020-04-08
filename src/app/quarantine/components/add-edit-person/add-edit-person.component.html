@@ -47,12 +47,16 @@
                                     <option *ngFor="let policeStation of policeStations" [value]="policeStation.id">
                                         {{policeStation.name}}</option>
                                 </select>
+                                <div class="err_lo"
+                                    *ngIf="submitted && (form.controls['qp_policeStationId'].hasError('required')||form.controls['qp_policeStationId'].hasError('min'))">
+                                    Police Station is
+                                    required </div>
                                 <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <!-- <div class="col-md-3">
                             <div class="page_input">
                                 <label>
                                     Village Offficer Division (ග්‍රාම නිලධාරී වසම)
@@ -70,7 +74,7 @@
                                     Please select valid Division
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-3">
                             <div class="page_input">
                                 <label>
