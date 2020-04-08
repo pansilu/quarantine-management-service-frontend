@@ -121,7 +121,7 @@ export class AuthService {
             .post<LoginResultModel, string>((data) => {
                 const token = data.token
                 let tokenInfo = jwt_decode(token);
-                console.log(tokenInfo)
+                // console.log(tokenInfo)
                 const role = tokenInfo.roles[0].role
                 data.createUser =  tokenInfo.roles[0].createUser
                 data.userRole = role

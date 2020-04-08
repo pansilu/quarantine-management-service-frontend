@@ -42,7 +42,7 @@ export class AddEditUserComponent implements OnInit {
       // get user form back end
       this._userService.getUsers(d => {
 
-        console.log(d);
+        // console.log(d);
         this.getLocations();
         this.user = d;
         this.selectedLocations = d.stations;
