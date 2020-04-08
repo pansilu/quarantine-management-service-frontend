@@ -1,9 +1,9 @@
 import { NameIdModel } from 'src/app/shared/models/name-id.model'
-import { RecivedGramaSewaDivisionModel } from './quarantine-person-get.model'
+// import { RecivedGramaSewaDivisionModel } from './quarantine-person-get.model'
 
 export class QuarantinePersonEditModel {
     public division: string
-    public policeStation: number
+    public stationId: number
     public officers: []
     public address: address
     public age: number
@@ -35,7 +35,8 @@ export class QuarantinePersonEditModel {
     admitHos: NameIdModel
     confirmedHos: NameIdModel
     arrivedCountry: NameIdModel
-    gramaSewaDivision: RecivedGramaSewaDivisionModel
+    // gramaSewaDivision: RecivedGramaSewaDivisionModel
+    stationResDto:RecivedStationModel
     informedAuthority: boolean
     reportDate: string
     inspectorDetails:Array<NameIdModel>
@@ -60,5 +61,15 @@ export class guardianDetails {
     mobile: string
     nic: string
     passportNo: string
+}
+
+export class RecivedStationModel {
+    public id: number
+    public name: string
+    public division: NameIdModel
+
+    constructor() {
+
+    }
 }
 
