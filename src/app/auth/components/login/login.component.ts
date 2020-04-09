@@ -10,7 +10,7 @@ import { LoginModel } from '../../models/login.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  language:number = 1;
+  language:number = 4;
   username = '';
   password = '';
   loading = false;
