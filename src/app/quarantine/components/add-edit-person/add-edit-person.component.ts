@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OfficerRequestModel } from '../../models/officer-request.model';
 import { NameIdModel } from 'src/app/shared/models/name-id.model';
 import { QuarantinePersonGetModel } from '../../models/quarantine-person-get.model';
+import { AuthService } from 'src/app/Service/auth.service';
 declare var $: any
 @Component({
   selector: 'app-add-edit-person',
@@ -53,8 +54,9 @@ export class AddEditPersonComponent implements OnInit {
   appEnebleFlag: boolean
 
   keyword = 'name';
+  createUser:boolean
 
-  constructor(private _quarantineService: QuarantineService, private _toast: ToastService, private _formBuilder: FormBuilder, private _router: Router, private _route: ActivatedRoute) {
+  constructor(private _quarantineService: QuarantineService, private _toast: ToastService, private _formBuilder: FormBuilder, private _router: Router, private _route: ActivatedRoute,private  _authService:AuthService) {
     this.q_person = new QuarantinePersonEditModel(),
       this.getOfficer = new OfficerRequestModel();
   }
@@ -66,6 +68,7 @@ export class AddEditPersonComponent implements OnInit {
     this.getLocation();
     this.getCountries();
     this.getHospitals();
+    this.createUser = this._authService.loggedUser.createUser;
     // console.log(this.q_id)
     this.edit = false
 
