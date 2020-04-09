@@ -683,12 +683,12 @@ a span.fa.arrow::before {
 }
 
 .popup {
-  margin: 60px auto;
-  padding: 0;
-  background: #fff;
-  border-radius: 5px;
-  width: 45%;
-  position: relative;
+  // margin: 60px auto;
+  // padding: 0;
+  // background: #fff;
+  // border-radius: 5px;
+  // width: 45%;
+  // position: relative;
 }
 
 .popup_heading {
@@ -833,3 +833,14 @@ tr {
   display: block;
   margin: auto;
 }
+
+.input_button button {
+  background-color: #1b4263;
+  color: #fff;
+  border: 1px solid #1b4263;
+  padding: 5px;
+  border-radius: 4px;
+  width: 70px;
+  font-size: 17px;
+}
+

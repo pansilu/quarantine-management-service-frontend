@@ -7,7 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OfficerRequestModel } from '../../models/officer-request.model';
 import { NameIdModel } from 'src/app/shared/models/name-id.model';
 import { QuarantinePersonGetModel } from '../../models/quarantine-person-get.model';
-
+declare var $: any
 @Component({
   selector: 'app-add-edit-person',
   templateUrl: './add-edit-person.component.html',
@@ -98,7 +98,7 @@ export class AddEditPersonComponent implements OnInit {
         // this.person.gramaSewaDivisionId = this.person.gramaSewaDivision.id;
         this.person.reportedDate = this.person.reportDate;
 
-        if(this.person.stationResDto){
+        if (this.person.stationResDto) {
           this.person.division = this.person.stationResDto.division.name
           this.person.stationId = this.person.stationResDto.id
         }
@@ -151,7 +151,7 @@ export class AddEditPersonComponent implements OnInit {
   createForm() {
     const model = {
       qp_division: new FormControl(this.person.division),
-      qp_policeStationId: new FormControl(this.person.stationId,[Validators.required, Validators.min(1)]),
+      qp_policeStationId: new FormControl(this.person.stationId, [Validators.required, Validators.min(1)]),
       // qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId, [Validators.required, Validators.min(1)]),
       qp_fileNo: new FormControl(this.person.fileNo),
 
@@ -162,8 +162,8 @@ export class AddEditPersonComponent implements OnInit {
       qp_age: new FormControl(this.person.age),
       qp_reportedDate: new FormControl(this.person.reportedDate, Validators.required),
 
-      qp_mobile: new FormControl(this.person.mobile,[Validators.required,Validators.pattern(/^0[0-9]{9}$/)]),
-      qp_phone: new FormControl(this.person.phone,[Validators.pattern(/^0[0-9]{9}$/)]),
+      qp_mobile: new FormControl(this.person.mobile, [Validators.pattern(/^0[0-9]{9}$/)]),
+      qp_phone: new FormControl(this.person.phone, [Validators.pattern(/^0[0-9]{9}$/)]),
       qp_appEnable: new FormControl(this.person.appEnable),
 
       qp_otherFacts: new FormControl(this.person.otherFacts),
@@ -318,6 +318,8 @@ export class AddEditPersonComponent implements OnInit {
     // this.form.get('qp_appEnable').enable();
   }
 
+  appEnabledValidation:boolean
+
   addNewPerson(exit: boolean = false) {
     this.submitted = true;
 
@@ -326,10 +328,25 @@ export class AddEditPersonComponent implements OnInit {
     })
 
     if (this.form.valid) {
+      // check mobile app feature is enabled and phone number is enterd
+      if (this.form.value.qp_appEnable) {
+        if (this.form.value.qp_mobile === null || this.form.value.qp_mobile === '') {
+          this._toast.error('Error','To enable mobile app feature mobile number is requird')
+          this.appEnabledValidation = true
+          return;
+        }
+        this.appEnabledValidation = false
+      }
 
+      if(this.form.value.qp_mobile === ''){
+        this.q_person.mobile = null;
+      }
+      else{
+        this.q_person.mobile = this.form.value.qp_mobile
+      }
       // ID use to seperate add or edit
       this.q_person.id = this.id
-      this.q_person.stationId =  +this.form.value.qp_policeStationId
+      this.q_person.stationId = +this.form.value.qp_policeStationId
       // this.q_person.gramaSewaDivisionId = +this.form.value.qp_gramaSewaDivisionId
       this.q_person.fileNo = this.form.value.qp_fileNo
 
@@ -343,9 +360,9 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.age = this.form.value.qp_age
       this.q_person.reportDate = this.form.value.qp_reportedDate
 
-      this.q_person.mobile = this.form.value.qp_mobile
-      this.q_person.phone = this.form.value.qp_phone
       this.q_person.appEnable = this.form.value.qp_appEnable
+
+      this.q_person.phone = this.form.value.qp_phone
 
       this.q_person.otherFacts = this.form.value.qp_otherFacts
 
@@ -394,6 +411,10 @@ export class AddEditPersonComponent implements OnInit {
     } else {
       this._toast.error("Error", "Please Fill Required Fields")
     }
+  }
+
+  validateAppFeatureEnable() {
+
   }
 
   setQuarantinePerson(exit: boolean = false) {
@@ -454,6 +475,22 @@ export class AddEditPersonComponent implements OnInit {
 
   onFocusedAd(e) {
     // do something
+  }
+
+  new_officer:boolean
+  add_new() {
+    $('#myModal').modal('show');
+    this.new_officer = true;
+    // document.getElementById('new_person').style.visibility = 'visible';
+    // document.getElementById('new_person').style.opacity = '1';
+  }
+
+  close_add_new($event) {
+    $('#myModal').modal('hide');
+    this.new_officer = false;
+    this.getOfficerDetails()
+    // document.getElementById('new_person').style.visibility = 'hidden';
+    // document.getElementById('new_person').style.opacity = '0';
   }
 
 }

@@ -1,62 +1,64 @@
 <div class="container-fluid">
 
-<div class="content-header">
-    <div class="header-icon">
-        <i class="material-icons-outlined">supervisor_account</i>
+    <div class="content-header">
+        <div class="header-icon">
+            <i class="material-icons-outlined">supervisor_account</i>
+        </div>
+        <div class="header-title">
+            <h1>Add / Edit Quarantine Person <span class="sinhalaTitle">(නිරෝධායනයේ නිරත පුද්ගලයින් එක්කිරීම /
+                    සංස්කරණය)</span></h1>
+            <small>Information about Quarantine Persons. (නිරෝධායනයේ නිරත පුද්ගලයින් ගේ තොරතුරු)</small>
+            <ol class="breadcrumb">
+                <li><a><i class="fa fa-users"></i> Quarantine</a></li>
+                <li><a>Add-Edit Persons</a></li>
+            </ol>
+        </div>
     </div>
-    <div class="header-title">
-        <h1>Add / Edit Quarantine Person <span class="sinhalaTitle">(නිරෝධායනයේ නිරත පුද්ගලයින් එක්කිරීම / සංස්කරණය)</span></h1>
-        <small>Information about Quarantine Persons. (නිරෝධායනයේ නිරත පුද්ගලයින් ගේ තොරතුරු)</small>
-        <ol class="breadcrumb">
-            <li><a ><i class="fa fa-users"></i> Quarantine</a></li>
-            <li><a >Add-Edit Persons</a></li>
-        </ol>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <form [formGroup]="form" *ngIf="form">
+    <div class="row">
+        <div class="col-lg-12">
+            <form [formGroup]="form" *ngIf="form">
 
-            <div class="panel panel-bd">
-                <div class="panel-body">
-                    <div class="form_sub_title">
-                        <p>ස්ථානයේ තොරතුරු (Location Data)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Division (කොට්ඨාසය)
-                                </label>
-                                <select formControlName="qp_division" (change)="divisionSelected()">
-                                    <option *ngFor="let division of divisions" [value]="division">{{division}}</option>
-                                </select>
-                                <!-- <label class="err_lo">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="form_sub_title">
+                            <p>ස්ථානයේ තොරතුරු (Location Data)</p>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Division (කොට්ඨාසය)
+                                    </label>
+                                    <select formControlName="qp_division" (change)="divisionSelected()">
+                                        <option *ngFor="let division of divisions" [value]="division">{{division}}
+                                        </option>
+                                    </select>
+                                    <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Police Station (පොලිස් ස්ථානය)
-                                </label>
-                                <select formControlName="qp_policeStationId" (change)="policeStationSelected()">
-                                    <option *ngFor="let policeStation of policeStations" [value]="policeStation.id">
-                                        {{policeStation.name}}</option>
-                                </select>
-                                <div class="err_lo"
-                                    *ngIf="submitted && (form.controls['qp_policeStationId'].hasError('required')||form.controls['qp_policeStationId'].hasError('min'))">
-                                    Police Station is
-                                    required </div>
-                                <!-- <label class="err_lo">
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Police Station (පොලිස් ස්ථානය)
+                                    </label>
+                                    <select formControlName="qp_policeStationId" (change)="policeStationSelected()">
+                                        <option *ngFor="let policeStation of policeStations" [value]="policeStation.id">
+                                            {{policeStation.name}}</option>
+                                    </select>
+                                    <div class="err_lo"
+                                        *ngIf="submitted && (form.controls['qp_policeStationId'].hasError('required')||form.controls['qp_policeStationId'].hasError('min'))">
+                                        Police Station is
+                                        required </div>
+                                    <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
+                                </div>
                             </div>
-                        </div>
-                        <!-- <div class="col-md-3">
+                            <!-- <div class="col-md-3">
                             <div class="page_input">
                                 <label>
                                     Village Offficer Division (ග්‍රාම නිලධාරී වසම)
@@ -75,359 +77,372 @@
                                 </label>
                             </div>
                         </div> -->
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    File No (පොලිස් ස්ථානයේ ලේ.අ)
-                                </label>
-                                <input type="text" formControlName="qp_fileNo">
-                                <!-- <label class="err_lo">
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        File No (පොලිස් ස්ථානයේ ලේ.අ)
+                                    </label>
+                                    <input type="text" formControlName="qp_fileNo">
+                                    <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-bd">
-                <div class="panel-body">
-                    <div class="form_sub_title">
-                        <p>නිරෝධායනයට ලක්වන්න තැනැත්තාගේ ගේ පුද්ගලික තොරතුරු (Personal Details)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="page_input">
-                                <label>
-                                    NIC (ජා.හැ.අ)
-                                </label>
-                                <input type="text" formControlName="qp_nic">
-                                <div class="err_lo" *ngIf="submitted && form.controls['qp_nic'].hasError('required')">
-                                    NIC is
-                                    required </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="page_input">
-                                <label>
-                                    Passport NO (විදේශ ගමන් බලපත් අංකය)
-                                </label>
-                                <input type="text" formControlName="qp_passportNo">
-                                <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="page_input">
-                                <label>
-                                    Name (නම)
-                                </label>
-                                <input type="text" formControlName="qp_name">
-                                <div class="err_lo" *ngIf="submitted && form.controls['qp_name'].hasError('required')">
-                                    Name is
-                                    required </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="page_input">
-                                <label>
-                                    Address (ලිපිනය)
-                                </label>
-                                <input type="text" formControlName="qp_address">
-                                <div class="err_lo"
-                                    *ngIf="submitted && form.controls['qp_address'].hasError('required')">Address is
-                                    required </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <div class="page_input">
-                                <label>
-                                    Age (වයස)
-                                </label>
-                                <input type="number" formControlName="qp_age">
-                                <div class="err_lo" *ngIf="submitted && form.controls['qp_age'].hasError('required')">
-                                    Age is
-                                    required </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="page_input">
-                                <label>
-                                    Date Reported (වාර්ථාවු දිනය)
-                                </label>
-                                <input type="date" formControlName="qp_reportedDate">
-                                <div class="err_lo"
-                                    *ngIf="submitted && form.controls['qp_reportedDate'].hasError('required')">Date is
-                                    required </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form_sub_title">
-                        <p>සම්බන්ද කරගන්නා ආකාරය (Contact Details)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Mobile Number (ජංගම දුරකතන අංකය) - 07XXXXXXX
-                                </label>
-                                <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()" title="0 න් පටන් ගන්නා හා අංක 10 කින් යුතු විය යුතුය. උදා: 07XXXXXXX">
-                                <div class="err_lo" *ngIf="submitted && form.controls['qp_mobile'].hasError('pattern')">
-                                    Mobile No. is
-                                    not valid </div>
-                            </div>
-
-                            <div class="err_lo" *ngIf="submitted && form.controls['qp_mobile'].hasError('required')">
-                                Mobile No. is
-                                required </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Land Line (ස්ථාවර දුරකතන අංකය)
-                                </label>
-                                <input type="text" formControlName="qp_phone">
-                                <div class="err_lo" *ngIf="submitted && form.controls['qp_phone'].hasError('pattern')">
-                                    Land Line No. is
-                                    not valid </div>
-
-                                <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="checkbox">
-                                <label><input type="checkbox" formControlName="qp_appEnable">ජංගම දුරකතන
-                                    යෙදුමක් භාවිතා කිරීමේ හැකියාවක්
-                                    ඇත්ද?</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel panel-bd">
-                <div class="panel-body">
-                    <div class="form_sub_title">
-                        <p>Other Information (වෙනත් කරුණු)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="page_input">
-                                <label>
-
-                                </label>
-                                <textarea rows="5" formControlName="qp_otherFacts"></textarea>
-
-                                <!-- <label class="err_lo">
-                        Please fill this field
-                    </label> -->
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="panel panel-bd">
-                <div class="panel-body">
-                    <div class="form_sub_title">
-                        <p>විදේශ රටක සිට පැමිණියේ නම් (If came from forign country)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="page_input">
-                                <label>
-                                    Date (පැමිණි දිනය)
-                                </label>
-                                <input type="date" formControlName="qp_arrivalDate">
-                                <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="page_input">
-                                <label>
-                                    Country (පැමිණි රට)
-                                </label>
-                                <select formControlName="qp_countryId" (change)="counrtySelected()">
-                                    <option *ngFor="let country of countries" [value]="country.id">
-                                        {{country.name}}</option>
-                                </select>
-                                <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form_sub_title">
-                        <p>සෞඛ්‍ය නිලධාරීන් දැනුවත් කලේ නම් (If informed helth officer)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="page_input">
-                                <label>
-                                    Date (දැනුවත් කල දිනය)
-                                </label>
-                                <input type="date" formControlName="qp_informedDate">
-                                <!-- <label class="err_lo">
-                            Please fill this field
-                        </label> -->
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form_sub_title">
-                        <p>දැන්වීම් අලවා දැනුවත් කලේ නම් (If noticeed by officer)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="page_input">
-                                <label>
-                                    Date (දැන්වීම් අලවූ දිනය)
-                                </label>
-                                <input type="date" formControlName="qp_noticeDate">
-                                <!-- <label class="err_lo">
-                            Please fill this field
-                        </label> -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </form>
-
-        <form [formGroup]="form2" *ngIf="form2">
-            <div class="panel panel-bd">
-                <div class="panel-body">
-                    <div class="form_sub_title">
-                        <p>වෙනත් විශේෂ තොරතුරු (Other Special Data)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="checkbox">
-                                <p>ආසාධිතයකු ලෙස
-                                    සැකකර රෝහල් ගතකරන ලද්දේද?</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Date (රෝහල් ගතකල දිනය)
-                                </label>
-                                <input type="date" formControlName="qp_admittedDate">
-                                <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Hospital (රෝහල)
-                                </label>
-                                <div class="ng-autocomplete auto_width">
-                                    <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
-                                        placeHolder="Enter Hospital Name" (selected)='selectEventAd($event)'
-                                        (inputChanged)='onChangeSearchAd($event)' (inputFocused)='onFocusedAd($event)'
-                                        formControlName="qp_admitHosId" historyIdentifier="hospital"
-                                        [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
-                                    </ng-autocomplete>
-
-                                    <ng-template #itemTemplate let-item>
-                                        <a [innerHTML]="item.name"></a>
-                                    </ng-template>
-
-                                    <ng-template #notFoundTemplate let-notFound>
-                                        <div [innerHTML]="notFound"></div>
-                                    </ng-template>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Date (පිටවූ දිනය)
-                                </label>
-                                <input type="date" formControlName="qp_dischargedDate">
-                                <!-- <label class="err_lo">
+                    </div>
+                </div>
+
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="form_sub_title">
+                            <p>නිරෝධායනයට ලක්වන්න තැනැත්තාගේ ගේ පුද්ගලික තොරතුරු (Personal Details)</p>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="page_input">
+                                    <label>
+                                        NIC (ජා.හැ.අ)
+                                    </label>
+                                    <input type="text" formControlName="qp_nic">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['qp_nic'].hasError('required')">
+                                        NIC is
+                                        required </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="page_input">
+                                    <label>
+                                        Passport NO (විදේශ ගමන් බලපත් අංකය)
+                                    </label>
+                                    <input type="text" formControlName="qp_passportNo">
+                                    <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="page_input">
+                                    <label>
+                                        Name (නම)
+                                    </label>
+                                    <input type="text" formControlName="qp_name">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['qp_name'].hasError('required')">
+                                        Name is
+                                        required </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="page_input">
+                                    <label>
+                                        Address (ලිපිනය)
+                                    </label>
+                                    <input type="text" formControlName="qp_address">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['qp_address'].hasError('required')">Address is
+                                        required </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="page_input">
+                                    <label>
+                                        Age (වයස)
+                                    </label>
+                                    <input type="number" formControlName="qp_age">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['qp_age'].hasError('required')">
+                                        Age is
+                                        required </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="page_input">
+                                    <label>
+                                        Date Reported (වාර්ථාවු දිනය)
+                                    </label>
+                                    <input type="date" formControlName="qp_reportedDate">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['qp_reportedDate'].hasError('required')">Date
+                                        is
+                                        required </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form_sub_title">
+                            <p>සම්බන්ද කරගන්නා ආකාරය (Contact Details)</p>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Mobile Number (ජංගම දුරකතන අංකය) - 07XXXXXXX
+                                    </label>
+                                    <input type="text" formControlName="qp_mobile" (keypress)="fillMobileNo()"
+                                        title="0 න් පටන් ගන්නා හා අංක 10 කින් යුතු විය යුතුය. උදා: 07XXXXXXX">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['qp_mobile'].hasError('pattern')">
+                                        Mobile No. is
+                                        not valid </div>
+                                    <div class="err_lo" *ngIf="appEnabledValidation">
+                                        Mobile No. is
+                                        required
+                                    </div>
+                                </div>
+
+                                <div class="err_lo"
+                                    *ngIf="submitted && form.controls['qp_mobile'].hasError('required')">
+                                    Mobile No. is
+                                    required </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Land Line (ස්ථාවර දුරකතන අංකය)
+                                    </label>
+                                    <input type="text" formControlName="qp_phone">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['qp_phone'].hasError('pattern')">
+                                        Land Line No. is
+                                        not valid </div>
+
+                                    <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" formControlName="qp_appEnable">ජංගම දුරකතන
+                                        යෙදුමක් භාවිතා කිරීමේ හැකියාවක්
+                                        ඇත්ද?</label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="checkbox">
-                                <p>ආසාධිතයකු බවට හදුනා
-                                    ගත්තේද?</p>
+                </div>
+
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="form_sub_title">
+                            <p>Other Information (වෙනත් කරුණු)</p>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="page_input">
+                                    <label>
+
+                                    </label>
+                                    <textarea rows="5" formControlName="qp_otherFacts"></textarea>
+
+                                    <!-- <label class="err_lo">
+                        Please fill this field
+                    </label> -->
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Date (දිනය)
-                                </label>
-                                <input type="date" formControlName="qp_confirmedDate">
-                                <!-- <label class="err_lo">
+
+                    </div>
+                </div>
+
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="form_sub_title">
+                            <p>විදේශ රටක සිට පැමිණියේ නම් (If came from forign country)</p>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="page_input">
+                                    <label>
+                                        Date (පැමිණි දිනය)
+                                    </label>
+                                    <input type="date" formControlName="qp_arrivalDate">
+                                    <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="page_input">
+                                    <label>
+                                        Country (පැමිණි රට)
+                                    </label>
+                                    <select formControlName="qp_countryId" (change)="counrtySelected()">
+                                        <option *ngFor="let country of countries" [value]="country.id">
+                                            {{country.name}}</option>
+                                    </select>
+                                    <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Hospital (රෝහල)
-                                </label>
-                                <!-- <select formControlName="qp_confirmedHosId" (change)="confirmedHosSelected()">
+                        <div class="form_sub_title">
+                            <p>සෞඛ්‍ය නිලධාරීන් දැනුවත් කලේ නම් (If informed helth officer)</p>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="page_input">
+                                    <label>
+                                        Date (දැනුවත් කල දිනය)
+                                    </label>
+                                    <input type="date" formControlName="qp_informedDate">
+                                    <!-- <label class="err_lo">
+                            Please fill this field
+                        </label> -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form_sub_title">
+                            <p>දැන්වීම් අලවා දැනුවත් කලේ නම් (If noticeed by officer)</p>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="page_input">
+                                    <label>
+                                        Date (දැන්වීම් අලවූ දිනය)
+                                    </label>
+                                    <input type="date" formControlName="qp_noticeDate">
+                                    <!-- <label class="err_lo">
+                            Please fill this field
+                        </label> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+
+            <form [formGroup]="form2" *ngIf="form2">
+                <div class="panel panel-bd">
+                    <div class="panel-body">
+                        <div class="form_sub_title">
+                            <p>වෙනත් විශේෂ තොරතුරු (Other Special Data)</p>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="checkbox">
+                                    <p>ආසාධිතයකු ලෙස
+                                        සැකකර රෝහල් ගතකරන ලද්දේද?</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Date (රෝහල් ගතකල දිනය)
+                                    </label>
+                                    <input type="date" formControlName="qp_admittedDate">
+                                    <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Hospital (රෝහල)
+                                    </label>
+                                    <div class="ng-autocomplete auto_width">
+                                        <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
+                                            placeHolder="Enter Hospital Name" (selected)='selectEventAd($event)'
+                                            (inputChanged)='onChangeSearchAd($event)'
+                                            (inputFocused)='onFocusedAd($event)' formControlName="qp_admitHosId"
+                                            historyIdentifier="hospital" [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.name"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Date (පිටවූ දිනය)
+                                    </label>
+                                    <input type="date" formControlName="qp_dischargedDate">
+                                    <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="checkbox">
+                                    <p>ආසාධිතයකු බවට හදුනා
+                                        ගත්තේද?</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Date (දිනය)
+                                    </label>
+                                    <input type="date" formControlName="qp_confirmedDate">
+                                    <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Hospital (රෝහල)
+                                    </label>
+                                    <!-- <select formControlName="qp_confirmedHosId" (change)="confirmedHosSelected()">
                                     <option *ngFor="let hospital of hospitals" [value]="hospital.id">
                                         {{hospital.name}}</option>
                                 </select> -->
-                                <div class="ng-autocomplete auto_width">
-                                    <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
-                                        placeHolder="Enter Hospital Name" (selected)='selectEvent($event)'
-                                        formControlName="qp_confirmedHosId" (inputChanged)='onChangeSearch($event)'
-                                        (inputFocused)='onFocused($event)' historyIdentifier="countries"
-                                        [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
-                                    </ng-autocomplete>
+                                    <div class="ng-autocomplete auto_width">
+                                        <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
+                                            placeHolder="Enter Hospital Name" (selected)='selectEvent($event)'
+                                            formControlName="qp_confirmedHosId" (inputChanged)='onChangeSearch($event)'
+                                            (inputFocused)='onFocused($event)' historyIdentifier="countries"
+                                            [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                                        </ng-autocomplete>
 
-                                    <ng-template #itemTemplate let-item>
-                                        <a [innerHTML]="item.name"></a>
-                                    </ng-template>
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.name"></a>
+                                        </ng-template>
 
-                                    <ng-template #notFoundTemplate let-notFound>
-                                        <div [innerHTML]="notFound"></div>
-                                    </ng-template>
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+                                    </div>
                                 </div>
-                            </div>
 
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- <div class="panel panel-bd">
+                <!-- <div class="panel panel-bd">
                 <div class="panel-body">
                     <div class="form_sub_title">
                         <p>භාර කරුවෙකු සිටියි නම් එම තොරතුරු - ඇත්නම් පමණි (If Guardian Available)</p>
@@ -471,66 +486,124 @@
                 </div>
             </div> -->
 
-        </form>
+            </form>
 
-        <div class="panel panel-bd">
-            <div class="panel-body">
-                <div class="form_sub_title">
-                    <p>නිවස සම්බන්ද කරන පොලිස් නිලධාරියාගේ දත්ත (Police Officer Details)</p>
-                    <hr>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="page_input">
-                            <label>
-                                Rank (නිලය)
-                            </label>
-                            <select [(ngModel)]="selectedRank" (change)="rankSelected()">
-                                <option *ngFor="let rank of OFFICER_RANK_ENUM" [value]="rank">{{rank}}</option>
-                            </select>
-                            <!-- <label class="err_lo">
+            <div class="panel panel-bd">
+                <div class="panel-body">
+                    <div class="form_sub_title">
+                        <p>නිවස සම්බන්ද කරන පොලිස් නිලධාරියාගේ දත්ත (Police Officer Details)</p>
+                        <hr>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="page_input">
+                                <label>
+                                    Rank (නිලය)
+                                </label>
+                                <select [(ngModel)]="selectedRank" (change)="rankSelected()">
+                                    <option *ngFor="let rank of OFFICER_RANK_ENUM" [value]="rank">{{rank}}</option>
+                                </select>
+                                <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="page_input">
-                            <label>
-                                Officer (නිලධාරීන්)
-                            </label>
-                            <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="officersToShow"
-                                [(ngModel)]="selectedOfficers" [settings]="dropdownSettings"
-                                (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                            </ng-multiselect-dropdown>
-                            <!-- <input type="text"> -->
-                            <!-- <label class="err_lo">
+                        <div class="col-md-3">
+                            <div class="page_input">
+                                <label>
+                                    Officer (නිලධාරීන්)
+                                </label>
+                                <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="officersToShow"
+                                    [(ngModel)]="selectedOfficers" [settings]="dropdownSettings"
+                                    (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                </ng-multiselect-dropdown>
+                                <!-- <input type="text"> -->
+                                <!-- <label class="err_lo">
                                 Please fill this field
                             </label> -->
+                            </div>
                         </div>
-                    </div>
 
-                </div>
-            </div>
-        </div>
-
-    </div>
-        <div class = "footer">
-        <div class="panel panel-bd" style="margin: 0 48px 0 16px;">
-            <div class="panel-body">
-                <div class="row">
-                    <div class="pull-right">
-                        <div class="page_button pageptn">
-                            <button type="submit" (click)="resetForm()">Clear</button>
-                            <button type="submit" (click)="addNewPerson()" *ngIf = "saveButtonFlag">Save</button>
-                            <button type="submit" (click)="addNewPerson(true)">Save & Exit</button>
-                            <button type="submit" [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
+                        <div class="col-md-2">
+                            <div class="page_input">
+                                <label>
+                                    <span>&#8203;</span>
+                                </label>
+                                <div class="input_button">
+                                    <button (click)="add_new()">New</button>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
+
+        </div>
+        <div class="footer">
+            <div class="panel panel-bd" style="margin: 0 48px 0 16px;">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="pull-right">
+                            <div class="page_button pageptn">
+                                <button type="submit" (click)="resetForm()">Clear</button>
+                                <button type="submit" (click)="addNewPerson()" *ngIf="saveButtonFlag">Save</button>
+                                <button type="submit" (click)="addNewPerson(true)">Save & Exit</button>
+                                <button type="submit" [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
+<!-- <div id="new_person" class="overlay">
+    <div class="popup" style="width: 90%;">
+        <div class="popup_heading ">
+            <div class="row margin ">
+                <div class="pull-right ">
+                    <a class="close " (click)="close_add_new()">&times;</a>
+                </div>
+                <h2>Add New Officer</h2>
+            </div>
+        </div>
+        <div class="content">
+            <div *ngIf="new_person">
+            <app-add-edit-person [id]="q_person_id" (pageRefersh)="onPageRefresh($event)">
+                </app-add-edit-person>
+             </div>
+        </div>
+    </div>
+</div> -->
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
-    
+        <!-- Modal content-->
+        <div class="modal-content popup">
+            <!-- <div class="modal-header"> -->
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+                <!-- <h4 class="modal-title">Modal Header</h4> -->
+                <div class="popup_heading ">
+                    <div class="row margin ">
+                        <div class="pull-right ">
+                            <a class="close " data-dismiss="modal">&times;</a>
+                        </div>
+                        <h2>Add New Officer</h2>
+                    </div>
+                <!-- </div> -->
+            </div>
+            <div class="modal-body" *ngIf = "new_officer">
+                <app-new-officer (save)="close_add_new($event)"></app-new-officer>
+            </div>
+            <!-- <div class="modal-footer page_button pageptn">
+                <button data-dismiss="modal">Close</button>
+                <button (click)="add_new()">Save</button>
+            </div> -->
+        </div>
+
+    </div>
+</div>

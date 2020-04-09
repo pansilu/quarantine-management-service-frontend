@@ -11,6 +11,7 @@ import roles from '../Service/roles';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DailyUpdatesComponent } from './components/daily-updates/daily-updates.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { NewOfficerComponent } from './components/new-officer/new-officer.component';
 
 
 
@@ -37,7 +38,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [PersonGridComponent, AddEditPersonComponent, DailyUpdatesComponent],
+  declarations: [PersonGridComponent, AddEditPersonComponent, DailyUpdatesComponent, NewOfficerComponent],
   imports: [
     AutocompleteLibModule,
     RouterModule.forChild(routes),
