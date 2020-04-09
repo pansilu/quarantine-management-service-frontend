@@ -1,0 +1,76 @@
+<form [formGroup]="form" *ngIf="form">
+    <div class="row margin page_input">
+        <div class="col-md-3">
+            <label>Name <br /> (නම)</label>
+        </div>
+        <div class="col-md-8">
+            <input type="text" formControlName="name" />
+            <div class="err_lo" *ngIf="submitted && form.controls['name'].hasError('required')">Name is
+                required </div>
+        </div>
+    </div>
+    <div class="row margin page_input">
+        <div class="col-md-3">
+            <label>Mobile <br />(ජංගම දුරකථන අංකය)</label>
+        </div>
+        <div class="col-md-8">
+            <input type="text" formControlName="mobile" />
+            <div class="err_lo" *ngIf="submitted && form.controls['mobile'].hasError('required')">Mobile
+                Number is
+                required </div>
+        </div>
+    </div>
+    <div class="row margin page_input">
+        <div class="col-md-3">
+            <label>Badge No <br /> (නිල අංකය)</label>
+        </div>
+        <div class="col-md-8">
+            <input type="text" formControlName="officeId" />
+            <div class="err_lo" *ngIf="submitted && form.controls['officeId'].hasError('required')">
+                Badge No is
+                required </div>
+        </div>
+    </div>
+    <div class="row margin page_input">
+        <div class="col-md-3">
+            <label>Rank <br />(තනතුර)</label>
+        </div>
+        <div class="col-md-8">
+            <select formControlName="rank">
+                <option value='null' selected="selected">Select Rank (තනතුර තෝරන්න)
+                </option>
+                <option value="ASP">ASP</option>
+                <option value="SSP">SSP</option>
+                <option value="SARJANT">SERGEANT</option>
+                <option value="PC">PC</option>
+                <option value="IP">IP</option>
+                <option value="SP">SP</option>
+                <option value="DIG">DIG</option>
+            </select>
+        </div>
+    </div>
+    <div class="row margin page_input">
+        <div class="checkbox">
+            <p class="checkHedder"><input type="checkbox" formControlName="canCreateUser">Can Create User <br /> (නව
+                පරිශිලකයින් එකතු කළ හැකිද ?)</p>
+        </div>
+    </div>
+</form>
+
+<div class="row margin page_input">
+    <div class="col-md-3">
+        <label>Police Station<br /> (පොලිස් ස්ථානය)</label>
+    </div>
+    <div class="col-md-8">
+        <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="locations"
+            [(ngModel)]="selectedLocations" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)"
+            (onSelectAll)="onSelectAll($event)">
+        </ng-multiselect-dropdown>
+    </div>
+</div>
+<hr>
+
+<div class="page_button pageptn">
+    <button data-dismiss="modal">Close</button>
+    <button (click)="submit()">Save</button>
+</div>
