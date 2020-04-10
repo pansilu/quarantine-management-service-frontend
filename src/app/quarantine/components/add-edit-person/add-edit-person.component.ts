@@ -383,13 +383,14 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.confirmedDate = this.form2.value.qp_confirmedDate
       // this.q_person.confirmedHosId = this.form2.value.qp_confirmedHosId
 
-      this.q_person.guardianDetails = {
+      this.q_person.guardianDetails = null
+      /* {
         id: null,
         //name
         mobile: this.form2.value.gr_mobile,
         nic: this.form2.value.gr_nic,
         passportNo: this.form2.value.gr_passportNo
-      }
+      }*/
 
       if (this.person.confirmedHos.name === '' && this.person.confirmedHos.id === null) {
         this.q_person.confirmedHos = null
