@@ -188,10 +188,10 @@ export class AddEditPersonComponent implements OnInit {
       qp_confirmedDate: new FormControl(this.person.confirmedDate),
       qp_confirmedHosId: new FormControl(this.person.confirmedHos.name),
 
-      gr_name: new FormControl(this.person.guardianDetails.name),
-      gr_nic: new FormControl(this.person.guardianDetails.nic),
-      gr_passportNo: new FormControl(this.person.guardianDetails.passportNo),
-      gr_mobile: new FormControl(this.person.guardianDetails.mobile),
+      // gr_name: new FormControl(this.person.guardianDetails.name),
+      // gr_nic: new FormControl(this.person.guardianDetails.nic),
+      // gr_passportNo: new FormControl(this.person.guardianDetails.passportNo),
+      // gr_mobile: new FormControl(this.person.guardianDetails.mobile),
     };
     this.form2 = this._formBuilder.group(model2)
 
