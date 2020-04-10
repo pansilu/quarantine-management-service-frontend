@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="page_input">
+      <label>
+        Division (කොට්ඨාසය)
+      </label>
+      <select (change)="divisionSelected()">
+        <option *ngFor="let division of divisions" [value]="division">{{division}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="page_input">
+      <label>
+        Police Station (පොලිස් ස්ථානය)
+      </label>
+      <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="locations" [(ngModel)]="selectedLocations"
+        [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+      </ng-multiselect-dropdown>
+    </div>
+  </div>
+</div>
+<div class="chart-wrapper">
+  <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+    [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+  </canvas>
+</div>
