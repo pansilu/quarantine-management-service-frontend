@@ -36,7 +36,7 @@ export class AddEditPersonComponent implements OnInit {
 
   officers = [];
   officersToShow = [];
-  OFFICER_RANK_ENUM = ["All", "ASP", "SSP", "SARJANT", "PC", "IP", "Sp", "VIG"]
+  OFFICER_RANK_ENUM = ["All", "IGP", "SDIG", "DIG", "SSP", "SP", "ASP", "CI", "IP", "SI", "PSM", "PS", "PC"]
   selectedRank: any
   selectedOfficers = [];
   selectedOfficerIds = [];
@@ -188,10 +188,10 @@ export class AddEditPersonComponent implements OnInit {
       qp_confirmedDate: new FormControl(this.person.confirmedDate),
       qp_confirmedHosId: new FormControl(this.person.confirmedHos.name),
 
-      gr_name: new FormControl(this.person.guardianDetails.name),
-      gr_nic: new FormControl(this.person.guardianDetails.nic),
-      gr_passportNo: new FormControl(this.person.guardianDetails.passportNo),
-      gr_mobile: new FormControl(this.person.guardianDetails.mobile),
+      // gr_name: new FormControl(this.person.guardianDetails.name),
+      // gr_nic: new FormControl(this.person.guardianDetails.nic),
+      // gr_passportNo: new FormControl(this.person.guardianDetails.passportNo),
+      // gr_mobile: new FormControl(this.person.guardianDetails.mobile),
     };
     this.form2 = this._formBuilder.group(model2)
 
@@ -383,13 +383,14 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.confirmedDate = this.form2.value.qp_confirmedDate
       // this.q_person.confirmedHosId = this.form2.value.qp_confirmedHosId
 
-      this.q_person.guardianDetails = {
+      this.q_person.guardianDetails = null
+      /* {
         id: null,
         //name
         mobile: this.form2.value.gr_mobile,
         nic: this.form2.value.gr_nic,
         passportNo: this.form2.value.gr_passportNo
-      }
+      }*/
 
       if (this.person.confirmedHos.name === '' && this.person.confirmedHos.id === null) {
         this.q_person.confirmedHos = null
@@ -440,6 +441,7 @@ export class AddEditPersonComponent implements OnInit {
     this.form.reset()
     this.form2.reset()
     this.selectedOfficers = [];
+    this.selectedOfficerIds = [];
     this.selectedRank = null
     this.officersToShow = []
   }
