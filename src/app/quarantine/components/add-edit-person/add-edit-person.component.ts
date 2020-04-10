@@ -36,7 +36,7 @@ export class AddEditPersonComponent implements OnInit {
 
   officers = [];
   officersToShow = [];
-  OFFICER_RANK_ENUM = ["All", "ASP", "SSP", "SARJANT", "PC", "IP", "Sp", "VIG"]
+  OFFICER_RANK_ENUM = ["All", "IGP", "SDIG", "DIG", "SSP", "SP", "ASP", "CI", "IP", "SI", "PSM", "PS", "PC"]
   selectedRank: any
   selectedOfficers = [];
   selectedOfficerIds = [];
@@ -440,6 +440,7 @@ export class AddEditPersonComponent implements OnInit {
     this.form.reset()
     this.form2.reset()
     this.selectedOfficers = [];
+    this.selectedOfficerIds = [];
     this.selectedRank = null
     this.officersToShow = []
   }
