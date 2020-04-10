@@ -140,6 +140,10 @@ export class AddEditPersonComponent implements OnInit {
     this.selectedRank = 'All'
   }
 
+  scroll(el: HTMLElement) {
+    el.scrollIntoView();
+  }
+
   mapModel() {
   }
 
