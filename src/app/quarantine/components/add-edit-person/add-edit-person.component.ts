@@ -8,6 +8,7 @@ import { OfficerRequestModel } from '../../models/officer-request.model';
 import { NameIdModel } from 'src/app/shared/models/name-id.model';
 import { QuarantinePersonGetModel } from '../../models/quarantine-person-get.model';
 import { AuthService } from 'src/app/Service/auth.service';
+import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 declare var $: any
 @Component({
   selector: 'app-add-edit-person',
@@ -54,9 +55,16 @@ export class AddEditPersonComponent implements OnInit {
   appEnebleFlag: boolean
 
   keyword = 'name';
-  createUser:boolean
+  createUser: boolean
 
-  constructor(private _quarantineService: QuarantineService, private _toast: ToastService, private _formBuilder: FormBuilder, private _router: Router, private _route: ActivatedRoute,private  _authService:AuthService) {
+  constructor(private _quarantineService: QuarantineService,
+    private _toast: ToastService,
+    private _formBuilder: FormBuilder,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _authService: AuthService,
+    private _errorHandlerService:ErrorHandlerService
+  ) {
     this.q_person = new QuarantinePersonEditModel(),
       this.getOfficer = new OfficerRequestModel();
   }
@@ -128,7 +136,7 @@ export class AddEditPersonComponent implements OnInit {
         this.getOfficerDetails()
       },
         e => {
-
+          this._errorHandlerService.Handler(e)
         }, this.q_id)
       // get user form back end
     } else {
@@ -207,7 +215,8 @@ export class AddEditPersonComponent implements OnInit {
       this.officers = d;
       this.officersToShow = d;
     }, e => {
-      console.log(e);
+      // console.log(e);
+      this._errorHandlerService.Handler(e)
     }, this.getOfficer);
   }
 
@@ -233,7 +242,7 @@ export class AddEditPersonComponent implements OnInit {
         this.countries.push(c);
       })
     }, e => {
-      console.log(e);
+      this._errorHandlerService.Handler(e);
     });
   }
 
@@ -247,6 +256,7 @@ export class AddEditPersonComponent implements OnInit {
       // console.log(d)
       this.filterDivision();
     }, e => {
+      this._errorHandlerService.Handler(e);
       console.log(e);
     });
   }
@@ -309,7 +319,8 @@ export class AddEditPersonComponent implements OnInit {
         this.hospitals.push(h);
       })
     }, e => {
-      console.log(e);
+      // console.log(e);
+      this._errorHandlerService.Handler(e);
     });
   }
 
@@ -325,7 +336,7 @@ export class AddEditPersonComponent implements OnInit {
     // this.form.get('qp_appEnable').enable();
   }
 
-  appEnabledValidation:boolean
+  appEnabledValidation: boolean
 
   addNewPerson(exit: boolean = false) {
     this.submitted = true;
@@ -338,17 +349,17 @@ export class AddEditPersonComponent implements OnInit {
       // check mobile app feature is enabled and phone number is enterd
       if (this.form.value.qp_appEnable) {
         if (this.form.value.qp_mobile === null || this.form.value.qp_mobile === '') {
-          this._toast.error('Error','To enable mobile app feature mobile number is requird')
+          this._toast.error('Error', 'To enable mobile app feature mobile number is requird')
           this.appEnabledValidation = true
           return;
         }
         this.appEnabledValidation = false
       }
 
-      if(this.form.value.qp_mobile === ''){
+      if (this.form.value.qp_mobile === '') {
         this.q_person.mobile = null;
       }
-      else{
+      else {
         this.q_person.mobile = this.form.value.qp_mobile
       }
       // ID use to seperate add or edit
@@ -436,7 +447,8 @@ export class AddEditPersonComponent implements OnInit {
       }
     }, e => {
       // this._toast.error("Error", "Canot Save user please recheck your data")
-      this._toast.error("Error", e.error.errorDesc)
+      this._errorHandlerService.Handler(e)
+      // this._toast.error("Error", e.error.errorDesc)
       // console.log(e);
     }, this.q_person);
   }
@@ -486,7 +498,7 @@ export class AddEditPersonComponent implements OnInit {
     // do something
   }
 
-  new_officer:boolean
+  new_officer: boolean
   add_new() {
     $('#myModal').modal('show');
     this.new_officer = true;

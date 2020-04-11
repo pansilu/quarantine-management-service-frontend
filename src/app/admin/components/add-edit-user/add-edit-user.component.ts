@@ -6,6 +6,7 @@ import { UserService } from 'src/app/Service/user.service';
 import { LocationModel } from '../../models/location.model';
 import { ToastService } from 'src/app/Service/toast.service';
 import { NameIdModel } from 'src/app/shared/models/name-id.model';
+import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -14,7 +15,14 @@ import { NameIdModel } from 'src/app/shared/models/name-id.model';
 })
 export class AddEditUserComponent implements OnInit {
 
-  constructor(private _route: ActivatedRoute, private _router: Router, private _formBuilder: FormBuilder, private _userService: UserService, private _toast: ToastService) { }
+  constructor(
+    private _route: ActivatedRoute, 
+    private _router: Router,
+    private _formBuilder: FormBuilder,
+    private _userService: UserService,
+    private _toast: ToastService,
+    private _errorHandlerService:ErrorHandlerService
+  ) { }
   edit: boolean;
   form: FormGroup;
   user: UserModel;
@@ -49,6 +57,7 @@ export class AddEditUserComponent implements OnInit {
         this.createForm();
       }, e => {
         console.log(e)
+        this._errorHandlerService.Handler(e)
       }, id)
     } else {
       this.user = new UserModel();
@@ -78,7 +87,8 @@ export class AddEditUserComponent implements OnInit {
     this._userService.getLocations(d => {
       this.locations = d[0].stations
     }, e => {
-      this._toast.error("Error", "Get Location Failed")
+      this._errorHandlerService.Handler(e)
+      // this._toast.error("Error", "Get Location Failed")
       //console.log(e);
     })
   }
@@ -101,7 +111,8 @@ export class AddEditUserComponent implements OnInit {
         this._router.navigate(['admin/user']);
       }, (e) => {
         console.log(e.status)
-        this._toast.error("Error", e.status + " " + e.error.errorDesc)
+        // this._toast.error("Error", e.status + " " + e.error.errorDesc)
+        this._errorHandlerService.Handler(e);
       }, value);
     }
     else {
