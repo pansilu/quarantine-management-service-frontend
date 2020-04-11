@@ -421,7 +421,7 @@ export class AddEditPersonComponent implements OnInit {
         this.q_person.admitHos = this.person.admitHos
       }
 
-      this.q_person.secret = "hi"
+      this.q_person.secret = null
 
       // console.log(this.q_person)
       // console.log(this.q_person)
