@@ -9,20 +9,6 @@ import { NameIdModel } from 'src/app/shared/models/name-id.model';
   styleUrls: ['./age-chart.component.scss']
 })
 export class AgeChartComponent implements OnInit {
-
-  dropdownSettings = {
-    singleSelection: false,
-    enableCheckAll: false,
-    idField: 'id',
-    textField: 'name',
-    selectAllText: 'Select All',
-    unSelectAllText: 'UnSelect All',
-    itemsShowLimit: 3,
-    allowSearchFilter: true
-  };
-
-  locations = new Array<NameIdModel>();
-  selectedLocations = new Array<NameIdModel>();
   
   public pieChartOptions: ChartOptions = {
     responsive: true,

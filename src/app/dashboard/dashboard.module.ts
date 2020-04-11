@@ -9,6 +9,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StationDistributionComponent } from './components/station-distribution/station-distribution.component';
 import { QuarantinePersonDistributionComponent } from './components/quarantine-person-distribution/quarantine-person-distribution.component';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+import { NewQuarantinePersonsDistributionComponent } from './components/new-quarantine-persons-distribution/new-quarantine-persons-distribution.component';
 
 
 const routes: Routes = [
@@ -21,14 +23,15 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [DashboardComponent, AgeChartComponent, StationDistributionComponent, QuarantinePersonDistributionComponent],
+  declarations: [DashboardComponent, AgeChartComponent, StationDistributionComponent, QuarantinePersonDistributionComponent, NewQuarantinePersonsDistributionComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
     ChartsModule,
     NgMultiSelectDropDownModule.forRoot(),
+    NgxDaterangepickerMd.forRoot(),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ]
 })
 export class DashboardModule { }

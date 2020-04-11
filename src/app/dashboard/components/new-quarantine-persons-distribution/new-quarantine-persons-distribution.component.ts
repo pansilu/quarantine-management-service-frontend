@@ -3,11 +3,11 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import { Label } from 'ng2-charts';
 
 @Component({
-  selector: 'app-station-distribution',
-  templateUrl: './station-distribution.component.html',
-  styleUrls: ['./station-distribution.component.scss']
+  selector: 'app-new-quarantine-persons-distribution',
+  templateUrl: './new-quarantine-persons-distribution.component.html',
+  styleUrls: ['./new-quarantine-persons-distribution.component.scss']
 })
-export class StationDistributionComponent implements OnInit {
+export class NewQuarantinePersonsDistributionComponent implements OnInit {
 
   barChartOptions: ChartOptions = {
     responsive: true,
@@ -18,7 +18,7 @@ export class StationDistributionComponent implements OnInit {
   barChartPlugins = [];
 
   barChartData: ChartDataSets[] = [
-    { data: [45, 37, 60, 70, 46, 33], label: 'Quarantine Persons',backgroundColor: "#3e95cd" , hoverBackgroundColor:'#3e95ef' },
+    { data: [8, 4, 6, 12, 25, 33], label: 'New Quarantine Persons',backgroundColor: "#8e5ea2" , hoverBackgroundColor:'#8e5ebf'}
   ];
 
   constructor() { }
