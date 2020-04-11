@@ -119,6 +119,19 @@ body {
   color: #f0f4f8 !important;
 }
 
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: transparent !important;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: transparent !important;
+}
+
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+  background-color: #253a4e !important;
+}
+
 .sidebar-nav .sidebar-nav-sub li a {
   /* text-indent: 28px; */
   padding: 7px 41px;
@@ -847,4 +860,3 @@ tr {
 .md-drppicker .calendar {
   float: none !important;
 }
-
