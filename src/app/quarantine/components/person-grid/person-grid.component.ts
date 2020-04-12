@@ -36,13 +36,12 @@ export class PersonGridComponent implements OnInit {
   load_data_types() {
     const pageSize = this.limit;
     this._quarantineService.getQUsers((d) => {
-      console.log(d)
       this.persons = d.data;
       this.count = d.totalPages * pageSize;
     }, e => {
       this._toast.error("Error","Canot get quarantine users")
       // console.log(e);
-    }, pageSize, this.pageNumber, this.sort);
+    }, pageSize, this.pageNumber, this.sort, this.search_text);
   }
 
   onPageRefresh(value: boolean) {

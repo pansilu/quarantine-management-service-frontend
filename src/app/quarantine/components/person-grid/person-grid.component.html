@@ -53,6 +53,7 @@
                                         <th>Name <br/> (නම)</th>
                                         <th>Mobile Number<br/>(ජංගම දුරකථන අංකය)</th>
                                         <th>Address<br/>(ලිපිණය)</th>
+                                        <th>Police Station <br/>(පොලිස් ස්ථානය)</th>
                                         <th>Total Points<br/>(අවදානම් මට්ටම)</th>
                                         <th>Remaining Days<br/>(ඉතිරි දින ගනන)</th>
                                         <th>Last Update<br/>(යාවත්කලීන කළ දිනය) </th>
@@ -66,6 +67,7 @@
                                         <td>{{p.name}}</td>
                                         <td>{{p.mobile}}</td>
                                         <td>{{p.address?.line}}</td>
+                                        <td>{{p.stationResDto?.division.name}}</td>
                                         <td>{{p.totalPoints ? p.totalPoints : 0}}</td>
                                         <td>{{p.remainingDays}}</td>
                                         <td>{{p.lastUpdateDate}}</td>
