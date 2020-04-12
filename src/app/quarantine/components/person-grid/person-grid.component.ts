@@ -36,6 +36,7 @@ export class PersonGridComponent implements OnInit {
   load_data_types() {
     const pageSize = this.limit;
     this._quarantineService.getQUsers((d) => {
+      console.log(d)
       this.persons = d.data;
       this.count = d.totalPages * pageSize;
     }, e => {
