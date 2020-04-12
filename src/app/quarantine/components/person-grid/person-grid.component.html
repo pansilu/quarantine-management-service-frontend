@@ -52,6 +52,7 @@
                                         <!-- <th>ID</th> -->
                                         <th>Name <br/> (නම)</th>
                                         <th>Mobile Number<br/>(ජංගම දුරකථන අංකය)</th>
+                                        <th>Address<br/>(ලිපිණය)</th>
                                         <th>Total Points<br/>(අවදානම් මට්ටම)</th>
                                         <th>Remaining Days<br/>(ඉතිරි දින ගනන)</th>
                                         <th>Last Update<br/>(යාවත්කලීන කළ දිනය) </th>
@@ -64,9 +65,10 @@
                                         <!-- <td>{{p.id}}</td> -->
                                         <td>{{p.name}}</td>
                                         <td>{{p.mobile}}</td>
+                                        <td>{{p.address?.line}}</td>
                                         <td>{{p.totalPoints ? p.totalPoints : 0}}</td>
                                         <td>{{p.remainingDays}}</td>
-                                        <td>{{p.lastUpdateDate  ?(p.lastUpdateDate.dayOfMonth.toString() + " -" +p.lastUpdateDate.month+"-" +p.lastUpdateDate.year.toString())  : 'No Update' }}</td>
+                                        <td>{{p.lastUpdateDate}}</td>
                                         <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
                                             Daily Updates
                                         </td>

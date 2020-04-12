@@ -27,7 +27,7 @@ export class AuthService {
         return this.getUserData() ? this.getUserData().userData : null;
     }
 
-    tryToLogIn(callback: NextCallback<LoginResultModel>, error: ErrorCallback<string>, data:LoginModel) {
+    tryToLogIn(callback: NextCallback<LoginResultModel>, error: ErrorCallback<string>, data: LoginModel) {
         this.getToken(data, callback, error);
     }
 
@@ -56,7 +56,7 @@ export class AuthService {
         if (data) {
             const remainingTime = this.getRemainingTime(data.userData);
             if (remainingTime < 5000) {
-            return false;
+                return false;
             }
             this.startTimer();
             this._.accessToken = data.userData.access_token;
@@ -112,18 +112,19 @@ export class AuthService {
         // this.getToken(`grant_type=refresh_token&refresh_token=${this._loggedUser.refresh_token}`);
     }
 
-    private getToken(data:LoginModel, callback: NextCallback<LoginResultModel> = null, error: ErrorCallback<string> = null) {
+    private getToken(data: LoginModel, callback: NextCallback<LoginResultModel> = null, error: ErrorCallback<string> = null) {
         this._.api()
             .url('api/user/authenticate')
             // .hasUrlencoded()
             // .rowData(rowData)
+            .noAuth()
             .json(data)
             .post<LoginResultModel, string>((data) => {
                 const token = data.token
                 let tokenInfo = jwt_decode(token);
                 // console.log(tokenInfo)
                 const role = tokenInfo.roles[0].role
-                data.createUser =  tokenInfo.roles[0].createUser
+                data.createUser = tokenInfo.roles[0].createUser
                 data.userRole = role
                 data.userName = tokenInfo.name
                 data.access_token = token
@@ -146,8 +147,8 @@ export class AuthService {
             }, error);
     }
 
-    private getRemainingTime(data) {       
-        return (+data.loggedTime.getTime() + (+data.expires_in * 1000)) - new Date().getTime();
+    private getRemainingTime(data) {
+        return ((+data.expires_in * 1000) - new Date().getTime());
     }
 
     passwordResetRequested(next: NextCallback<any>, error: ErrorCallback<ErrorModel>, username: string) {
