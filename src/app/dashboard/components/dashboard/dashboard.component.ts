@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit {
     this.request = new GraphDataRequestModel();
     this.request.quserType = "BOTH";
     this.request.divisionIds = [1];
-    this.request.stationIds = [0];
+    this.request.stationIds = null;
     this.getLoacations()
   }
 
@@ -59,6 +59,7 @@ export class DashboardComponent implements OnInit {
       d => {
         this.divitions = d
         this.locations = d[0].stations
+        this.selectedLocations = d[0].stations
         this.selectedDivition = d[0].id
       },
       e => { this._errorHandlerService.Handler(e) }
