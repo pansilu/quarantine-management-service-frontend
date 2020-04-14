@@ -435,7 +435,7 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.secret = null
 
       // console.log(this.q_person)
-      console.log(this.q_person)
+      //console.log(this.q_person)
       this.setQuarantinePerson(exit)
 
     } else {
