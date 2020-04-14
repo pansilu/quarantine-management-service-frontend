@@ -24,11 +24,11 @@ export class QuarantineService {
             .get(data, error, `size=${size}&page=${page}&sort=${sort}&search=${search}`);
     }
 
-    getUsers(data: NextCallback<PagedResultModel<UserViewModel>>, error: ErrorCallback<ErrorModel>, size: number, page: number, sort: string) {
+    getUsers(data: NextCallback<PagedResultModel<UserViewModel>>, error: ErrorCallback<ErrorModel>, size: number, page: number, sort: string,search:string) {
         this._.api()
             .url('api/user/admin')
             .needJson()
-            .get(data, error, `size=${size}&page=${page}&sort=${sort}`);
+            .get(data, error, `size=${size}&page=${page}&sort=${sort}&search=${search}`);
     }
 
     getCountries(data: NextCallback<Array<CountryModel>>, error: ErrorCallback<ErrorModel>) {

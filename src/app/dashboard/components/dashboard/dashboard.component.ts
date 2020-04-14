@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NameIdModel } from 'src/app/shared/models/name-id.model';
 import * as moment from 'moment';
-import { Moment } from 'moment';
+// import { Moment } from 'moment';
+import { GraphDataRequestModel } from '../../models/graph-data-request.model';
+import { DashboardService } from 'src/app/Service/dashboard.service';
+import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
+import { UserStationModel } from '../../models/user-station.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +15,7 @@ import { Moment } from 'moment';
 export class DashboardComponent implements OnInit {
 
   // selected: {startDate: Moment, endDate: Moment};
-  enabled:boolean = false;
+  enabled: boolean = false;
   dropdownSettings = {
     singleSelection: false,
     enableCheckAll: false,
@@ -23,7 +27,7 @@ export class DashboardComponent implements OnInit {
     allowSearchFilter: true
   };
 
-  selected: {start: Moment, end: Moment};
+  selected = {start: moment().subtract(30, 'days'), end: moment() };
   locale: any = {
     format: 'YYYY-MM-DDTHH:mm:ss.SSSSZ',
     displayFormat: 'DD MMMM YYYY',
@@ -31,15 +35,61 @@ export class DashboardComponent implements OnInit {
     cancelLabel: 'Cancel',
     applyLabel: 'Okay'
   }
+
+  divitions = new Array<UserStationModel>();
   locations = new Array<NameIdModel>();
   selectedLocations = new Array<NameIdModel>();
-  constructor() { }
+  selectedDivition: number
+  quserType:string = "BOTH"
+
+  request: GraphDataRequestModel
+
+  constructor(private _dashboardService: DashboardService, private _errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit() {
+    this.request = new GraphDataRequestModel();
+    this.request.quserType = "BOTH";
+    this.request.divisionIds = [1];
+    this.request.stationIds = [0];
+    this.getLoacations()
   }
 
-  draw(){
-    console.log(this.selected)
+  getLoacations() {
+    this._dashboardService.getLocations(
+      d => {
+        this.divitions = d
+        this.locations = d[0].stations
+        this.selectedDivition = d[0].id
+      },
+      e => { this._errorHandlerService.Handler(e) }
+    )
+  }
+
+  draw() {
+    this.request = new GraphDataRequestModel();
+    this.request.quserType = this.quserType;
+    this.selectedLocations.forEach(l => {
+      this.request.stationIds.push(l.id);
+    })
+    this.request.divisionIds = [this.selectedDivition];
+    this.request.startDate = this.selected.start.format('YYYY-MM-DD')
+    this.request.endDate = this.selected.end.format('YYYY-MM-DD')
+  }
+
+  onSelectAll($event) {
+
+  }
+
+  onItemSelect($event) {
+
+  }
+
+  divisionSelected($event) {
+    const id = +$event.target.value
+    if (id) {
+      this.selectedLocations = []
+      this.locations = this.divitions[id].stations
+    }
   }
 
 }
