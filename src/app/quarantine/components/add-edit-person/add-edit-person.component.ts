@@ -170,7 +170,7 @@ export class AddEditPersonComponent implements OnInit {
       // qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId, [Validators.required, Validators.min(1)]),
       qp_fileNo: new FormControl(this.person.fileNo),
 
-      qp_nic: new FormControl(this.person.nic),
+      qp_nic: new FormControl(this.person.nic, [Validators.pattern(/^[0-9]{9}[vVxX]$/)]),
       qp_passportNo: new FormControl(this.person.passportNo),
       qp_name: new FormControl(this.person.name, Validators.required),
       qp_address: new FormControl(this.person.address.line, Validators.required),
