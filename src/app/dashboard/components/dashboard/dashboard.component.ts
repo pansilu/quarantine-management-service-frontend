@@ -47,10 +47,10 @@ export class DashboardComponent implements OnInit {
   constructor(private _dashboardService: DashboardService, private _errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit() {
-    this.request = new GraphDataRequestModel();
-    this.request.quserType = "BOTH";
-    this.request.divisionIds = [1];
-    this.request.stationIds = null;
+    // this.request = new GraphDataRequestModel();
+    // this.request.quserType = "BOTH";
+    // this.request.divisionIds = [1];
+    // this.request.stationIds = null;
     this.getLoacations()
   }
 
@@ -61,6 +61,7 @@ export class DashboardComponent implements OnInit {
         this.locations = d[0].stations
         this.selectedLocations = d[0].stations
         this.selectedDivition = d[0].id
+        this.draw()
       },
       e => { this._errorHandlerService.Handler(e) }
     )

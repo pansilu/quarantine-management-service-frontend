@@ -33,15 +33,20 @@ export class QuarantinePersonDistributionComponent implements OnChanges {
   barChartPlugins = [];
 
   barChartData: ChartDataSets[] = [
-    { data: [], label: 'Quarantine Persons', fill: false, borderColor: "#3e95cd",pointBackgroundColor:'#3e95df' },
-    { data: [], label: 'Persons End Quarantine', fill: false, borderColor: "#8e5ea2",pointBackgroundColor:'#8e5ebf' }
+    { data: [], label: 'Quarantine Persons', fill: false, borderColor: "#3e95cd", pointBackgroundColor: '#3e95df' },
+    { data: [], label: 'Persons End Quarantine', fill: false, borderColor: "#8e5ea2", pointBackgroundColor: '#8e5ebf' }
 
   ];
   constructor(private _dashboardService: DashboardService, private _errorHandlerService: ErrorHandlerService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.request_model.graphType = "GROWTH"
-    this.populate();
+
+    if (this.request_model) {
+      this.request_model.graphType = "GROWTH"
+      this.request_model.endDate = null
+      this.request_model.startDate = null
+      this.populate();
+    }
   }
 
   populate() {
