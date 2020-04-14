@@ -860,3 +860,8 @@ tr {
 .md-drppicker .calendar {
   float: none !important;
 }
+
+// ng-auto select dropdown
+.suggestions-container{
+  z-index: 500 !important;
+}

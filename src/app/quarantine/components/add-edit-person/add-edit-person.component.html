@@ -148,15 +148,15 @@
                                             placeHolder="Enter Address line" (selected)='selectEventAddress($event)'
                                             (inputChanged)='onChangeSearchAddress($event)'
                                             (inputFocused)='onFocusedAddress($event)' formControlName="qp_address"
-                                            historyIdentifier="addresses" [itemTemplate]="itemTemplate"
-                                            [notFoundTemplate]="notFoundTemplate">
+                                            historyIdentifier="addresses" [itemTemplate]="itemTemplateAdd"
+                                            [notFoundTemplate]="notFoundTemplateAdd">
                                         </ng-autocomplete>
 
-                                        <ng-template #itemTemplate let-item>
+                                        <ng-template #itemTemplateAdd let-item>
                                             <a [innerHTML]="item.line"></a>
                                         </ng-template>
 
-                                        <ng-template #notFoundTemplate let-notFound>
+                                        <ng-template #notFoundTemplateAdd let-notFound>
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template>
 
