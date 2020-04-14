@@ -43,7 +43,7 @@ export class QuarantinePersonEditModel {
     ///*********************///
 
     constructor() {
-        this.address = new address()
+        this.address = new address('',null)
         this.guardianDetails = new guardianDetails()
         this.admitHos = new NameIdModel('',null)
         this.confirmedHos = new NameIdModel('',null)
@@ -53,6 +53,10 @@ export class QuarantinePersonEditModel {
 export class address {
     id: number
     line: string
+    constructor(line: string, id: number) {
+        this.id = id;
+        this.line = line;
+      }
 }
 
 export class guardianDetails {

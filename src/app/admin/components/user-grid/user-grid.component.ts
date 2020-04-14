@@ -38,7 +38,7 @@ export class UserGridComponent implements OnInit {
     }, e => {
       this._toast.error("Error","Canot get quarantine users")
       // console.log(e);
-    }, pageSize, this.pageNumber, this.sort);
+    }, pageSize, this.pageNumber, this.sort, this.search_text);
   }
 
 

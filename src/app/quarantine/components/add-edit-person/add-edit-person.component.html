@@ -8,7 +8,7 @@
         <div class="header-title">
             <h1>Add / Edit Quarantine Person <span class="sinhalaTitle">(නිරෝධායනයේ නිරත පුද්ගලයින් එක්කිරීම /
                     සංස්කරණය)</span></h1>
-            <small>Information about Quarantine Persons. (නිරෝධායනයේ නිරත පුද්ගලයින් ගේ තොරතුරු)</small>
+            <small>Information About Quarantine Persons. (නිරෝධායනයේ නිරත පුද්ගලයින් ගේ තොරතුරු)</small>
             <ol class="breadcrumb">
                 <li><a><i class="fa fa-users"></i> Quarantine</a></li>
                 <li><a>Add-Edit Persons</a></li>
@@ -107,9 +107,9 @@
                                     </label>
                                     <input type="text" formControlName="qp_nic">
                                     <div class="err_lo"
-                                        *ngIf="submitted && form.controls['qp_nic'].hasError('required')">
-                                        NIC is
-                                        required </div>
+                                        *ngIf="submitted && form.controls['qp_nic'].hasError('pattern')">
+                                        NIC No. is
+                                        not valid </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -144,7 +144,22 @@
                                     <label>
                                         Address (ලිපිනය)
                                     </label>
-                                    <input type="text" formControlName="qp_address">
+                                    <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword"
+                                            placeHolder="Enter Address line" (selected)='selectEventAddress($event)'
+                                            (inputChanged)='onChangeSearchAddress($event)'
+                                            (inputFocused)='onFocusedAddress($event)' formControlName="qp_address"
+                                            historyIdentifier="addresses" [itemTemplate]="itemTemplateAdd"
+                                            [notFoundTemplate]="notFoundTemplateAdd">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplateAdd let-item>
+                                            <a [innerHTML]="item.line"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplateAdd let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+
                                     <div class="err_lo"
                                         *ngIf="submitted && form.controls['qp_address'].hasError('required')">Address is
                                         required </div>
