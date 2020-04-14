@@ -64,13 +64,16 @@ export class AgeChartComponent implements OnChanges {
 
   dynamicColors(avg: number, i: number): string {
     // return `rgba(255, 0, 0, ${avg * i})`;
-    return "#"+((1<<24)*Math.random()|0).toString(16)//('#' + Math.floor(Math.random()*16777215).toString(16))
+    return "#" + ((1 << 24) * Math.random() | 0).toString(16)//('#' + Math.floor(Math.random()*16777215).toString(16))
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // console.log(this.request_model)
-    this.request_model.graphType = "AGE"
-    this.populate();
+    if (this.request_model) {
+      this.request_model.divisionIds = null
+      this.request_model.graphType = "AGE"
+      this.populate();
+    }
+
   }
 
 }
