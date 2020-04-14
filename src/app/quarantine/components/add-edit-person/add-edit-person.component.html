@@ -107,9 +107,9 @@
                                     </label>
                                     <input type="text" formControlName="qp_nic">
                                     <div class="err_lo"
-                                        *ngIf="submitted && form.controls['qp_nic'].hasError('required')">
-                                        NIC is
-                                        required </div>
+                                        *ngIf="submitted && form.controls['qp_nic'].hasError('pattern')">
+                                        NIC No. is
+                                        not valid </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
