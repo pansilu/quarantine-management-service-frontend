@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { PagedResultModel } from '../common/models/paged-result.model';
 import { ErrorModel } from '../common/models/error-model';
 import { HttpClient } from '@angular/common/http';
-import { QuarantinePersonEditModel } from '../quarantine/models/quarantine-person-edit.model';
+import { QuarantinePersonEditModel, address } from '../quarantine/models/quarantine-person-edit.model';
 import { QuarantinePersonViewModel } from '../quarantine/models/quarantine-person-view.model';
 import { DailyUpdatesViewModel } from '../quarantine/models/daily-updates-view.model';
 import { QuarantinePersonGetModel } from '../quarantine/models/quarantine-person-get.model';
@@ -43,6 +43,13 @@ export class QuarantineService {
             .url('api/user/admin/location')
             .needJson()
             .get(data, error);
+    }
+
+    getAddresses(data: NextCallback<Array<address>>, error: ErrorCallback<ErrorModel>, addressLine : any){
+        this._.api()
+            .url(`api/misc/address`)
+            .needJson()
+            .get(data, error, `search=${addressLine}`);
     }
 
     getOfficerDetails(data: NextCallback<Array<OfficerDetailsModel>>, error: ErrorCallback<ErrorModel>, officer : any) {

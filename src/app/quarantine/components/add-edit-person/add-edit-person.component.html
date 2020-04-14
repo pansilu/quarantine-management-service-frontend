@@ -125,7 +125,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="page_input">
                                     <label>
                                         Name (නම)
@@ -139,12 +139,27 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="page_input">
                                     <label>
                                         Address (ලිපිනය)
                                     </label>
-                                    <input type="text" formControlName="qp_address">
+                                    <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword"
+                                            placeHolder="Enter Address line" (selected)='selectEventAddress($event)'
+                                            (inputChanged)='onChangeSearchAddress($event)'
+                                            (inputFocused)='onFocusedAddress($event)' formControlName="qp_address"
+                                            historyIdentifier="addresses" [itemTemplate]="itemTemplate"
+                                            [notFoundTemplate]="notFoundTemplate">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplate let-item>
+                                            <a [innerHTML]="item.line"></a>
+                                        </ng-template>
+
+                                        <ng-template #notFoundTemplate let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+
                                     <div class="err_lo"
                                         *ngIf="submitted && form.controls['qp_address'].hasError('required')">Address is
                                         required </div>

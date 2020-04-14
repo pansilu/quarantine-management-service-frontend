@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
-import { QuarantinePersonEditModel } from '../../models/quarantine-person-edit.model';
+import { QuarantinePersonEditModel, address } from '../../models/quarantine-person-edit.model';
 import { ToastService } from 'src/app/Service/toast.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -45,6 +45,8 @@ export class AddEditPersonComponent implements OnInit {
 
   countries = [];
   hospitals = [];
+  addresses = [];
+  qp_exsistingAddressID: any;
   qp_inspectorIds: []
 
   id: any;
@@ -55,6 +57,7 @@ export class AddEditPersonComponent implements OnInit {
   appEnebleFlag: boolean
 
   keyword = 'name';
+  addressKeyword = 'line';
   createUser: boolean
 
   constructor(private _quarantineService: QuarantineService,
@@ -371,9 +374,17 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.nic = this.form.value.qp_nic
       this.q_person.passportNo = this.form.value.qp_passportNo
       this.q_person.name = this.form.value.qp_name
-      this.q_person.address = {
-        id: null,
-        line: this.form.value.qp_address
+
+      if(this.person.address.id == null){
+        this.q_person.address = {
+          id: null,
+          line: this.form.value.qp_address
+        }
+      } else {
+        this.q_person.address = {
+          id: this.person.address.id,
+          line: this.person.address.line
+        }
       }
       this.q_person.age = this.form.value.qp_age
       this.q_person.reportDate = this.form.value.qp_reportedDate
@@ -424,7 +435,7 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.secret = null
 
       // console.log(this.q_person)
-      // console.log(this.q_person)
+      console.log(this.q_person)
       this.setQuarantinePerson(exit)
 
     } else {
@@ -495,6 +506,32 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   onFocusedAd(e) {
+    // do something
+  }
+
+  selectEventAddress(item) {
+    // do something with selected item
+    this.person.address = item;
+    // console.log(item)
+  }
+
+  onChangeSearchAddress(search: string) {
+
+    this.person.address.id = null
+    this.person.address.line = search
+
+      this._quarantineService.getAddresses((d) => {
+      d.forEach(a => {
+        this.addresses.push(a);
+      })
+    }, e => {
+      // console.log(e);
+      this._errorHandlerService.Handler(e);
+    },search);
+     
+  }
+
+  onFocusedAddress(e) {
     // do something
   }
 
