@@ -19,21 +19,21 @@
                 <div class="panel panel-bd">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="page_input">
                                     <label>
-                                        Division (කොට්ඨාසය)
+                                        Division <br>(කොට්ඨාසය)
                                     </label>
-                                    <select (change)="divisionSelected()">
-                                        <option *ngFor="let division of divisions" [value]="division">{{division}}
+                                    <select (change)="divisionSelected($event)" [(ngModel)]="selectedDivition">
+                                        <option *ngFor="let d of divitions" [value]="d.id">{{d.name}}
                                         </option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="page_input">
                                     <label>
-                                        Police Station (පොලිස් ස්ථානය)
+                                        Police Station <br> (පොලිස් ස්ථානය)
                                     </label>
                                     <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="locations"
                                         [(ngModel)]="selectedLocations" [settings]="dropdownSettings"
@@ -41,10 +41,10 @@
                                     </ng-multiselect-dropdown>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="page_input">
                                     <label>
-                                        Date Range (කාල පරාසය)
+                                        Date Range <br> (කාල පරාසය)
                                     </label>
                                     <input type="text" ngxDaterangepickerMd autoApply="true" [(ngModel)]="selected"
                                         opens="right" drops="down" startKey="start" endKey="end" [locale]="locale" />
@@ -53,6 +53,20 @@
                             <div class="col-md-2">
                                 <div class="page_input">
                                     <label>
+                                        Type <br> (වර්ගය)
+                                    </label>
+                                    <select [(ngModel)]="quserType">
+                                        <option value="BOTH">BOTH</option>
+                                       <option value="OVER">OVER</option>
+                                       <option value="NOT_DONE">NOT_DONE</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-1">
+                                <div class="page_input">
+                                    <label>
+                                        <span>&#8203;</span>
+                                        <br>
                                         <span>&#8203;</span>
                                     </label>
                                     <div class="input_button">
@@ -70,14 +84,14 @@
             <div class="col-md-6">
                 <div class="panel panel-bd">
                     <div class="panel-body">
-                        <app-age-chart reqest='true'> </app-age-chart>
+                        <app-age-chart [reqest]='request'> </app-age-chart>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="panel panel-bd">
                     <div class="panel-body">
-                        <app-station-distribution></app-station-distribution>
+                        <app-station-distribution [reqest]='request'></app-station-distribution>
                     </div>
                 </div>
             </div>
@@ -86,14 +100,14 @@
             <div class="col-md-6">
                 <div class="panel panel-bd">
                     <div class="panel-body">
-                        <app-new-quarantine-persons-distribution></app-new-quarantine-persons-distribution>
+                        <app-new-quarantine-persons-distribution [reqest]='request'></app-new-quarantine-persons-distribution>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="panel panel-bd">
                     <div class="panel-body">
-                        <app-quarantine-person-distribution></app-quarantine-person-distribution>
+                        <app-quarantine-person-distribution [reqest]='request'></app-quarantine-person-distribution>
                     </div>
                 </div>
             </div>

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ServiceHelper, NextCallback, ErrorCallback } from './service.helper';
-import { PagedResultModel } from '../common/models/paged-result.model';
 import { ErrorModel } from '../common/models/error-model';
 import { HttpClient } from '@angular/common/http';
 import { GraphDataModel } from '../dashboard/models/graph-data.model';
 import { GraphDataRequestModel } from '../dashboard/models/graph-data-request.model';
+import { UserStationModel } from '../dashboard/models/user-station.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class DashboardService {
 
   constructor(private _: ServiceHelper, private _http: HttpClient) { }
 
-  getLocations(data: NextCallback<Array<LocationModel>>, error: ErrorCallback<ErrorModel>) {
+  getLocations(data: NextCallback<Array<UserStationModel>>, error: ErrorCallback<ErrorModel>) {
     this._.api()
       .url('api/user/admin/location')
       .needJson()

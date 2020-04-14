@@ -1,19 +1,19 @@
-import { Component, OnInit, SimpleChanges, Input } from '@angular/core';
+import { Component, OnInit, SimpleChanges, Input, OnChanges } from '@angular/core';
 import { ChartType, ChartOptions, ChartDataSets } from 'chart.js';
 import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
 import { NameIdModel } from 'src/app/shared/models/name-id.model';
 import { DashboardService } from 'src/app/Service/dashboard.service';
 import { GraphDataRequestModel } from '../../models/graph-data-request.model';
+import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 
 @Component({
   selector: 'app-age-chart',
   templateUrl: './age-chart.component.html',
   styleUrls: ['./age-chart.component.scss']
 })
-export class AgeChartComponent implements OnInit {
+export class AgeChartComponent implements OnChanges {
 
-  @Input('reqest') request:boolean
-  request_model: GraphDataRequestModel
+  @Input('reqest') request_model !: GraphDataRequestModel
 
   public pieChartOptions: ChartOptions = {
     responsive: true,
@@ -36,13 +36,13 @@ export class AgeChartComponent implements OnInit {
   public pieChartType: ChartType = 'pie';
   public pieChartLegend = true;
   public pieChartPlugins = [];
-  constructor(private _dashboardService: DashboardService) {
+  constructor(private _dashboardService: DashboardService, private _errorHandlerService: ErrorHandlerService) {
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
 
-  ngOnInit() {
-  }
+  // ngOnInit() {
+  // }
 
   populate() {
     this.pieChartLabels = []
@@ -58,22 +58,18 @@ export class AgeChartComponent implements OnInit {
       this.pieChartData[0].backgroundColor = backgroundColor;
     },
       e => {
-        console.log(e);
-        
+        this._errorHandlerService.Handler(e);
       }, this.request_model)
   }
 
   dynamicColors(avg: number, i: number): string {
-    return `rgba(255, 0, 0, ${avg * i})`;
+    // return `rgba(255, 0, 0, ${avg * i})`;
+    return "#"+((1<<24)*Math.random()|0).toString(16)//('#' + Math.floor(Math.random()*16777215).toString(16))
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // changes.prop contains the old and the new value...
-    this.request_model = new GraphDataRequestModel();
-    this.request_model.graphType = "AGE";
-    this.request_model.quserType = "BOTH";
-    this.request_model.divisionIds = [1];
-    this.request_model.stationIds = [0];
+    // console.log(this.request_model)
+    this.request_model.graphType = "AGE"
     this.populate();
   }
 
