@@ -44,6 +44,7 @@ export class NewQuarantinePersonsDistributionComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (this.request_model) {
       this.request_model.graphType = "DATE"
+      this.request_model.quserType = null
       this.request_model.divisionIds = null
       this.populate();
     }

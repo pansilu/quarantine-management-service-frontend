@@ -425,6 +425,7 @@ a span.fa.arrow::before {
 }
 
 .pagination a {
+  cursor: pointer;
   color: #1b5630;
   float: left;
   padding: 5px 12px;
