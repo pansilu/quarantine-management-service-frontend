@@ -6,6 +6,7 @@ import { GraphDataRequestModel } from '../../models/graph-data-request.model';
 import { DashboardService } from 'src/app/Service/dashboard.service';
 import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 import { UserStationModel } from '../../models/user-station.model';
+import GraphTypes from '../../models/GraphTypes'
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,8 @@ import { UserStationModel } from '../../models/user-station.model';
 export class DashboardComponent implements OnInit {
 
   // selected: {startDate: Moment, endDate: Moment};
+  graph = GraphTypes;
+  activeGraph:string = GraphTypes.age;
   enabled: boolean = false;
   dropdownSettings = {
     singleSelection: false,
@@ -92,6 +95,10 @@ export class DashboardComponent implements OnInit {
       this.selectedLocations = []
       this.locations = this.divitions[id].stations
     }
+  }
+
+  graph_params(graph:string){
+    this.activeGraph = graph
   }
 
 }

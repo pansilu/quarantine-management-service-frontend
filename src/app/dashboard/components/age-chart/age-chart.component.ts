@@ -15,6 +15,7 @@ export class AgeChartComponent implements OnChanges {
 
   @Input('reqest') request_model !: GraphDataRequestModel
 
+  loading: boolean = true;
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -45,6 +46,7 @@ export class AgeChartComponent implements OnChanges {
   // }
 
   populate() {
+    this.loading = true;
     this.pieChartLabels = []
     this.pieChartData[0].data = []
     var backgroundColor: string[] = []
@@ -56,6 +58,8 @@ export class AgeChartComponent implements OnChanges {
         backgroundColor.push(this.dynamicColors(colorAvg, (i + 1)))
       })
       this.pieChartData[0].backgroundColor = backgroundColor;
+      this.loading = false;
+
     },
       e => {
         this._errorHandlerService.Handler(e);

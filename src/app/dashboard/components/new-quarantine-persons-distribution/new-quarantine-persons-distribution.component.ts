@@ -11,26 +11,8 @@ import { GraphDataRequestModel } from '../../models/graph-data-request.model';
   styleUrls: ['./new-quarantine-persons-distribution.component.scss']
 })
 export class NewQuarantinePersonsDistributionComponent implements OnChanges {
-
-  // barChartOptions: ChartOptions = {
-  //   responsive: true,
-  // };
-  // barChartLabels: Label[] = ['Moratuwa', 'Dehiwala', 'Kohuwala', 'Piliyandala', 'Kahathuduwa', 'Agulana'];
-  // barChartType: ChartType = 'bar';
-  // barChartLegend = true;
-  // barChartPlugins = [];
-
-  // barChartData: ChartDataSets[] = [
-  //   { data: [8, 4, 6, 12, 25, 33], label: 'New Quarantine Persons',backgroundColor: "#8e5ea2" , hoverBackgroundColor:'#8e5ebf'}
-  // ];
-
-  // constructor() { }
-
-  // ngOnInit() {
-  // }
-
   @Input('reqest') request_model !: GraphDataRequestModel
-
+  loading: boolean = true;
   barChartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -39,6 +21,12 @@ export class NewQuarantinePersonsDistributionComponent implements OnChanges {
           callback: function (tick, index, array) {
             return (index % 3) ? "" : tick;
           }
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function (value: number) { if (value % 1 === 0) { return value; } }
         }
       }]
     }
@@ -49,20 +37,21 @@ export class NewQuarantinePersonsDistributionComponent implements OnChanges {
   barChartPlugins = [];
 
   barChartData: ChartDataSets[] = [
-    { data: [], label: 'Quarantine Persons', fill: false, borderColor: "#1967ab",pointBackgroundColor:"#1967bf" },
+    { data: [], label: 'Quarantine Persons', fill: false, borderColor: "#1967ab", pointBackgroundColor: "#1967bf" },
   ];
   constructor(private _dashboardService: DashboardService, private _errorHandlerService: ErrorHandlerService) { }
 
   ngOnChanges(changes: SimpleChanges) {
-    if(this.request_model){
+    if (this.request_model) {
       this.request_model.graphType = "DATE"
       this.request_model.divisionIds = null
       this.populate();
     }
-    
+
   }
 
   populate() {
+    this.loading = true;
     this.barChartLabels = []
     this.barChartData[0].data = []
 
@@ -70,8 +59,8 @@ export class NewQuarantinePersonsDistributionComponent implements OnChanges {
       d.data.forEach((v) => {
         this.barChartLabels.push(v.key)
         this.barChartData[0].data.push(v.value)
-
       })
+      this.loading = false;
     },
       e => {
         this._errorHandlerService.Handler(e);

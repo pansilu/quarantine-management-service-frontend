@@ -1,9 +1,14 @@
-<div class="form_sub_title">
-  <p>නිරෝධායනය වන පුද්ගලයින් ගේ ව්‍යාප්තිය - පොලිස් ස්ථානය අනුව <br/> (Distribution of Quarantine Persons - According to Police Station)</p>
+<div class="graph_sub_title">
+  <p>නිරෝධායනය වන පුද්ගලයින් ගේ ව්‍යාප්තිය - පොලිස් ස්ථානය අනුව <br /> (Distribution of Quarantine Persons - According
+    to Police Station)</p>
   <hr>
 </div>
-<div class="chart-wrapper">
+<div class="chart-wrapper" *ngIf="!loading">
   <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
     [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
   </canvas>
+</div>
+
+<div class="loading" *ngIf="loading">
+  <img class="image_Loading" src="../../../../assets/img/loader.gif" />
 </div>

@@ -41,7 +41,7 @@
                                     </ng-multiselect-dropdown>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2" *ngIf="activeGraph == graph.date">
                                 <div class="page_input">
                                     <label>
                                         Date Range <br> (කාල පරාසය)
@@ -57,8 +57,8 @@
                                     </label>
                                     <select [(ngModel)]="quserType">
                                         <option value="BOTH">BOTH</option>
-                                       <option value="OVER">OVER</option>
-                                       <option value="NOT_DONE">NOT_DONE</option>
+                                        <option value="OVER">OVER</option>
+                                        <option value="NOT_DONE">NOT_DONE</option>
                                     </select>
                                 </div>
                             </div>
@@ -79,8 +79,10 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="row">
+<!-- <div class="row">
             <div class="col-md-6">
                 <div class="panel panel-bd">
                     <div class="panel-body">
@@ -111,7 +113,57 @@
                     </div>
                 </div>
             </div>
+        </div> -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-bd">
+                <div class="panel-body">
+                    <div class="row">
+                        <ul class="nav nav-tabs">
+                            <li class="active" (click)="graph_params(graph.age)"><a data-toggle="tab"
+                                    href="#age">According to Ages <br> (වයස අනුව)</a>
+                            </li>
+                            <li (click)="graph_params(graph.station)"><a data-toggle="tab" href="#station">According to
+                                    Police Station <br>(පොලිස් ස්ථානය
+                                    අනුව)</a>
+                            </li>
+                            <li (click)="graph_params(graph.date)"><a data-toggle="tab" href="#date">According to Date
+                                    <br> (දිනය අනුව)</a></li>
+                            <li (click)="graph_params(graph.growth)"><a data-toggle="tab" href="#growth"> In/End
+                                    quarantine process <br> (නිරත හා නිරෝධායනය
+                                    නිම කළ
+                                    පුද්ගලයින්)</a></li>
+                        </ul>
+                    </div>
+                    <div class="container">
+                        <div class="tab-content">
+                            <div id="age" class="tab-pane fade in active">
+                                <div>
+                                    <app-age-chart [reqest]='request'> </app-age-chart>
+                                </div>
+                            </div>
+                            <div id="station" class="tab-pane fade">
+                                <div>
+                                    <app-station-distribution [reqest]='request'></app-station-distribution>
+                                </div>
+                            </div>
+                            <div id="date" class="tab-pane fade">
+                                <div>
+                                    <app-new-quarantine-persons-distribution [reqest]='request'>
+                                    </app-new-quarantine-persons-distribution>
+                                </div>
+                            </div>
+                            <div id="growth" class="tab-pane fade">
+                                <div>
+                                    <app-quarantine-person-distribution [reqest]='request'>
+                                    </app-quarantine-person-distribution>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>

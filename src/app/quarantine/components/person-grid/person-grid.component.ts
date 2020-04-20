@@ -27,7 +27,7 @@ export class PersonGridComponent implements OnInit {
   }
 
   onPageChange(offset) {
-    console.log(offset)
+    // console.log(offset)
     this.offset = offset;
     this.pageNumber = Math.floor(offset / this.limit);
     this.load_data_types();
