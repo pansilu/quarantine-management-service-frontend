@@ -94,7 +94,7 @@ export class AddEditPersonComponent implements OnInit {
       singleSelection: false,
       enableCheckAll: false,
       idField: 'id',
-      textField: 'name',
+      textField: 'showingName',
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
