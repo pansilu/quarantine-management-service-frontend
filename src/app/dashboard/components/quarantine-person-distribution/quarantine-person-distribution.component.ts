@@ -49,6 +49,7 @@ export class QuarantinePersonDistributionComponent implements OnChanges {
 
     if (this.request_model) {
       this.request_model.graphType = "GROWTH"
+      this.request_model.quserType = null
       this.request_model.endDate = null
       this.request_model.startDate = null
       this.populate();

@@ -16,6 +16,14 @@ export class StationDistributionComponent implements OnChanges {
   loading: boolean = true;
   barChartOptions: ChartOptions = {
     responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function (value: number) { if (value % 1 === 0) { return value; } }
+        }
+      }]
+    }
   };
   barChartLabels: Label[] = [];
   barChartType: ChartType = 'bar';
