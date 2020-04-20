@@ -13,7 +13,7 @@ import { GraphDataRequestModel } from '../../models/graph-data-request.model';
 export class StationDistributionComponent implements OnChanges {
 
   @Input('reqest') request_model !: GraphDataRequestModel
-
+  loading: boolean = true;
   barChartOptions: ChartOptions = {
     responsive: true,
   };
@@ -38,6 +38,7 @@ export class StationDistributionComponent implements OnChanges {
   }
 
   populate() {
+    this.loading = true;
     this.barChartLabels = []
     this.barChartData[0].data = []
     this._dashboardService.getGraphData(d => {
@@ -45,6 +46,7 @@ export class StationDistributionComponent implements OnChanges {
         this.barChartLabels.push(v.key)
         this.barChartData[0].data.push(v.value)
       })
+      this.loading = false;
     },
       e => {
         this._errorHandlerService.Handler(e);

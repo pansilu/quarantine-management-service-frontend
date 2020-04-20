@@ -14,7 +14,7 @@ import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 export class QuarantinePersonDistributionComponent implements OnChanges {
 
   @Input('reqest') request_model !: GraphDataRequestModel
-
+  loading: boolean = true;
   barChartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -23,6 +23,12 @@ export class QuarantinePersonDistributionComponent implements OnChanges {
           callback: function (tick, index, array) {
             return (index % 3) ? "" : tick;
           }
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          beginAtZero: true,
+          callback: function (value: number) { if (value % 1 === 0) { return value; } }
         }
       }]
     }
@@ -50,6 +56,7 @@ export class QuarantinePersonDistributionComponent implements OnChanges {
   }
 
   populate() {
+    this.loading = true;
     this.barChartLabels = []
     this.barChartData[0].data = []
     this.barChartData[1].data = []
@@ -61,6 +68,7 @@ export class QuarantinePersonDistributionComponent implements OnChanges {
         this.barChartData[1].data.push(v.value2)
 
       })
+      this.loading = false;
     },
       e => {
         this._errorHandlerService.Handler(e);

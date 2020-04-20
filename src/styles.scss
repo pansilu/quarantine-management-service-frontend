@@ -1,5 +1,5 @@
 body {
-  // overflow: hidden;
+  overflow: hidden;
   background-color: #f1f3f6;
 }
 /* side bar */
@@ -651,12 +651,23 @@ a span.fa.arrow::before {
   font-weight: bold;
   margin-top: 15px;
 }
-
 .form_sub_title hr {
   margin-top: 0;
 }
 
 .form_sub_title p {
+  margin: 0 0 6px;
+}
+ // graph
+.graph_sub_title {
+  font-weight: bold;
+  margin-top: 40px;
+}
+.graph_sub_title hr {
+  margin-top: 0;
+}
+
+.graph_sub_title p {
   margin: 0 0 6px;
 }
 

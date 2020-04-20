@@ -8,8 +8,8 @@
             <h1>Quarantine Persons <span class="sinhalaTitle">(නිරෝධායනය වන පුද්ගලයින්)</span></h1>
             <small>Information About Quarantine Persons Up To Now (මේ වන විට නිරෝධායනයේ පසුවන පුද්ගලයින්)</small>
             <ol class="breadcrumb">
-                <li><a ><i class="fa fa-home"></i> Quarantine</a></li>
-                <li><a >Persons</a></li>
+                <li><a><i class="fa fa-home"></i> Quarantine</a></li>
+                <li><a>Persons</a></li>
             </ol>
         </div>
     </div>
@@ -50,26 +50,33 @@
                                 <thead>
                                     <tr>
                                         <!-- <th>ID</th> -->
-                                        <th>Name <br/> (නම)</th>
-                                        <th>Mobile Number<br/>(ජංගම දුරකථන අංකය)</th>
-                                        <th>Address<br/>(ලිපිණය)</th>
-                                        <th>Police Station <br/>(පොලිස් ස්ථානය)</th>
-                                        <th>Total Points<br/>(අවදානම් මට්ටම)</th>
-                                        <th>Remaining Days<br/>(ඉතිරි දින ගනන)</th>
-                                        <th>Last Update<br/>(යාවත්කලීන කළ දිනය) </th>
-                                        <th colspan="2">More..<br/>(වෙනත්)</th>
+                                        <th>Name <br /> (නම)</th>
+                                        <th>Mobile No.<br />(ජ.දු.අ)</th>
+                                        <th>N.I.C<br />(ජා.හැ.අ)</th>
+                                        <th>Passport No<br />(වී.ග.බ.අ)</th>
+
+                                        <th>Address<br />(ලිපිණය)</th>
+                                        <th>Police Station <br />(පොලිස් ස්ථානය)</th>
+                                        <th>Total Points<br />(අවදානම් මට්ටම)</th>
+                                        <th>Remaining Days<br />(ඉතිරි දින ගනන)</th>
+                                        <th>Date Reported<br />(වාර්ථාවු දිනය)</th>
+                                        <th>Last Update<br />(යාවත්කලීන කළ දිනය) </th>
+                                        <th colspan="2">More..<br />(වෙනත්)</th>
                                         <!-- <th></th> -->
                                     </tr>
                                 </thead>
-                                <tbody >
-                                    <tr  [ngClass] = "p.needToRemind?'notupdate':'update'" *ngFor = "let p of persons">
+                                <tbody>
+                                    <tr [ngClass]="p.needToRemind?'notupdate':'update'" *ngFor="let p of persons">
                                         <!-- <td>{{p.id}}</td> -->
                                         <td>{{p.name}}</td>
                                         <td>{{p.mobile}}</td>
+                                        <td>{{p.nic}}</td>
+                                        <td>{{p.passportNo}}</td>
                                         <td>{{p.address?.line}}</td>
                                         <td>{{p.stationResDto?.name}}</td>
                                         <td>{{p.totalPoints ? p.totalPoints : 0}}</td>
                                         <td>{{p.remainingDays}}</td>
+                                        <td>{{p.reportDate}}</td>
                                         <td>{{p.lastUpdateDate}}</td>
                                         <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
                                             Daily Updates
@@ -92,7 +99,7 @@
                                         </td>
                                     </tr> -->
                                 </tbody>
-                                
+
                             </table>
                             <!-- <div class="loading" *ngIf="loading">
                                 <img class="image_Loading" src="../../../../assets/img/loader.gif" />
