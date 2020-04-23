@@ -125,7 +125,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="page_input">
                                     <label>
                                         Name (නම)
@@ -139,12 +139,12 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="page_input">
                                     <label>
                                         Address (ලිපිනය)
                                     </label>
-                                    <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword"
+                                    <!-- <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword"
                                             placeHolder="Enter Address line" (selected)='selectEventAddress($event)'
                                             (inputChanged)='onChangeSearchAddress($event)'
                                             (inputFocused)='onFocusedAddress($event)' formControlName="qp_address"
@@ -158,7 +158,8 @@
 
                                         <ng-template #notFoundTemplateAdd let-notFound>
                                             <div [innerHTML]="notFound"></div>
-                                        </ng-template>
+                                        </ng-template> -->
+                                    <app-address-search-map></app-address-search-map>
 
                                     <div class="err_lo"
                                         *ngIf="submitted && form.controls['qp_address'].hasError('required')">Address is
@@ -559,17 +560,18 @@
         <div class="footer">
             <!-- <div class="panel panel-bd" style="margin: 0 48px 0 16px;">
                 <div class="panel-body"> -->
-                    <div class="row">
-                        <div class="pull-right">
-                            <div class="page_button pageptn">
-                                <button type="submit" (click)="resetForm()">Clear</button>
-                                <button type="submit" (click)="addNewPerson();scroll(qpPageTop)" *ngIf="saveButtonFlag">Save</button>
-                                <button type="submit" (click)="addNewPerson(true)">Save & Exit</button>
-                                <button type="submit" [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
-                            </div>
-                        </div>
+            <div class="row">
+                <div class="pull-right">
+                    <div class="page_button pageptn">
+                        <button type="submit" (click)="resetForm()">Clear</button>
+                        <button type="submit" (click)="addNewPerson();scroll(qpPageTop)"
+                            *ngIf="saveButtonFlag">Save</button>
+                        <button type="submit" (click)="addNewPerson(true)">Save & Exit</button>
+                        <button type="submit" [routerLink]="['/quarantine/quarantine-person']">Cancel</button>
                     </div>
-                <!-- </div>
+                </div>
+            </div>
+            <!-- </div>
             </div> -->
         </div>
     </div>
@@ -601,18 +603,18 @@
         <!-- Modal content-->
         <div class="modal-content popup">
             <!-- <div class="modal-header"> -->
-                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
-                <!-- <h4 class="modal-title">Modal Header</h4> -->
-                <div class="popup_heading ">
-                    <div class="row margin ">
-                        <div class="pull-right ">
-                            <a class="close " data-dismiss="modal">&times;</a>
-                        </div>
-                        <h2>Add New Officer</h2>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            <!-- <h4 class="modal-title">Modal Header</h4> -->
+            <div class="popup_heading ">
+                <div class="row margin ">
+                    <div class="pull-right ">
+                        <a class="close " data-dismiss="modal">&times;</a>
                     </div>
+                    <h2>Add New Officer</h2>
+                </div>
                 <!-- </div> -->
             </div>
-            <div class="modal-body" *ngIf = "new_officer">
+            <div class="modal-body" *ngIf="new_officer">
                 <app-new-officer (save)="close_add_new($event)"></app-new-officer>
             </div>
             <!-- <div class="modal-footer page_button pageptn">

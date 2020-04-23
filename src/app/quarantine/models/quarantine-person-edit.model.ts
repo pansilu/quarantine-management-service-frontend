@@ -36,27 +36,29 @@ export class QuarantinePersonEditModel {
     confirmedHos: NameIdModel
     arrivedCountry: NameIdModel
     // gramaSewaDivision: RecivedGramaSewaDivisionModel
-    stationResDto:RecivedStationModel
+    stationResDto: RecivedStationModel
     informedAuthority: boolean
     reportDate: string
-    inspectorDetails:Array<NameIdModel>
+    inspectorDetails: Array<NameIdModel>
     ///*********************///
 
     constructor() {
-        this.address = new address('',null)
+        this.address = new address('', null)
         this.guardianDetails = new guardianDetails()
-        this.admitHos = new NameIdModel('',null)
-        this.confirmedHos = new NameIdModel('',null)
+        this.admitHos = new NameIdModel('', null)
+        this.confirmedHos = new NameIdModel('', null)
     }
 }
 
 export class address {
     id: number
     line: string
+    lat: number
+    lng: number
     constructor(line: string, id: number) {
         this.id = id;
         this.line = line;
-      }
+    }
 }
 
 export class guardianDetails {

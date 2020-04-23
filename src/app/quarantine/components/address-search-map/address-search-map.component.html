@@ -1,0 +1,12 @@
+<input type="text" (keydown.enter)="$event.preventDefault()" [(ngModel)]="address" placeholder="Search Nearest Location"
+    autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+<div style="padding-top: 5px;">
+    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" *ngIf="enable">
+        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+            (dragEnd)="markerDragEnd($event)"></agm-marker>
+    </agm-map>
+</div>
+
+<!-- <h5>Address: {{address}}</h5>
+<div>Latitude: {{latitude}}</div>
+<div>Longitude: {{longitude}}</div> -->
