@@ -46,7 +46,7 @@
                                     <label>
                                         Police Station (පොලිස් ස්ථානය)
                                     </label>
-                                    <select formControlName="qp_policeStationId" (change)="policeStationSelected()">
+                                    <select formControlName="qp_policeStationId" (change)="policeStationSelected($event)">
                                         <option *ngFor="let policeStation of policeStations" [value]="policeStation.id">
                                             {{policeStation.name}}</option>
                                     </select>
@@ -159,7 +159,7 @@
                                         <ng-template #notFoundTemplateAdd let-notFound>
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template> -->
-                                    <app-address-search-map></app-address-search-map>
+                                    <app-address-search-map [address] = "address" (address_out) = "onChangeSearchAddress(address)" [station] = "currentStationName" ></app-address-search-map>
 
                                     <div class="err_lo"
                                         *ngIf="submitted && form.controls['qp_address'].hasError('required')">Address is

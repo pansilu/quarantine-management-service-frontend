@@ -9,6 +9,7 @@ import { NameIdModel } from 'src/app/shared/models/name-id.model';
 import { QuarantinePersonGetModel } from '../../models/quarantine-person-get.model';
 import { AuthService } from 'src/app/Service/auth.service';
 import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
+import { AddressModel } from '../../models/address.model';
 declare var $: any
 @Component({
   selector: 'app-add-edit-person',
@@ -18,6 +19,8 @@ declare var $: any
 export class AddEditPersonComponent implements OnInit {
   // @Output() pageRefersh: EventEmitter<boolean> = new EventEmitter<boolean>();
   // @Input('id') q_id: number
+  address: AddressModel = new AddressModel();
+  currentStationName: string
   q_id: number;
   form: FormGroup;
   form2: FormGroup;
@@ -66,7 +69,7 @@ export class AddEditPersonComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private _authService: AuthService,
-    private _errorHandlerService:ErrorHandlerService
+    private _errorHandlerService: ErrorHandlerService
   ) {
     this.q_person = new QuarantinePersonEditModel(),
       this.getOfficer = new OfficerRequestModel();
@@ -110,6 +113,10 @@ export class AddEditPersonComponent implements OnInit {
         // this.person.division = this.person.gramaSewaDivision.station.division.name
         // this.person.policeStation = this.person.gramaSewaDivision.station.id;
         // this.person.gramaSewaDivisionId = this.person.gramaSewaDivision.id;
+        if (this.address !== null) {
+          this.address.line = d.address.line;
+          this.address.id = d.address.id;
+        }
         this.person.reportedDate = this.person.reportDate;
 
         if (this.person.stationResDto) {
@@ -286,6 +293,7 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   policeStationSelected() {
+    this.currentStationName = this.policeStations.find(x => x.id == +this.form.value.qp_policeStationId).name
     this.getOfficer.ranks = null;
     const ps = [];
     ps.push(+this.form.value.qp_policeStationId)
@@ -375,7 +383,7 @@ export class AddEditPersonComponent implements OnInit {
       this.q_person.passportNo = this.form.value.qp_passportNo
       this.q_person.name = this.form.value.qp_name
 
-      if(this.person.address.id == null){
+      if (this.person.address.id == null) {
         this.q_person.address = {
           id: null,
           line: this.form.value.qp_address
@@ -515,20 +523,21 @@ export class AddEditPersonComponent implements OnInit {
     // console.log(item)
   }
 
-  onChangeSearchAddress(search: string) {
+  onChangeSearchAddress(address: AddressModel) {
+    console.log(address);
+    this.address = address;
+    // this.person.address.id = null
+    // this.person.address.line = search
 
-    this.person.address.id = null
-    this.person.address.line = search
+    //   this._quarantineService.getAddresses((d) => {
+    //   d.forEach(a => {
+    //     this.addresses.push(a);
+    //   })
+    // }, e => {
+    //   // console.log(e);
+    //   this._errorHandlerService.Handler(e);
+    // },search);
 
-      this._quarantineService.getAddresses((d) => {
-      d.forEach(a => {
-        this.addresses.push(a);
-      })
-    }, e => {
-      // console.log(e);
-      this._errorHandlerService.Handler(e);
-    },search);
-     
   }
 
   onFocusedAddress(e) {

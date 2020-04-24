@@ -1,12 +1,25 @@
-<input type="text" (keydown.enter)="$event.preventDefault()" [(ngModel)]="address" placeholder="Search Nearest Location"
-    autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+<ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword" placeHolder="Enter Address line"
+    (selected)='selectEventAddress($event)' (inputChanged)='onChangeSearchAddress($event)' [(ngModel)]="address.line"
+    (inputFocused)='onFocusedAddress($event)' historyIdentifier="addresses" [itemTemplate]="itemTemplateAdd"
+    [notFoundTemplate]="notFoundTemplateAdd">
+</ng-autocomplete>
+
+<ng-template #itemTemplateAdd let-item>
+    <a [innerHTML]="item.line"></a>
+</ng-template>
+
+<ng-template #notFoundTemplateAdd let-notFound>
+    <div [innerHTML]="notFound"></div>
+</ng-template>
 <div style="padding-top: 5px;">
-    <agm-map [latitude]="latitude" [longitude]="longitude" [zoom]="zoom" *ngIf="enable">
-        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+    <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off"
+        autocapitalize="off" spellcheck="off" type="text" #search (change)="onAddressChange()">
+    <agm-map [latitude]="address.lat" [longitude]="address.lng" [zoom]="zoom" *ngIf="enable">
+        <agm-marker [latitude]="address.lat" [longitude]="address.lng" [markerDraggable]="true"
             (dragEnd)="markerDragEnd($event)"></agm-marker>
     </agm-map>
 </div>
 
-<!-- <h5>Address: {{address}}</h5>
-<div>Latitude: {{latitude}}</div>
-<div>Longitude: {{longitude}}</div> -->
+<!-- <h5>Address: {{address.line}}</h5>
+<div>Latitude: {{address.lat}}</div>
+<div>Longitude: {{address.lng}}</div> -->
