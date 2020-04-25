@@ -134,34 +134,42 @@
                                     quarantine process <br> (නිරත හා නිරෝධායනය
                                     නිම කළ
                                     පුද්ගලයින්)</a></li>
+                            <li (click)="graph_params(graph.growth)"><a data-toggle="tab" href="#map"> In/End
+                                    Distribution in map <br> (ව්‍යාප්තිය සිතියමක)</a></li>
                         </ul>
                     </div>
-                    <div class="container">
+                    <!-- <div class="container"> -->
                         <div class="tab-content">
                             <div id="age" class="tab-pane fade in active">
-                                <div>
+                                <div class="container">
                                     <app-age-chart [reqest]='request'> </app-age-chart>
                                 </div>
                             </div>
                             <div id="station" class="tab-pane fade">
-                                <div>
+                                <div class="container">
                                     <app-station-distribution [reqest]='request'></app-station-distribution>
                                 </div>
                             </div>
                             <div id="date" class="tab-pane fade">
-                                <div>
+                                <div class="container">
                                     <app-new-quarantine-persons-distribution [reqest]='request'>
                                     </app-new-quarantine-persons-distribution>
                                 </div>
                             </div>
                             <div id="growth" class="tab-pane fade">
-                                <div>
+                                <div class="container">
                                     <app-quarantine-person-distribution [reqest]='request'>
                                     </app-quarantine-person-distribution>
                                 </div>
                             </div>
+                            <div id="map" class="tab-pane fade">
+                                <div style="padding-top: 10px;">
+                                    <app-map-distribution>
+                                    </app-map-distribution>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </div>
