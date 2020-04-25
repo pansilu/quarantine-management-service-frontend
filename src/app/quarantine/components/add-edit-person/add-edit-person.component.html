@@ -46,7 +46,8 @@
                                     <label>
                                         Police Station (පොලිස් ස්ථානය)
                                     </label>
-                                    <select formControlName="qp_policeStationId" (change)="policeStationSelected($event)">
+                                    <select formControlName="qp_policeStationId"
+                                        (change)="policeStationSelected($event)">
                                         <option *ngFor="let policeStation of policeStations" [value]="policeStation.id">
                                             {{policeStation.name}}</option>
                                     </select>
@@ -100,31 +101,6 @@
                             <hr>
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="page_input">
-                                    <label>
-                                        NIC (ජා.හැ.අ)
-                                    </label>
-                                    <input type="text" formControlName="qp_nic">
-                                    <div class="err_lo"
-                                        *ngIf="submitted && form.controls['qp_nic'].hasError('pattern')">
-                                        NIC No. is
-                                        not valid </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="page_input">
-                                    <label>
-                                        Passport NO (විදේශ ගමන් බලපත් අංකය)
-                                    </label>
-                                    <input type="text" formControlName="qp_passportNo">
-                                    <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-6">
                                 <div class="page_input">
                                     <label>
@@ -137,14 +113,34 @@
                                         required </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-3">
                                 <div class="page_input">
                                     <label>
-                                        Address (ලිපිනය)
+                                        NIC (ජා.හැ.අ)
                                     </label>
-                                    <!-- <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword"
+                                    <input type="text" formControlName="qp_nic">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['qp_nic'].hasError('pattern')">
+                                        NIC No. is
+                                        not valid </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="page_input">
+                                    <label>
+                                        Passport NO (විදේශ ගමන් බලපත් අංකය)
+                                    </label>
+                                    <input type="text" formControlName="qp_passportNo">
+                                    <!-- <label class="err_lo">
+                                Please fill this field
+                            </label> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="page_input">
+
+                                <!-- <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword"
                                             placeHolder="Enter Address line" (selected)='selectEventAddress($event)'
                                             (inputChanged)='onChangeSearchAddress($event)'
                                             (inputFocused)='onFocusedAddress($event)' formControlName="qp_address"
@@ -159,12 +155,13 @@
                                         <ng-template #notFoundTemplateAdd let-notFound>
                                             <div [innerHTML]="notFound"></div>
                                         </ng-template> -->
-                                    <app-address-search-map [address] = "address" (address_out) = "onChangeSearchAddress(address)" [station] = "currentStationName" ></app-address-search-map>
+                                <app-address-search-map [address]="address"
+                                    (address_out)="onChangeSearchAddress(address)" [station]="currentStationName">
+                                </app-address-search-map>
 
-                                    <div class="err_lo"
-                                        *ngIf="submitted && form.controls['qp_address'].hasError('required')">Address is
-                                        required </div>
-                                </div>
+                                <div class="err_lo"
+                                    *ngIf="submitted && form.controls['qp_address'].hasError('required')">Address is
+                                    required </div>
                             </div>
                         </div>
                         <div class="row">
@@ -254,24 +251,161 @@
                 <div class="panel panel-bd">
                     <div class="panel-body">
                         <div class="form_sub_title">
-                            <p>Other Information (වෙනත් කරුණු)</p>
+                            <p>Current Status (නව තත්වය ඇතුලත් කරන්න)</p>
                             <hr>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="page_input">
-                                    <label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="page_input">
+                                            <select (change)="changeStatus($event)">
+                                                <option value="1">Home(නිවසෙදී)</option>
+                                                <option value="2">Remorte(නිරෝධනය මධ්යස්ථාන)</option>
+                                                <option value="3">Positive COVID-19(තහවුරුකරනලද)</option>
+                                                <option value="4">Suspect COVID-19(සැක සහිත)</option>
+                                            </select>
+                                            <div class="err_lo"
+                                                *ngIf="submitted && (form.controls['qp_policeStationId'].hasError('required')||form.controls['qp_policeStationId'].hasError('min'))">
+                                                Police Station is
+                                                required </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="page_input">
+                                            <label>
+                                                Start Date (ආරම්භකල දිනය)
+                                            </label>
+                                            <input type="date" formControlName="qp_reportedDate">
+                                            <div class="err_lo"
+                                                *ngIf="submitted && form.controls['qp_reportedDate'].hasError('required')">
+                                                Date
+                                                is
+                                                required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="page_input">
+                                            <label>
+                                                End Date (නිමවන දිනය)
+                                            </label>
+                                            <input type="date" formControlName="qp_reportedDate">
+                                            <div class="err_lo"
+                                                *ngIf="submitted && form.controls['qp_reportedDate'].hasError('required')">
+                                                Date
+                                                is
+                                                required
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="status == 3 || status == 4">
+                                        <div class="page_input">
+                                            <label>
+                                                Hospital (රෝහල)
+                                            </label>
+                                            <div class="ng-autocomplete auto_width">
+                                                <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
+                                                    placeHolder="Enter Hospital Name" (selected)='selectEventAd($event)'
+                                                    (inputChanged)='onChangeSearchAd($event)'
+                                                    (inputFocused)='onFocusedAd($event)'
+                                                    historyIdentifier="hospital" [itemTemplate]="itemTemplate"
+                                                    [notFoundTemplate]="notFoundTemplate">
+                                                </ng-autocomplete>
 
-                                    </label>
-                                    <textarea rows="5" formControlName="qp_otherFacts"></textarea>
+                                                <ng-template #itemTemplate let-item>
+                                                    <a [innerHTML]="item.name"></a>
+                                                </ng-template>
 
-                                    <!-- <label class="err_lo">
-                        Please fill this field
-                    </label> -->
+                                                <ng-template #notFoundTemplate let-notFound>
+                                                    <div [innerHTML]="notFound"></div>
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3" *ngIf="status == 2">
+                                        <div class="page_input">
+                                            <label>
+                                                Center (මධ්යස්ථානය)
+                                            </label>
+                                            <input type="text" formControlName="qp_phone">
+                                            <div class="err_lo"
+                                                *ngIf="submitted && form.controls['qp_phone'].hasError('pattern')">
+                                                Land Line No. is
+                                                not valid </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="page_input">
+                                            <label>
+                                                <span>&#8203;</span>
+                                            </label>
+                                            <div class="input_button">
+                                                <button >Add</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div>
+
+                        </div>
+                        <div class="row">
+                            <div class="page_table page_table_list">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th>ID</th> -->
+                                                <th>Record Catogory</th>
+                                                <th>Start / Admit /Informed Date</th>
+                                                <th>End / Discharge Date</th>
+                                                <th>Center</th>
+                                                <th>Hospital</th>
+                                                <th>Case No</th>
+                                                <th>Other Information</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Home</td>
+                                                <td>2020/04/01</td>
+                                                <td>2020/4/15</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>No other information</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Remorte</td>
+                                                <td>2020/04/02</td>
+                                                <td>2020/4/16</td>
+                                                <td>Punani</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Contact round one</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Positive Record</td>
+                                                <td>2020/04/10</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Kalubowila</td>
+                                                <td>15</td>
+                                                <td>Direct contact</td>
+                                            </tr>
+                                        </tbody>
+
+                                    </table>
+
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -288,9 +422,6 @@
                                         Date (පැමිණි දිනය)
                                     </label>
                                     <input type="date" formControlName="qp_arrivalDate">
-                                    <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -302,9 +433,6 @@
                                         <option *ngFor="let country of countries" [value]="country.id">
                                             {{country.name}}</option>
                                     </select>
-                                    <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
                                 </div>
                             </div>
                         </div>
@@ -319,9 +447,6 @@
                                         Date (දැනුවත් කල දිනය)
                                     </label>
                                     <input type="date" formControlName="qp_informedDate">
-                                    <!-- <label class="err_lo">
-                            Please fill this field
-                        </label> -->
                                 </div>
                             </div>
                         </div>
@@ -337,18 +462,14 @@
                                         Date (දැන්වීම් අලවූ දිනය)
                                     </label>
                                     <input type="date" formControlName="qp_noticeDate">
-                                    <!-- <label class="err_lo">
-                            Please fill this field
-                        </label> -->
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </form>
 
-            <form [formGroup]="form2" *ngIf="form2">
+            <!-- <form [formGroup]="form2" *ngIf="form2">
                 <div class="panel panel-bd">
                     <div class="panel-body">
                         <div class="form_sub_title">
@@ -368,9 +489,6 @@
                                         Date (රෝහල් ගතකල දිනය)
                                     </label>
                                     <input type="date" formControlName="qp_admittedDate">
-                                    <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -403,9 +521,6 @@
                                         Date (පිටවූ දිනය)
                                     </label>
                                     <input type="date" formControlName="qp_dischargedDate">
-                                    <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
                                 </div>
                             </div>
                         </div>
@@ -422,9 +537,6 @@
                                         Date (දිනය)
                                     </label>
                                     <input type="date" formControlName="qp_confirmedDate">
-                                    <!-- <label class="err_lo">
-                                Please fill this field
-                            </label> -->
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -432,10 +544,6 @@
                                     <label>
                                         Hospital (රෝහල)
                                     </label>
-                                    <!-- <select formControlName="qp_confirmedHosId" (change)="confirmedHosSelected()">
-                                    <option *ngFor="let hospital of hospitals" [value]="hospital.id">
-                                        {{hospital.name}}</option>
-                                </select> -->
                                     <div class="ng-autocomplete auto_width">
                                         <ng-autocomplete [data]="hospitals" [searchKeyword]="keyword"
                                             placeHolder="Enter Hospital Name" (selected)='selectEvent($event)'
@@ -459,51 +567,7 @@
                     </div>
                 </div>
 
-                <!-- <div class="panel panel-bd">
-                <div class="panel-body">
-                    <div class="form_sub_title">
-                        <p>භාර කරුවෙකු සිටියි නම් එම තොරතුරු - ඇත්නම් පමණි (If Guardian Available)</p>
-                        <hr>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Name (නම)
-                                </label>
-                                <input type="text" formControlName="gr_name">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    NIC (ජා.හැ.අ)
-                                </label>
-                                <input type="text" formControlName="gr_nic">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Passport No (විදේශ ගමන් බලපත් අංකය)
-                                </label>
-                                <input type="text" formControlName="gr_passportNo">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="page_input">
-                                <label>
-                                    Mobile No (ජංගම දුරකතන අංකය)
-                                </label>
-                                <input type="text" formControlName="gr_mobile">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div> -->
-
-            </form>
+            </form> -->
 
             <div class="panel panel-bd">
                 <div class="panel-body">

@@ -1,17 +1,24 @@
-<ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword" placeHolder="Enter Address line"
-    (selected)='selectEventAddress($event)' (inputChanged)='onChangeSearchAddress($event)' [(ngModel)]="address.line"
-    (inputFocused)='onFocusedAddress($event)' historyIdentifier="addresses" [itemTemplate]="itemTemplateAdd"
-    [notFoundTemplate]="notFoundTemplateAdd">
-</ng-autocomplete>
+<div class="col-md-4">
+    <label>
+        Address (ලිපිනය)
+    </label>
+    <div class="page_input">
+        <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword" placeHolder="Enter Address line"
+            (selected)='selectEventAddress($event)' (inputChanged)='onChangeSearchAddress($event)'
+            [(ngModel)]="address.line" (inputFocused)='onFocusedAddress($event)' historyIdentifier="addresses"
+            [itemTemplate]="itemTemplateAdd" [notFoundTemplate]="notFoundTemplateAdd">
+        </ng-autocomplete>
 
-<ng-template #itemTemplateAdd let-item>
-    <a [innerHTML]="item.line"></a>
-</ng-template>
+        <ng-template #itemTemplateAdd let-item>
+            <a [innerHTML]="item.line"></a>
+        </ng-template>
 
-<ng-template #notFoundTemplateAdd let-notFound>
-    <div [innerHTML]="notFound"></div>
-</ng-template>
-<div style="padding-top: 5px;">
+        <ng-template #notFoundTemplateAdd let-notFound>
+            <div [innerHTML]="notFound"></div>
+        </ng-template>
+    </div>
+</div>
+<div class="col-md-8">
     <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off"
         autocapitalize="off" spellcheck="off" type="text" #search (change)="onAddressChange()">
     <agm-map [latitude]="address.lat" [longitude]="address.lng" [zoom]="zoom" *ngIf="enable">

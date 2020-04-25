@@ -560,6 +560,13 @@ export class AddEditPersonComponent implements OnInit {
     // document.getElementById('new_person').style.opacity = '0';
   }
 
+  changeStatus($event){
+    console.log($event.target.value)
+    this.status = +$event.target.value
+  }
+
+  status:number
+
 }
 
 
