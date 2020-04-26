@@ -4,7 +4,6 @@ label {
     white-space: nowrap;
   }
 
-
   .footer {
     // position: fixed;
     // left: 0;
@@ -13,3 +12,57 @@ label {
     // color: white;
     // text-align: center;
   }
+
+  .min-label{
+    min-width: 100px;
+  }
+
+  .min-label-input{
+    min-width: 20px;
+  }
+
+  .content-header{
+    padding: 0px !important;
+  }
+
+  .set-inline{
+    display: flex;
+  }
+
+  .page_table tr:hover{
+    background-color: rgba(255,255,255,1);
+  }
+
+  .page_table tr{
+    background-color: rgba(255,255,255,1);
+  }
+
+ .header-icon{
+  margin: -15px 5px 0px 30px !important;
+ }
+
+  @media screen and (max-width: 1500px) {
+    .res {
+     max-width: 800px;
+    }
+  }
+
+  @media screen and (max-width: 1245px) {
+    .res {
+     max-width: 700px;
+    }
+  }
+
+  @media screen and (max-width: 1190px) {
+    .res {
+     max-width: 600px;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .res {
+     position: relative !important;
+     margin-top: 0px !important;
+    }
+  }
+
