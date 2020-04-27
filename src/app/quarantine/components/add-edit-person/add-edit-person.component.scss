@@ -41,7 +41,7 @@ label {
   margin: -15px 5px 0px 30px !important;
  }
 
-  @media screen and (max-width: 1500px) {
+  /*@media screen and (max-width: 1500px) {
     .res {
      max-width: 800px;
     }
@@ -57,11 +57,12 @@ label {
     .res {
      max-width: 600px;
     }
-  }
+  }*/
 
   @media screen and (max-width: 991px) {
     .res {
      position: relative !important;
+     width: 100% !important;
      margin-top: 0px !important;
     }
   }

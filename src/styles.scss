@@ -515,6 +515,7 @@ a span.fa.arrow::before {
 }
 
 .err_lo {
+  margin-top: -3px;
   color: #ff0000 !important;
   font-size: 11px !important;
   text-align: right !important;
@@ -592,7 +593,7 @@ a span.fa.arrow::before {
   border-radius: 4px;
   color: #555;
   border: 1px solid #e8e4e4cc;
-  padding: 9px;
+  padding: 8px;
   font-size: 13px;
 }
 
@@ -601,7 +602,7 @@ a span.fa.arrow::before {
   border-radius: 4px;
   color: #555;
   border: 1px solid #e8e4e4cc;
-  padding: 9px;
+  padding: 8px;
   font-size: 13px;
 }
 
@@ -610,7 +611,7 @@ a span.fa.arrow::before {
   border-radius: 4px;
   color: #555;
   border: 1px solid #e8e4e4cc;
-  padding: 9px;
+  padding: 8px;
   font-size: 13px;
 }
 
@@ -621,9 +622,9 @@ a span.fa.arrow::before {
 .page_input label {
   display: inline-block;
   max-width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   font-weight: normal;
-  margin-top: 11px;
+  margin-top: 3px;
   color: #3a3636;
   font-size: 13px;
 }

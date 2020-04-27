@@ -14,6 +14,8 @@ import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NewOfficerComponent } from './components/new-officer/new-officer.component';
 import { AddressSearchMapComponent } from './components/address-search-map/address-search-map.component';
 import { AgmCoreModule } from '@agm/core';
+import { NewHospitalComponent } from './components/new-hospital/new-hospital.component';
+import { NewCenterComponent } from './components/new-center/new-center.component';
 
 
 
@@ -47,7 +49,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [PersonGridComponent, AddEditPersonComponent, DailyUpdatesComponent, NewOfficerComponent, AddressSearchMapComponent],
+  declarations: [PersonGridComponent, AddEditPersonComponent, DailyUpdatesComponent, NewOfficerComponent, AddressSearchMapComponent, NewHospitalComponent, NewCenterComponent],
   imports: [
     AutocompleteLibModule,
     RouterModule.forChild(routes),

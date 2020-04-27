@@ -16,14 +16,15 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   @Input('station') station !: string
   // address:AddressModel = new AddressModel();
   enable: boolean = true;
-  zoom: number;
+  zoom: number = 7;
   private geoCoder;
   private _autocompleteService;
   baseLat: number
   baseLng: number
+  initaddress: string
 
   // second method
-  addresses = [];
+  addresses: Array<AddressModel>;
   addressKeyword = 'line';
 
   @ViewChild('search', { static: true })
@@ -40,13 +41,16 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
 
 
   ngOnInit() {
+    this.initaddress = this.address.line;
+    if (this.address.id > 0)
+      this.zoom = 16;
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       this.setCurrentLocation();
       this.geoCoder = new google.maps.Geocoder;
       this._autocompleteService = new google.maps.places.AutocompleteService();
 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement,{componentRestrictions:{country: "lk"}});
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, { componentRestrictions: { country: "lk" } });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
@@ -58,7 +62,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
           }
           //set latitude, longitude and zoom
           this.address.lat = place.geometry.location.lat();
-          this.address.lng = place.geometry.location.lng();
+          this.address.lon = place.geometry.location.lng();
           // this.address.line = this.searchElementRef.nativeElement.value;
           this.zoom = 16;
           this.addressEmit.emit(this.address);
@@ -83,7 +87,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   markerDragEnd($event: MouseEvent) {
     // console.log($event);
     this.address.lat = $event.coords.lat;
-    this.address.lng = $event.coords.lng;
+    this.address.lon = $event.coords.lng;
     this.addressEmit.emit(this.address);
   }
 
@@ -101,7 +105,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
             if (status === 'OK') {
               if (responses[0]) {
                 this.address.lat = responses[0].geometry.location.lat();
-                this.address.lng = responses[0].geometry.location.lng();
+                this.address.lon = responses[0].geometry.location.lng();
                 this.zoom = 15;
                 this.addressEmit.emit(this.address)
               }
@@ -130,7 +134,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
       if (status === 'OK') {
         if (responses[0]) {
           this.address.lat = responses[0].geometry.location.lat();
-          this.address.lng = responses[0].geometry.location.lng();
+          this.address.lon = responses[0].geometry.location.lng();
           this.baseLat = responses[0].geometry.location.lat();
           this.baseLng = responses[0].geometry.location.lng();
           this.zoom = 14;
@@ -149,12 +153,12 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
 
   setPoitsToDef() {
     this.address.lat = this.baseLat;
-    this.address.lng = this.baseLng;
+    this.address.lon = this.baseLng;
     this.addressEmit.emit(this.address)
     this.zoom = 14;
   }
 
-  onAddressChange() {
+  onAddressChange($event) {
     this.addressEmit.emit(this.address)
   }
 
@@ -164,9 +168,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     this.address.id = null;
     this.address.line = search;
     this._quarantineService.getAddresses((d) => {
-      d.forEach(a => {
-        this.addresses.push(a);
-      })
+      this.addresses = d;
     }, e => {
       this._errorHandlerService.Handler(e);
     }, search);
@@ -174,9 +176,18 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     this.getAddress(search);
   }
 
-  selectEventAddress(item) {
+  selectEventAddress(item: AddressModel) {
+    console.log(item)
     // address is alredy in out database
-    // console.log(item)
+    this.address.id = item.id
+    this.address.gndId = item.gndId
+    this.address.lat = +item.lat
+    this.address.line = item.line
+    this.address.lon = +item.lon
+    this.address.policeArea = item.policeArea
+    this.address.town = item.town
+    this.address.village = item.village
+    this.addressEmit.emit(this.address)
   }
 
   onFocusedAddress(e) {
