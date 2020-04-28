@@ -2,16 +2,22 @@ agm-map {
     height: 450px;
 }
 
-div input{
-    position: absolute;
-    z-index: 997;
-    margin: 0 auto;
-    left: 24px;
-    /* right: 0; */
-    top: 2%;
-    /* text-align: center; */
-    width: 40%;
-}
+label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+// div input{
+//     position: absolute;
+//     z-index: 997;
+//     margin: 0 auto;
+//     left: 24px;
+//     /* right: 0; */
+//     top: 2%;
+//     /* text-align: center; */
+//     width: 40%;
+// }
 
 .inside_input {
     position: relative !important;
