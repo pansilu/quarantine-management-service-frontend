@@ -35,7 +35,7 @@ export class QuarantineService {
 
     getCountries(data: NextCallback<Array<NameIdModel>>, error: ErrorCallback<ErrorModel>) {
         this._.api()
-            .url('api/misc/all-countries')
+            .url('api/misc/country')
             .needJson()
             .get(data, error);
     }
@@ -47,11 +47,11 @@ export class QuarantineService {
             .get(data, error);
     }
 
-    getAddresses(data: NextCallback<Array<AddressModel>>, error: ErrorCallback<ErrorModel>, addressLine: any) {
+    getAddresses(data: NextCallback<Array<AddressModel>>, error: ErrorCallback<ErrorModel>, id:number,addressLine: any) {
         this._.api()
-            .url(`api/misc/address`)
+            .url(`api/misc/address/gnd/${id}`)
             .needJson()
-            .get(data, error, `search=${addressLine}`);
+            .get(data, error, `line=${addressLine}`);
     }
 
     getOfficerDetails(data: NextCallback<Array<OfficerDetailsModel>>, error: ErrorCallback<ErrorModel>, officer: any) {
@@ -122,6 +122,13 @@ export class QuarantineService {
     getGnd(data: NextCallback<Array<NameIdModel>>, error: ErrorCallback<ErrorModel>, id: number, search?: string) {
         this._.api()
             .url(`api/location/division/${id}/gnd`)
+            .needJson()
+            .get(data, error);
+    }
+
+    getGndById(data: NextCallback<any>, error: ErrorCallback<ErrorModel>, id: number) {
+        this._.api()
+            .url(`api/location/gnd/${id}`)
             .needJson()
             .get(data, error);
     }

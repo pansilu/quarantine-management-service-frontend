@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone, Output, Input, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone, Output, Input, EventEmitter, SimpleChanges, OnChanges, Directive } from '@angular/core';
+import { MapsAPILoader, MouseEvent, AgmMap, AgmDataLayer } from '@agm/core';
 import { AddressModel } from '../../models/address.model';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { ToastService } from 'src/app/Service/toast.service';
@@ -13,9 +13,15 @@ import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 export class AddressSearchMapComponent implements OnInit, OnChanges {
   @Output('address_out') addressEmit: EventEmitter<AddressModel> = new EventEmitter<AddressModel>();
   @Input('address') address: AddressModel
-  @Input('station') station !: string
-  // address:AddressModel = new AddressModel();
-  enable: boolean = true;
+  @Input('gnd') gnd !: number
+
+  Json: any = {
+    "type": "FeatureCollection",
+    "features": []
+  }
+
+
+  enable: boolean = false;
   zoom: number = 7;
   private geoCoder;
   private _autocompleteService;
@@ -41,15 +47,15 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
 
 
   ngOnInit() {
+    // this.Json.features = [this.feature];
     this.initaddress = this.address.line;
-    if (this.address.id > 0)
-      this.zoom = 16;
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
+    if (this.address.id > 0) {
       this.setCurrentLocation();
+    }
+
+    this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this._autocompleteService = new google.maps.places.AutocompleteService();
-
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, { componentRestrictions: { country: "lk" } });
       autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
@@ -73,14 +79,16 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
 
   // Get Current Location Coordinates
   private setCurrentLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        // this.latitude = position.coords.latitude;
-        // this.longitude = position.coords.longitude;
-        // this.zoom = 6;
-        // this.getAddress(this.latitude, this.longitude);
-      });
-    }
+    this.getGndById(this.address.gndId, false);
+    this.zoom = 16;
+  }
+
+  styleFunc(feature) {
+    return ({
+      clickable: false,
+      fillColor: feature.getProperty('color'),
+      strokeWeight: 1
+    });
   }
 
 
@@ -129,26 +137,62 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     });
   }
 
-  GetAddressByName(address: string) {
-    this.geoCoder.geocode({ 'address': address }, (responses, status) => {
-      if (status === 'OK') {
-        if (responses[0]) {
-          this.address.lat = responses[0].geometry.location.lat();
-          this.address.lon = responses[0].geometry.location.lng();
-          this.baseLat = responses[0].geometry.location.lat();
-          this.baseLng = responses[0].geometry.location.lng();
-          this.zoom = 14;
-          // this.enable = true
-          // this.addressEmit.emit(this.address)
-        }
-        else {
-          this.setPoitsToDef();
-        }
+  // GetAddressByName(address: string) {
+  //   this.geoCoder.geocode({ 'address': address }, (responses, status) => {
+  //     if (status === 'OK') {
+  //       if (responses[0]) {
+  //         this.address.lat = responses[0].geometry.location.lat();
+  //         this.address.lon = responses[0].geometry.location.lng();
+  //         this.baseLat = responses[0].geometry.location.lat();
+  //         this.baseLng = responses[0].geometry.location.lng();
+  //         this.zoom = 14;
+  //         // this.enable = true
+  //         // this.addressEmit.emit(this.address)
+  //       }
+  //       else {
+  //         this.setPoitsToDef();
+  //       }
+  //     }
+  //     else {
+  //       this.setPoitsToDef();
+  //     }
+  //   })
+  // }
+
+  getGndById(id: number, center?: boolean) {
+    this._quarantineService.getGndById(d => {
+      // console.log(d); 
+      this.Json.features = [JSON.parse(d.feature)]
+      //Calculate marker point
+      this.enable = true;
+      if (center) {
+        this.calCenterOfPoliline();
       }
-      else {
-        this.setPoitsToDef();
-      }
-    })
+    },
+      e => {
+        this._errorHandlerService.Handler(e);
+      }, id)
+  }
+
+  calCenterOfPoliline() {
+    var length = this.Json.features[0].geometry.coordinates[0].length
+    var min = this.Json.features[0].geometry.coordinates[0][0]
+    var max = this.Json.features[0].geometry.coordinates[0][Math.round(length / 2)]
+    // console.log(min);
+    // console.log(max);
+
+
+    var lon = (min[0] + max[0]) / 2
+    var lat = (min[1] + max[1]) / 2
+
+    this.address.lat = lat;
+    this.address.lon = lon;
+    this.baseLat = lat;
+    this.baseLng = lon;
+    this.zoom = 16;
+
+    // console.log(lat , lon);
+
   }
 
   setPoitsToDef() {
@@ -171,7 +215,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
       this.addresses = d;
     }, e => {
       this._errorHandlerService.Handler(e);
-    }, search);
+    }, this.gnd, search);
 
     this.getAddress(search);
   }
@@ -226,15 +270,22 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // if (changes.station.previousValue !== changes.station.currentValue) {
-    //   this.GetAddressByName(changes.station.currentValue);
-    // }
-    if (changes.address.previousValue) {
-      if (changes.address.previousValue.line !== changes.address.currentValue.line) {
-        this.zoom = 7;
-        this.initaddress = changes.address.currentValue.line
+    if (changes.gnd) {
+      if (changes.gnd.previousValue !== changes.gnd.currentValue) {
+        if (changes.gnd.currentValue !== 0) {
+          this.enable = false;
+          this.getGndById(changes.gnd.currentValue,true);
+        }
       }
+    }
+    if (changes.address) {
+      if (changes.address.previousValue) {
+        if (changes.address.previousValue.line !== changes.address.currentValue.line) {
+          this.zoom = 7;
+          this.initaddress = changes.address.currentValue.line
+        }
 
+      }
     }
 
 

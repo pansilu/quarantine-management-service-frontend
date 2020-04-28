@@ -13,6 +13,7 @@ import { UserStatusDetailModel } from '../../models/user-status-details.model';
 import * as moment from 'moment';
 import { StatusErrorModel } from '../../models/status-error.model';
 import { NameIdLocationModel } from 'src/app/shared/models/name-id-location.model';
+import { async } from '@angular/core/testing';
 
 declare var $: any
 @Component({
@@ -26,22 +27,23 @@ export class AddEditPersonComponent implements OnInit {
   today: string = moment().format('YYYY-MM-DD');
   status = QuarantineUserStatus;
   address: AddressModel = new AddressModel();
-  currentStationName: string
+  person: QuarantinePersonEditModel = new QuarantinePersonEditModel();
   userStatusDetailModel: UserStatusDetailModel = new UserStatusDetailModel();
+  currentStationName: string
   statusError: StatusErrorModel = new StatusErrorModel();
-  quarantineCenters: Array<NameIdLocationModel>
-  provices: Array<NameIdModel>
-  districts: Array<NameIdModel>
-  gnds: Array<NameIdModel>
-  divisions: Array<NameIdModel>
-  person: QuarantinePersonEditModel;
+  quarantineCenters = new Array<NameIdLocationModel>()
+  provices = new Array<NameIdModel>()
+  districts = new Array<NameIdModel>()
+  gnds = new Array<NameIdModel>()
+  divisions = new Array<NameIdModel>()
+  countries = new Array<NameIdModel>()
+  hospitals = new Array<NameIdModel>()
   form: FormGroup;
-  countries: Array<NameIdModel>
-  hospitals: Array<NameIdModel>
   q_id: number;
   id: any;
   submitted: boolean;
   edit: boolean;
+  gndId: number = 0;
   /** ***/
 
 
@@ -95,7 +97,7 @@ export class AddEditPersonComponent implements OnInit {
     this.getprovinces();
     this.getCountries();
     this.getHospitals();
-    this.getquarantineCenters()
+    this.getquarantineCenters();
     this.edit = false
 
     // this.createUser = this._authService.loggedUser.createUser;
@@ -117,12 +119,17 @@ export class AddEditPersonComponent implements OnInit {
 
     if (this.q_id > 0) {
       this.saveButtonFlag = false
-      this.person = new QuarantinePersonEditModel();
+      // this.person = new QuarantinePersonEditModel();
       this._quarantineService.getQPerson((d) => {
         console.log(d)
+        this.getDistrict(d.provinceId);
+        this.getDivision(d.districtId);
+        this.getGnd(d.divisionId);
+
         if (d.address != null) {
           this.address = d.address
         }
+        this.person = d;
         this.createForm();
 
       },
@@ -132,7 +139,7 @@ export class AddEditPersonComponent implements OnInit {
     } else {
       this.id = null;
       this.saveButtonFlag = true
-      this.person = new QuarantinePersonEditModel();
+      // this.person = new QuarantinePersonEditModel();
       this.createForm();
     }
   }
@@ -144,10 +151,10 @@ export class AddEditPersonComponent implements OnInit {
   createForm() {
     const model = {
       // for address filteration
-      province: new FormControl(this.person.province, [Validators.required, Validators.min(1)]),
-      district: new FormControl({ value: this.person.district }, [Validators.required, Validators.min(1)]),
-      dsDivision: new FormControl({ value: this.person.dsDivision }, [Validators.required, Validators.min(1)]),
-      gndId: new FormControl({ value: this.person.address.gndId }, [Validators.required, Validators.min(1)]),
+      province: new FormControl(this.person.provinceId, [Validators.required, Validators.min(1)]),
+      district: new FormControl(this.person.districtId, [Validators.required, Validators.min(1)]),
+      dsDivision: new FormControl(this.person.divisionId, [Validators.required, Validators.min(1)]),
+      gndId: new FormControl(this.person.address.gndId , [Validators.required, Validators.min(1)]),
       // policeDivision: new FormControl(this.person.address.policeArea, [Validators.required, Validators.min(1)]),
 
       age: new FormControl(this.person.age),
@@ -259,6 +266,7 @@ export class AddEditPersonComponent implements OnInit {
 
   onGndIdSelect($event) {
     const id = $event.target.value;
+    this.gndId = id;
     this.address.gndId = id;
   }
 
@@ -314,6 +322,7 @@ export class AddEditPersonComponent implements OnInit {
     this.form.reset()
     this.person = new QuarantinePersonEditModel();
     this.address = new AddressModel();
+    this.gndId = 0;
     // clear dorpdown list
     this.districts = new Array<NameIdModel>()
     this.divisions = new Array<NameIdModel>()

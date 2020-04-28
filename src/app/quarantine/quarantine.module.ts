@@ -13,9 +13,10 @@ import { DailyUpdatesComponent } from './components/daily-updates/daily-updates.
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NewOfficerComponent } from './components/new-officer/new-officer.component';
 import { AddressSearchMapComponent } from './components/address-search-map/address-search-map.component';
-import { AgmCoreModule } from '@agm/core';
+import { AgmCoreModule, DataLayerManager, GoogleMapsAPIWrapper,AgmDataLayer,AgmMap} from '@agm/core';
 import { NewHospitalComponent } from './components/new-hospital/new-hospital.component';
 import { NewCenterComponent } from './components/new-center/new-center.component';
+
 
 
 
@@ -63,6 +64,6 @@ const routes: Routes = [
       libraries: ['places']
     })
   ],
-  providers: [QuarantineService],
+  providers: [QuarantineService,DataLayerManager,GoogleMapsAPIWrapper],
 })
 export class QuarantineModule { }

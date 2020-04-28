@@ -6,7 +6,7 @@
         <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword" placeHolder="Enter Address line"
             (selected)='selectEventAddress($event)' (inputChanged)='onChangeSearchAddress($event)'
             [(ngModel)]="initaddress" (inputFocused)='onFocusedAddress($event)' historyIdentifier="addresses"
-            [itemTemplate]="itemTemplateAdd" [notFoundTemplate]="notFoundTemplateAdd">
+            [itemTemplate]="itemTemplateAdd" [notFoundTemplate]="notFoundTemplateAdd" [disabled]="gnd <=0">
         </ng-autocomplete>
 
         <ng-template #itemTemplateAdd let-item>
@@ -24,21 +24,21 @@
             <label>
                 Village (ග්‍රාමය)
             </label>
-            <input type="text" [(ngModel)]="address.village" (change)="onVillageChange()">
+            <input type="text" [(ngModel)]="address.village" (change)="onVillageChange()" [disabled]="gnd <=0">
         </div>
 
         <div class="col-md-4">
             <label>
                 Town (නගරය)
             </label>
-            <input type="text" [(ngModel)]="address.town" (change)="onTownChange()">
+            <input type="text" [(ngModel)]="address.town" (change)="onTownChange()" [disabled]="gnd <=0">
         </div>
 
         <div class="col-md-4">
             <label>
                 Police Area (පොලිස් බල ප්‍රදේශය)
             </label>
-            <input type="text" [(ngModel)]="address.policeArea" (change)="onPoliceAreaChange()">
+            <input type="text" [(ngModel)]="address.policeArea" (change)="onPoliceAreaChange()" [disabled]="gnd <=0">
         </div>
     </div>
 
@@ -46,9 +46,11 @@
 <div class="col-md-8">
     <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off"
         autocapitalize="off" spellcheck="off" type="text" #search (change)="onAddressChange()">
-    <agm-map [latitude]="+address.lat" [longitude]="+address.lon" [zoom]="zoom" *ngIf="enable">
+    <agm-map [latitude]="+address.lat" [longitude]="+address.lon" [zoom]="zoom">
         <agm-marker [latitude]="+address.lat" [longitude]="+address.lon" [markerDraggable]="true"
             (dragEnd)="markerDragEnd($event)"></agm-marker>
+        <agm-data-layer [geoJson]="Json" [style]="styleFunc" *ngIf="enable"></agm-data-layer>
+
     </agm-map>
 </div>
 <!-- <img src="../../../../assets/map/COLOMBO.kmz" alt=""> -->

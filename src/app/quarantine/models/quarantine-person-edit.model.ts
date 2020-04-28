@@ -4,9 +4,9 @@ import { UserStatusDetailModel } from './user-status-details.model'
 // import { RecivedGramaSewaDivisionModel } from './quarantine-person-get.model'
 
 export class QuarantinePersonEditModel {
-    public province:number
-    public district:number
-    public dsDivision:number
+    public provinceId:number
+    public districtId:number
+    public divisionId:number
     public id: number
     public age: number
     public arrivalDate: string
