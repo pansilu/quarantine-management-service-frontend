@@ -1,23 +1,4 @@
-<div class="col-md-4">
-    <label>
-        Address (ලිපිනය)
-    </label>
-    <div class="page_input">
-        <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword" placeHolder="Enter Address line"
-            (selected)='selectEventAddress($event)' (inputChanged)='onChangeSearchAddress($event)'
-            [(ngModel)]="initaddress" (inputFocused)='onFocusedAddress($event)' historyIdentifier="addresses"
-            [itemTemplate]="itemTemplateAdd" [notFoundTemplate]="notFoundTemplateAdd" [disabled]="gnd <=0">
-        </ng-autocomplete>
-
-        <ng-template #itemTemplateAdd let-item>
-            <a [innerHTML]="item.line"></a>
-        </ng-template>
-
-        <ng-template #notFoundTemplateAdd let-notFound>
-            <div [innerHTML]="notFound"></div>
-        </ng-template>
-    </div>
-
+<div class="col-md-4" style="margin-top: 260px;">
     <div class="row" *ngIf="address != undefines">
 
         <div class="col-md-4">
@@ -41,6 +22,26 @@
             <input type="text" [(ngModel)]="address.policeArea" (change)="onPoliceAreaChange()" [disabled]="gnd <=0">
         </div>
     </div>
+    <label>
+        Address (ලිපිනය)
+    </label>
+    <div class="page_input">
+        <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword" placeHolder="Enter Address line"
+            (selected)='selectEventAddress($event)' (inputChanged)='onChangeSearchAddress($event)'
+            [(ngModel)]="initaddress" (inputFocused)='onFocusedAddress($event)' historyIdentifier="addresses"
+            [itemTemplate]="itemTemplateAdd" [notFoundTemplate]="notFoundTemplateAdd" [disabled]="gnd <=0">
+        </ng-autocomplete>
+
+        <ng-template #itemTemplateAdd let-item>
+            <a [innerHTML]="item.line"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplateAdd let-notFound>
+            <div [innerHTML]="notFound"></div>
+        </ng-template>
+    </div>
+
+
 
 </div>
 <div class="col-md-8">

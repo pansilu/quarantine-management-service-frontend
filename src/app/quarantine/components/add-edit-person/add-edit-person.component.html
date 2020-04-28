@@ -50,96 +50,81 @@
                                     <input type="text" formControlName="passportNo">
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="page_input set-inline">
+                                    <label>
+                                        Age (වයස)
+                                    </label>
+                                    <input type="number" formControlName="age">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['age'].hasError('required')">
+                                        Age is
+                                        required </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="page_input set-inline">
                                     <label>
-                                        Province (පළාත)
+                                        Mobile Number (ජංගම දුරකතන අංකය)
                                     </label>
-                                    <select formControlName="province" (change)="onProvinceChange($event)">
-                                        <option [value]= null selected>-- Select Province --
-                                        </option>
-                                        <option *ngFor="let e of provices" [value]="e.id">{{e.name}}
-                                        </option>
-                                    </select>
+                                    <input type="text" formControlName="mobile" placeholder="0XXXXXXXXXX"
+                                        title="0 න් පටන් ගන්නා හා අංක 10 කින් යුතු විය යුතුය. උදා: 07XXXXXXX">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['mobile'].hasError('pattern')">
+                                        Mobile No. is
+                                        not valid </div>
                                 </div>
-                                <div class="err_lo"
-                                    *ngIf="submitted && (form.controls['province'].hasError('required')||form.controls['province'].hasError('min'))">
-                                    Province is
-                                    required
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="page_input set-inline">
-                                    <label>
-                                        District (දිස්ත්‍රික්කය)
-                                    </label>
-                                    <select formControlName="district" (change)="onDistrictChange($event)">
-                                        <option [value]= null selected>-- Select District --
-                                        </option>
-                                        <option *ngFor="let e of districts" [value]="e.id">{{e.name}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="err_lo"
-                                    *ngIf="submitted && (form.controls['district'].hasError('required')||form.controls['district'].hasError('min'))">
-                                    District is
-                                    required
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="page_input set-inline">
-                                    <label>
-                                        DS Division
-                                    </label>
-                                    <select formControlName="dsDivision" (change)="onDsDivisionChange($event)">
-                                        <option [value]= null selected>-- Select DS Division --
-                                        </option>
-                                        <option *ngFor="let e of divisions" [value]="e.id">
-                                            {{e.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="err_lo"
-                                        *ngIf="submitted && (form.controls['dsDivision'].hasError('required')||form.controls['dsDivision'].hasError('min'))">
-                                        DS Division is required
-                                    </div>
-                            </div>
-                            <!-- <div class="col-md-3">
-                                <div class="page_input set-inline">
-                                    <label>
-                                        Police Division
-                                    </label>
-                                    <select formControlName="policeDivision" (change)="onPoliceDivisionChange()">
-                                        <option [value]= null selected>-- Select Police Division --
-                                        </option>
-                                        <option *ngFor="let policeStation of policeStations" [value]="policeStation.id">
-                                            {{policeStation.name}}</option>
-                                    </select>
-                                </div>
-                                <div class="err_lo"
-                                    *ngIf="submitted && (form.controls['policeDivision'].hasError('required')||form.controls['policeDivision'].hasError('min'))">
-                                    Police Division is
-                                    required </div>
-                            </div> -->
-                            <div class="col-md-3">
-                                <div class="page_input set-inline">
-                                    <label>
-                                        GN Division (ග්‍රාම නිලධාරී වසම)
-                                    </label>
-                                    <select formControlName="gndId" (change)="onGndIdSelect($event)">
-                                        <option value=null>-- Select GN Division --</option>
-                                        <option *ngFor="let e of gnds"
-                                            [value]="e.id">{{e.name}}</option>
-                                    </select>
 
-                                </div>
                                 <div class="err_lo"
-                                    *ngIf="submitted && (form.controls['gndId'].hasError('required')||form.controls['gndId'].hasError('min'))">
-                                    Village Offficer Division is
+                                    *ngIf="submitted && form.controls['mobile'].hasError('required')">
+                                    Mobile No. is
                                     required </div>
                             </div>
+                            <div class="col-md-3">
+                                <div class="page_input set-inline">
+                                    <label>
+                                        Land Line (ස්ථාවර දුරකතන අංකය)
+                                    </label>
+                                    <input type="text" formControlName="phone" placeholder="0XXXXXXXXXX">
+                                    <div class="err_lo"
+                                        *ngIf="submitted && form.controls['phone'].hasError('pattern')">
+                                        Land Line No. is
+                                        not valid </div>
+                                </div>
+                            </div>
+                            <div class = "col-md-6">
+                                <div class="page_input">
+                                <div class="col-md-2">
+                                    <label style="margin-left:-15px;">
+                                       If Arrived from forign <br/> Country (විදේශ රටක සිට පමිණියේ නම්)
+                                    </label>
+                                </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="page_input set-inline">
+                                        <label>
+                                            Arrival Date (පැමිණි දිනය)
+                                        </label>
+                                        <input type="date" formControlName="arrivalDate">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="page_input set-inline">
+                                        <label>
+                                           Arrival Country (පැමිණි රට)
+                                        </label>
+                                        <select formControlName="countryId">
+                                            <option *ngFor="let country of countries" [value]="country.id">
+                                                {{country.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
 
                         <div class="row">
@@ -155,99 +140,105 @@
                             </div>
                         </div>
 
-                        <div class="res" style="margin-top: -340px; z-index: 300; position: absolute; width: 32%;">
+                        <div class="res" style="margin-top: -420px; z-index: 300; position: absolute; width: 32%;">
 
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="page_input">
+                                <div class="col-md-12">
+                                    <div class="page_input set-inline">
                                         <label>
-                                            Age (වයස)
+                                            Province (පළාත)
                                         </label>
-                                        <input type="number" formControlName="age">
-                                        <div class="err_lo"
-                                            *ngIf="submitted && form.controls['age'].hasError('required')">
-                                            Age is
-                                            required </div>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-md-3">
-                                    <div class="page_input">
-                                        <label>
-                                            Date Reported (වාර්ථාවු දිනය)
-                                        </label>
-                                        <input type="date" formControlName="qp_reportedDate">
-                                        <div class="err_lo"
-                                            *ngIf="submitted && form.controls['qp_reportedDate'].hasError('required')">
-                                            Date
-                                            is
-                                            required </div>
-                                    </div>
-                                </div> -->
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="page_input">
-                                        <label>
-                                            Mobile Number (ජංගම දුරකතන අංකය) - 07XXXXXXX
-                                        </label>
-                                        <input type="text" formControlName="mobile"
-                                            title="0 න් පටන් ගන්නා හා අංක 10 කින් යුතු විය යුතුය. උදා: 07XXXXXXX">
-                                        <div class="err_lo"
-                                            *ngIf="submitted && form.controls['mobile'].hasError('pattern')">
-                                            Mobile No. is
-                                            not valid </div>
-                                    </div>
-
-                                    <div class="err_lo"
-                                        *ngIf="submitted && form.controls['mobile'].hasError('required')">
-                                        Mobile No. is
-                                        required </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="page_input">
-                                        <label>
-                                            Land Line (ස්ථාවර දුරකතන අංකය)
-                                        </label>
-                                        <input type="text" formControlName="phone">
-                                        <div class="err_lo"
-                                            *ngIf="submitted && form.controls['phone'].hasError('pattern')">
-                                            Land Line No. is
-                                            not valid </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <br />
-                            <p><b>විදේශ රටක සිට පැමිණියේ නම්</b></p>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="page_input">
-                                        <label>
-                                            Date (පැමිණි දිනය)
-                                        </label>
-                                        <input type="date" formControlName="arrivalDate">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="page_input">
-                                        <label>
-                                            Country (පැමිණි රට)
-                                        </label>
-                                        <select formControlName="countryId">
-                                            <option *ngFor="let country of countries" [value]="country.id">
-                                                {{country.name}}
+                                        <select formControlName="province" (change)="onProvinceChange($event)">
+                                            <option [value]= null selected>-- Select Province --
+                                            </option>
+                                            <option *ngFor="let e of provices" [value]="e.id">{{e.name}}
                                             </option>
                                         </select>
                                     </div>
+                                    <div class="err_lo"
+                                        *ngIf="submitted && (form.controls['province'].hasError('required')||form.controls['province'].hasError('min'))">
+                                        Province is
+                                        required
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="page_input set-inline">
+                                        <label>
+                                            District (දිස්ත්‍රික්කය)
+                                        </label>
+                                        <select formControlName="district" (change)="onDistrictChange($event)">
+                                            <option [value]= null selected>-- Select District --
+                                            </option>
+                                            <option *ngFor="let e of districts" [value]="e.id">{{e.name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="err_lo"
+                                        *ngIf="submitted && (form.controls['district'].hasError('required')||form.controls['district'].hasError('min'))">
+                                        District is
+                                        required
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="page_input set-inline">
+                                        <label>
+                                            DS Division
+                                        </label>
+                                        <select formControlName="dsDivision" (change)="onDsDivisionChange($event)">
+                                            <option [value]= null selected>-- Select DS Division --
+                                            </option>
+                                            <option *ngFor="let e of divisions" [value]="e.id">
+                                                {{e.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="err_lo"
+                                            *ngIf="submitted && (form.controls['dsDivision'].hasError('required')||form.controls['dsDivision'].hasError('min'))">
+                                            DS Division is required
+                                        </div>
+                                </div>
+                                <!-- <div class="col-md-3">
+                                    <div class="page_input set-inline">
+                                        <label>
+                                            Police Division
+                                        </label>
+                                        <select formControlName="policeDivision" (change)="onPoliceDivisionChange()">
+                                            <option [value]= null selected>-- Select Police Division --
+                                            </option>
+                                            <option *ngFor="let policeStation of policeStations" [value]="policeStation.id">
+                                                {{policeStation.name}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="err_lo"
+                                        *ngIf="submitted && (form.controls['policeDivision'].hasError('required')||form.controls['policeDivision'].hasError('min'))">
+                                        Police Division is
+                                        required </div>
+                                </div> -->
+                                <div class="col-md-12">
+                                    <div class="page_input set-inline">
+                                        <label>
+                                            GN Division (ග්‍රාම නිලධාරී වසම)
+                                        </label>
+                                        <select formControlName="gndId" (change)="onGndIdSelect($event)">
+                                            <option value=null>-- Select GN Division --</option>
+                                            <option *ngFor="let e of gnds"
+                                                [value]="e.id">{{e.name}}</option>
+                                        </select>
+    
+                                    </div>
+                                    <div class="err_lo"
+                                        *ngIf="submitted && (form.controls['gndId'].hasError('required')||form.controls['gndId'].hasError('min'))">
+                                        Village Offficer Division is
+                                        required </div>
                                 </div>
                             </div>
+                       
                         </div>
+                        
                     </div>
                 </div>
             </form>
             <div class="panel panel-bd">
-                <div class="panel-body" style="background-color:#E6E6FA;">
+                <div class="panel-body" style="background-color:#D7FFFF;">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="row">
@@ -342,7 +333,7 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button (click)="add_new('hospital')">New</button>
+                                            <button (click)="add_new('hospital')" style="width:100%">Add New</button>
                                         </div>
                                     </div>
                                 </div>
@@ -370,7 +361,7 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button (click)="add_new('center')">New</button>
+                                            <button (click)="add_new('center')" style="width:100%">Add New</button>
                                         </div>
                                     </div>
                                 </div>
@@ -418,7 +409,7 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button (click)="add_userStatus_detail()">Add</button>
+                                            <button (click)="add_userStatus_detail()" style="width:100%">Add Record</button>
                                         </div>
                                     </div>
                                 </div>
@@ -441,7 +432,7 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button (click)="add_userStatus_detail()">Add</button>
+                                            <button (click)="add_userStatus_detail()" style="width:100%">Add Record</button>
                                         </div>
                                     </div>
                                 </div>

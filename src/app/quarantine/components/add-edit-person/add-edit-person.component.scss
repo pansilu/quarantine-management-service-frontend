@@ -29,6 +29,18 @@ label {
     display: flex;
   }
 
+  .set-inline label{
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+  @media screen and (max-width: 1100px) {
+    .set-inline label{
+      min-width: 75px;
+      max-width: 75px;
+    }
+  }
+
   .page_table tr:hover{
     background-color: rgba(255,255,255,1);
   }
