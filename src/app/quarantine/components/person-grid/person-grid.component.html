@@ -25,7 +25,7 @@
                             <ul>
                                 <li>
                                     <div class="filter_input">
-                                        <input type="search" placeholder="Search Name...." [(ngModel)]="search_text"
+                                        <input type="search" placeholder="Search Name,NIC,Address" [(ngModel)]="search_text"
                                             (keypress)="checkEnter($event.keyCode)" (keyup)="search()"
                                             [ngModelOptions]="{standalone: true}" />
                                     </div>
@@ -56,12 +56,12 @@
                                         <th>Passport No<br />(වී.ග.බ.අ)</th>
 
                                         <th>Address<br />(ලිපිණය)</th>
-                                        <th>Police Station <br />(පොලිස් ස්ථානය)</th>
-                                        <th>Total Points<br />(අවදානම් මට්ටම)</th>
-                                        <th>Remaining Days<br />(ඉතිරි දින ගනන)</th>
-                                        <th>Date Reported<br />(වාර්ථාවු දිනය)</th>
-                                        <th>Last Update<br />(යාවත්කලීන කළ දිනය) </th>
-                                        <th colspan="2">More..<br />(වෙනත්)</th>
+                                        <!-- <th>Police Station <br />(පොලිස් ස්ථානය)</th> -->
+                                        <!-- <th>Total Points<br />(අවදානම් මට්ටම)</th> -->
+                                        <!-- <th>Remaining Days<br />(ඉතිරි දින ගනන)</th> -->
+                                        <!-- <th>Date Reported<br />(වාර්ථාවු දිනය)</th> -->
+                                        <!-- <th>Last Update<br />(යාවත්කලීන කළ දිනය) </th> -->
+                                        <th >More..<br />(වෙනත්)</th>
                                         <!-- <th></th> -->
                                     </tr>
                                 </thead>
@@ -72,15 +72,15 @@
                                         <td>{{p.mobile}}</td>
                                         <td>{{p.nic}}</td>
                                         <td>{{p.passportNo}}</td>
-                                        <td>{{p.address?.line}}</td>
-                                        <td>{{p.stationResDto?.name}}</td>
-                                        <td>{{p.totalPoints ? p.totalPoints : 0}}</td>
-                                        <td>{{p.remainingDays}}</td>
-                                        <td>{{p.reportDate}}</td>
-                                        <td>{{p.lastUpdateDate}}</td>
-                                        <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
+                                        <td>{{setAddress(p.address)}}</td>
+                                        <!-- <td>{{p.stationResDto?.name}}</td> -->
+                                        <!-- <td>{{p.totalPoints ? p.totalPoints : 0}}</td> -->
+                                        <!-- <td>{{p.remainingDays}}</td> -->
+                                        <!-- <td>{{p.reportDate}}</td> -->
+                                        <!-- <td>{{p.lastUpdateDate}}</td> -->
+                                        <!-- <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
                                             Daily Updates
-                                        </td>
+                                        </td> -->
                                         <td class="edti_td" (click)="OnEditClick(p.id)">
                                             Edit
                                         </td>
