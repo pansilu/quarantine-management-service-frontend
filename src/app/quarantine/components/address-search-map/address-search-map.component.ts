@@ -177,7 +177,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   }
 
   selectEventAddress(item: AddressModel) {
-    console.log(item)
+    // console.log(item)
     // address is alredy in out database
     this.address.id = item.id
     this.address.gndId = item.gndId
@@ -193,10 +193,51 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   onFocusedAddress(e) {
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.station.previousValue !== changes.station.currentValue) {
-      this.GetAddressByName(changes.station.currentValue);
+  onPoliceAreaChange() {
+    if (this.address.policeArea != "") {
+      this.addressEmit.emit(this.address);
     }
+    else {
+      this.address.policeArea = null;
+      this.addressEmit.emit(this.address)
+    }
+  }
+
+  onTownChange() {
+    if (this.address.town != "") {
+      this.addressEmit.emit(this.address);
+    }
+    else {
+      this.address.town = null;
+      this.addressEmit.emit(this.address)
+    }
+
+  }
+
+  onVillageChange() {
+    if (this.address.village != "") {
+      this.addressEmit.emit(this.address);
+    }
+    else {
+      this.address.village = null;
+      this.addressEmit.emit(this.address)
+    }
+
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    // if (changes.station.previousValue !== changes.station.currentValue) {
+    //   this.GetAddressByName(changes.station.currentValue);
+    // }
+    if (changes.address.previousValue) {
+      if (changes.address.previousValue.line !== changes.address.currentValue.line) {
+        this.zoom = 7;
+        this.initaddress = changes.address.currentValue.line
+      }
+
+    }
+
+
   }
 
 

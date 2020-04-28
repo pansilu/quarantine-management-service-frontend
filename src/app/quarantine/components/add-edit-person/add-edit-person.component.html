@@ -289,12 +289,12 @@
                                 <div class="col-md-2">
                                     <div class="page_input">
                                         <label>
-                                            {{userStatusDetailModel.type === status.deceased ? "Date (දිනය)":"End Date (නිමවන දිනය)"}}
+                                            {{userStatusDetailModel.type === status.deceased ? "Deceased Date (දිනය)":"End Date (නිමවන දිනය)"}}
                                         </label>
                                         <input type="date" [(ngModel)]="userStatusDetailModel.endDate">
                                         <div class="err_lo"
                                             *ngIf="this.statusError.endDate && userStatusDetailModel.type === status.deceased ">
-                                            Date
+                                            Deceased Date
                                             is
                                             required
                                         </div>
@@ -395,7 +395,7 @@
                                             Parent Case No
                                         </label>
                                         <input type="text" [(ngModel)]="userStatusDetailModel.parentCaseNum">
-                                        <div class="err_lo" *ngIf="this.statusError.caseNum">
+                                        <div class="err_lo" *ngIf="this.statusError.parentCaseNum">
                                             Parent Case No
                                             is
                                             required
@@ -473,7 +473,7 @@
                                     </thead>
                                     <tbody>
                                         <ng-container *ngFor="let e of person.userStatusDetails; let i = index">
-                                            <tr *ngIf="!e.delete">
+                                            <tr *ngIf="!e.delete && e.type !== status.deceased">
                                                 <td>{{e.type}}</td>
                                                 <td>{{e.startDate}}</td>
                                                 <td>{{e.endDate}}</td>
@@ -482,6 +482,12 @@
                                                 <td>{{e.caseNum}}</td>
                                                 <td>{{e.parentCaseNum}}</td>
                                                 <td>{{e.description}}</td>
+                                                <td class="edti_td" (click)="deleteDetail(i)">Delete</td>
+                                            </tr>
+
+                                            <tr *ngIf="!e.delete && e.type === status.deceased">
+                                                <td>{{e.type}}</td>
+                                                <td colspan="7" style="text-align: center;">{{e.endDate}}</td>
                                                 <td class="edti_td" (click)="deleteDetail(i)">Delete</td>
                                             </tr>
                                         </ng-container>

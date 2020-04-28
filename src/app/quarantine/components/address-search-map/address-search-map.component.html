@@ -18,26 +18,27 @@
         </ng-template>
     </div>
 
-    <div class = "row">
+    <div class="row" *ngIf="address != undefines">
+
         <div class="col-md-4">
             <label>
-                Police Area (පොලිස් බල ප්‍රදේශය)
+                Village (ග්‍රාමය)
             </label>
-            <input type="text" formControlName="policeArea">
+            <input type="text" [(ngModel)]="address.village" (change)="onVillageChange()">
         </div>
 
         <div class="col-md-4">
             <label>
                 Town (නගරය)
             </label>
-            <input type="text" formControlName="policeArea">
+            <input type="text" [(ngModel)]="address.town" (change)="onTownChange()">
         </div>
 
         <div class="col-md-4">
             <label>
-                Village (ග්‍රාමය)
+                Police Area (පොලිස් බල ප්‍රදේශය)
             </label>
-            <input type="text" formControlName="policeArea">
+            <input type="text" [(ngModel)]="address.policeArea" (change)="onPoliceAreaChange()">
         </div>
     </div>
 

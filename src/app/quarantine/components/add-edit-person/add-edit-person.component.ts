@@ -12,7 +12,6 @@ import QuarantineUserStatus from '../../models/QuarantineUserStatus';
 import { UserStatusDetailModel } from '../../models/user-status-details.model';
 import * as moment from 'moment';
 import { StatusErrorModel } from '../../models/status-error.model';
-import { QuarantineCenterService } from 'src/app/Service/quarantine-center.service';
 import { NameIdLocationModel } from 'src/app/shared/models/name-id-location.model';
 
 declare var $: any
@@ -22,6 +21,7 @@ declare var $: any
   styleUrls: ['./add-edit-person.component.scss']
 })
 export class AddEditPersonComponent implements OnInit {
+
   /** **/
   today: string = moment().format('YYYY-MM-DD');
   status = QuarantineUserStatus;
@@ -34,58 +34,58 @@ export class AddEditPersonComponent implements OnInit {
   districts: Array<NameIdModel>
   gnds: Array<NameIdModel>
   divisions: Array<NameIdModel>
-  /** ***/
-  q_id: number;
-  form: FormGroup;
-  form2: FormGroup;
   person: QuarantinePersonEditModel;
-
-  submitted: boolean;
-  edit: boolean;
-
-  errGramaSewaDivision: boolean;
-  saveButtonFlag: boolean
-
-  locationData: any
-
-  // divisions = [];
-  policeStations = [];
-  gramaSewaDivisions = [];
-
-  officers = [];
-  officersToShow = [];
-  OFFICER_RANK_ENUM = ["All", "IGP", "SDIG", "DIG", "SSP", "SP", "ASP", "CI", "IP", "SI", "PSM", "PS", "PC"]
-  selectedRank: any
-  selectedOfficers = [];
-  selectedOfficerIds = [];
-  dropdownSettings = {};
-
+  form: FormGroup;
   countries: Array<NameIdModel>
   hospitals: Array<NameIdModel>
-  addresses = [];
-  qp_exsistingAddressID: any;
-  qp_inspectorIds: []
-
+  q_id: number;
   id: any;
-  q_person: any;
-  getOfficer: any;
-  officerRequestbody: any
+  submitted: boolean;
+  edit: boolean;
+  /** ***/
 
-  appEnebleFlag: boolean
 
-  keyword = 'name';
-  addressKeyword = 'line';
-  createUser: boolean
 
-  constructor(private _quarantineService: QuarantineService,
+  saveButtonFlag: boolean
+  // errGramaSewaDivision: boolean;
+  // locationData: any
+  // form2: FormGroup;
+
+  // divisions = [];
+  // policeStations = [];
+  // gramaSewaDivisions = [];
+
+  // officers = [];
+  // officersToShow = [];
+  // OFFICER_RANK_ENUM = ["All", "IGP", "SDIG", "DIG", "SSP", "SP", "ASP", "CI", "IP", "SI", "PSM", "PS", "PC"]
+  // selectedRank: any
+  // selectedOfficers = [];
+  // selectedOfficerIds = [];
+  // dropdownSettings = {};
+
+
+  // addresses = [];
+  // qp_exsistingAddressID: any;
+  // qp_inspectorIds: []
+  // q_person: any;
+  // getOfficer: any;
+  // officerRequestbody: any
+
+  // appEnebleFlag: boolean
+
+  // keyword = 'name';
+  // addressKeyword = 'line';
+  // createUser: boolean
+
+  constructor(
+    private _quarantineService: QuarantineService,
     private _toast: ToastService,
     private _formBuilder: FormBuilder,
     private _router: Router,
     private _route: ActivatedRoute,
-    private _authService: AuthService,
     private _errorHandlerService: ErrorHandlerService,
   ) {
-    this.q_person = new QuarantinePersonEditModel()
+    // this.q_person = new QuarantinePersonEditModel()
   }
 
 
@@ -96,37 +96,34 @@ export class AddEditPersonComponent implements OnInit {
     this.getCountries();
     this.getHospitals();
     this.getquarantineCenters()
-    this.createUser = this._authService.loggedUser.createUser;
-    // console.log(this.q_id)
     this.edit = false
 
-    this.officers = [];
-    this.officersToShow = [];
-
-    this.selectedOfficers = [];
-
-    this.appEnebleFlag = false;
-
-    this.dropdownSettings = {
-      singleSelection: false,
-      enableCheckAll: false,
-      idField: 'id',
-      textField: 'showingName',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
+    // this.createUser = this._authService.loggedUser.createUser;
+    // console.log(this.q_id)
+    // this.officers = [];
+    // this.officersToShow = [];
+    // this.selectedOfficers = [];
+    // this.appEnebleFlag = false;
+    // this.dropdownSettings = {
+    //   singleSelection: false,
+    //   enableCheckAll: false,
+    //   idField: 'id',
+    //   textField: 'showingName',
+    //   selectAllText: 'Select All',
+    //   unSelectAllText: 'UnSelect All',
+    //   itemsShowLimit: 3,
+    //   allowSearchFilter: true
+    // };
 
     if (this.q_id > 0) {
       this.saveButtonFlag = false
       this.person = new QuarantinePersonEditModel();
       this._quarantineService.getQPerson((d) => {
         console.log(d)
-        if(d.address != null){
+        if (d.address != null) {
           this.address = d.address
         }
-      this.createForm();
+        this.createForm();
 
       },
         e => {
@@ -148,9 +145,9 @@ export class AddEditPersonComponent implements OnInit {
     const model = {
       // for address filteration
       province: new FormControl(this.person.province, [Validators.required, Validators.min(1)]),
-      district: new FormControl(this.person.district, [Validators.required, Validators.min(1)]),
-      dsDivision: new FormControl(this.person.dsDivision, [Validators.required, Validators.min(1)]),
-      gndId: new FormControl(this.person.address.gndId, [Validators.required, Validators.min(1)]),
+      district: new FormControl({ value: this.person.district }, [Validators.required, Validators.min(1)]),
+      dsDivision: new FormControl({ value: this.person.dsDivision }, [Validators.required, Validators.min(1)]),
+      gndId: new FormControl({ value: this.person.address.gndId }, [Validators.required, Validators.min(1)]),
       // policeDivision: new FormControl(this.person.address.policeArea, [Validators.required, Validators.min(1)]),
 
       age: new FormControl(this.person.age),
@@ -226,21 +223,38 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   onProvinceChange($event) {
+    this.districts = new Array<NameIdModel>()
+    this.divisions = new Array<NameIdModel>()
+    this.gnds = new Array<NameIdModel>()
     const id = $event.target.value;
     if (id != 'null')
       this.getDistrict(id);
+    this.form.controls.district.reset();
+    this.form.controls.dsDivision.reset();
+    this.form.controls.gndId.reset();
+    this.address.gndId = null
+
   }
 
   onDistrictChange($event) {
+    this.divisions = new Array<NameIdModel>()
+    this.gnds = new Array<NameIdModel>()
     const id = $event.target.value;
     if (id != 'null')
       this.getDivision(id);
+
+    this.form.controls.dsDivision.reset();
+    this.form.controls.gndId.reset();
+    this.address.gndId = null
   }
 
   onDsDivisionChange($event) {
+    this.gnds = new Array<NameIdModel>()
     const id = $event.target.value;
     if (id != 'null')
       this.getGnd(id);
+    this.form.controls.gndId.reset();
+    this.address.gndId = null
   }
 
   onGndIdSelect($event) {
@@ -298,16 +312,17 @@ export class AddEditPersonComponent implements OnInit {
 
   resetForm() {
     this.form.reset()
-    // this.form2.reset()
-    // this.selectedOfficers = [];
-    // this.selectedOfficerIds = [];
-    // this.selectedRank = null
-    // this.officersToShow = []
+    this.person = new QuarantinePersonEditModel();
+    this.address = new AddressModel();
+    // clear dorpdown list
+    this.districts = new Array<NameIdModel>()
+    this.divisions = new Array<NameIdModel>()
+    this.gnds = new Array<NameIdModel>()
   }
 
   onChangeSearchAddress(address: AddressModel) {
     console.log(address);
-    
+
     this.address = address;
   }
 
@@ -350,9 +365,9 @@ export class AddEditPersonComponent implements OnInit {
     this.statusError.startDate = this.validateString(this.userStatusDetailModel.startDate);
     this.statusError.endDate = this.validateString(this.userStatusDetailModel.endDate)
     this.statusError.qCenterId = this.validateNumber(this.userStatusDetailModel.qCenterId)
-    this.statusError.parentCaseNum = this.validateString(this.userStatusDetailModel.parentCaseNum);
+    // this.statusError.parentCaseNum = this.validateString(this.userStatusDetailModel.parentCaseNum);
     this.statusError.hospitalId = this.validateNumber(this.userStatusDetailModel.hospitalId);
-    this.statusError.caseNum = this.validateString(this.userStatusDetailModel.parentCaseNum);
+    this.statusError.caseNum = this.validateString(this.userStatusDetailModel.caseNum);
 
     if (this.userStatusDetailModel.type === this.status.home) {
       if (this.statusError.startDate) {

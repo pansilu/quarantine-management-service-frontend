@@ -3,6 +3,7 @@ import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { ToastService } from 'src/app/Service/toast.service';
 import { Router } from '@angular/router';
 import { QuarantinePersonViewModel } from '../../models/quarantine-person-view.model';
+import { AddressModel } from '../../models/address.model';
 
 @Component({
   selector: 'app-person-grid',
@@ -39,7 +40,7 @@ export class PersonGridComponent implements OnInit {
       this.persons = d.data;
       this.count = d.totalPages * pageSize;
     }, e => {
-      this._toast.error("Error","Canot get quarantine users")
+      this._toast.error("Error", "Canot get quarantine users")
       // console.log(e);
     }, pageSize, this.pageNumber, this.sort, this.search_text);
   }
@@ -79,6 +80,20 @@ export class PersonGridComponent implements OnInit {
 
   OnEditClick(id: number) {
     this._router.navigate(['quarantine/add-edit', id]);
+  }
+
+  setAddress(address: AddressModel):string {
+    var ad = address.line;
+    if (!this.validateString(address.village))
+      ad = ad + ", " + address.village
+    if (!this.validateString(address.town))
+      ad = ad + ", " + address.town
+
+    return ad;
+  }
+
+  validateString(prop): boolean {
+    return prop === undefined || prop === null || prop == ""
   }
 
 }
