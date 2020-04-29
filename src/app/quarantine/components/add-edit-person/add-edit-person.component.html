@@ -35,7 +35,7 @@
                                     <label>
                                         NIC (ජා.හැ.අ)
                                     </label>
-                                    <input type="text" formControlName="nic">
+                                    <input type="text" formControlName="nic" placeholder="Eg: 957433234v / 199312343523">
 
                                 </div>
                                 <div class="err_lo" *ngIf="submitted && form.controls['nic'].hasError('pattern')">
@@ -70,13 +70,14 @@
                                     <label>
                                         Mobile Number (ජංගම දුරකතන අංකය)
                                     </label>
-                                    <input type="text" formControlName="mobile" placeholder="0XXXXXXXXXX"
+                                    <input type="text" formControlName="mobile" placeholder="Eg:  0701234567"
                                         title="0 න් පටන් ගන්නා හා අංක 10 කින් යුතු විය යුතුය. උදා: 07XXXXXXX">
-                                    <div class="err_lo"
+                                </div>
+
+                                <div class="err_lo"
                                         *ngIf="submitted && form.controls['mobile'].hasError('pattern')">
                                         Mobile No. is
                                         not valid </div>
-                                </div>
 
                                 <div class="err_lo"
                                     *ngIf="submitted && form.controls['mobile'].hasError('required')">
@@ -88,7 +89,7 @@
                                     <label>
                                         Land Line (ස්ථාවර දුරකතන අංකය)
                                     </label>
-                                    <input type="text" formControlName="phone" placeholder="0XXXXXXXXXX">
+                                    <input type="text" formControlName="phone" placeholder="Eg: 0111234567">
                                     <div class="err_lo"
                                         *ngIf="submitted && form.controls['phone'].hasError('pattern')">
                                         Land Line No. is
@@ -140,8 +141,13 @@
                             </div>
                         </div>
 
-                        <div class="res" style="margin-top: -420px; z-index: 300; position: absolute; width: 32%;">
+                        <div class="res" style="margin-top: -450px; z-index: 300; position: absolute; width: 32%;">
 
+                            <p> 
+                               <label>
+                                   Location Details (ස්ථානීය තොරතුරු)
+                               </label>
+                            </p>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="page_input set-inline">
@@ -243,18 +249,24 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-2">
+                                        <label>
+                                            Please Select Record Type <br/>(වාර්තාවේ වර්ගය තෝරන්න) >>
+                                        </label>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="page_input">
                                         <select [(ngModel)]="userStatusDetailModel.type" (change)="onChangeStatus()">
                                             <option value="">-- Select Status --</option>
-                                            <option value={{status.home}}>Home(නිවසෙදී)</option>
-                                            <option value={{status.remorte}}>Remorte(නිරෝධනය මධ්යස්ථාන)</option>
-                                            <option value={{status.positive}}>Positive COVID-19(තහවුරුකරනලද)</option>
-                                            <option value={{status.suspect}}>Suspect COVID-19(සැක සහිත)</option>
-                                            <option value={{status.deceased}}>Deceased</option>
+                                            <option value={{status.home}}>Home Quarantine (නිවසෙදී නීරෝධායනය)</option>
+                                            <option value={{status.remorte}}>Remorte Quarantine (නිරෝධනය මධ්යස්ථානක නීරෝධායනය)</option>
+                                            <option value={{status.positive}}>Positive COVID-19 Patient(තහවුරුකරනලද රෝගියෙක් බව)</option>
+                                            <option value={{status.suspect}}>Suspect COVID-19 Patient(සැක සහිත රෝගියෙක් බව)</option>
+                                            <option value={{status.deceased}}>Deceased (මරණය)</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
+                            <hr/>
                             <div class="row">
                                 <!-- <div class="col-md-2" *ngIf="userStatusDetailModel.type === status.deceased">
                                     <div class="page_input">
@@ -333,7 +345,7 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button (click)="add_new('hospital')" style="width:100%">Add New</button>
+                                            <button class="addRecordBtn" (click)="add_new('hospital')" style="width:50%;">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -361,7 +373,7 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button (click)="add_new('center')" style="width:100%">Add New</button>
+                                            <button class="addRecordBtn" (click)="add_new('center')" style="width:50%;">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -409,7 +421,8 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button (click)="add_userStatus_detail()" style="width:100%">Add Record</button>
+                                            <button class="addRecordBtn" (click)="add_userStatus_detail()" style="width:100%; overflow: hidden;">
+                                                <label class="btnLabel">Add Record</label></button>
                                         </div>
                                     </div>
                                 </div>
@@ -432,7 +445,8 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button (click)="add_userStatus_detail()" style="width:100%">Add Record</button>
+                                            <button class="addRecordBtn" (click)="add_userStatus_detail()" style="width:100%">
+                                                <label class="btnLabel">Add Record</label></button>
                                         </div>
                                     </div>
                                 </div>
