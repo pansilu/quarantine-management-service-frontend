@@ -23,11 +23,13 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
 
   enable: boolean = false;
   zoom: number = 7;
-  private geoCoder;
-  private _autocompleteService;
   baseLat: number
   baseLng: number
   initaddress: string
+  addresEnterDisabled: boolean = true;
+  private geoCoder;
+  private _autocompleteService;
+
 
   // second method
   addresses: Array<AddressModel>;
@@ -51,6 +53,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     this.initaddress = this.address.line;
     if (this.address.id > 0) {
       this.setCurrentLocation();
+      this.addresEnterDisabled = false;
     }
 
     this.mapsAPILoader.load().then(() => {
@@ -137,32 +140,11 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     });
   }
 
-  // GetAddressByName(address: string) {
-  //   this.geoCoder.geocode({ 'address': address }, (responses, status) => {
-  //     if (status === 'OK') {
-  //       if (responses[0]) {
-  //         this.address.lat = responses[0].geometry.location.lat();
-  //         this.address.lon = responses[0].geometry.location.lng();
-  //         this.baseLat = responses[0].geometry.location.lat();
-  //         this.baseLng = responses[0].geometry.location.lng();
-  //         this.zoom = 14;
-  //         // this.enable = true
-  //         // this.addressEmit.emit(this.address)
-  //       }
-  //       else {
-  //         this.setPoitsToDef();
-  //       }
-  //     }
-  //     else {
-  //       this.setPoitsToDef();
-  //     }
-  //   })
-  // }
-
   getGndById(id: number, center?: boolean) {
     this._quarantineService.getGndById(d => {
-      // console.log(d); 
-      this.Json.features = [JSON.parse(d.feature)]
+      console.log(d);
+      var object = JSON.parse(d.feature)
+      this.Json.features = [object]
       //Calculate marker point
       this.enable = true;
       if (center) {
@@ -175,24 +157,43 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   }
 
   calCenterOfPoliline() {
-    var length = this.Json.features[0].geometry.coordinates[0].length
-    var min = this.Json.features[0].geometry.coordinates[0][0]
-    var max = this.Json.features[0].geometry.coordinates[0][Math.round(length / 2)]
-    // console.log(min);
-    // console.log(max);
+    // debugger;
+    if (this.Json.features[0].geometry.geometries) {
+      // console.log("array");
+      var avg = (this.Json.features[0].geometry.geometries[0].coordinates[0].length - 1) / 4
+      var Q_1 = this.Json.features[0].geometry.geometries[0].coordinates[0][Math.floor(avg)]
+      var Q_2 = this.Json.features[0].geometry.geometries[0].coordinates[0][Math.floor(avg) * 2]
+      var Q_3 = this.Json.features[0].geometry.geometries[0].coordinates[0][Math.floor(avg) * 3]
+      var Q_4 = this.Json.features[0].geometry.geometries[0].coordinates[0][Math.floor(avg) * 4]
+      var lon = (Q_1[0] + Q_2[0] + Q_3[0] + Q_4[0]) / 4
+      var lat = (Q_1[1] + Q_2[1] + Q_3[1] + Q_4[1]) / 4
+
+      this.address.lat = lat;
+      this.address.lon = lon;
+      this.baseLat = lat;
+      this.baseLng = lon;
+      this.zoom = 16;
+
+    }
+    else {
+      // console.log("normal object");
+      var avg = (this.Json.features[0].geometry.coordinates[0].length - 1) / 4
+
+      var Q_1 = this.Json.features[0].geometry.coordinates[0][Math.floor(avg)]
+      var Q_2 = this.Json.features[0].geometry.coordinates[0][Math.floor(avg) * 2]
+      var Q_3 = this.Json.features[0].geometry.coordinates[0][Math.floor(avg) * 3]
+      var Q_4 = this.Json.features[0].geometry.coordinates[0][Math.floor(avg) * 4]
 
 
-    var lon = (min[0] + max[0]) / 2
-    var lat = (min[1] + max[1]) / 2
+      var lon = (Q_1[0] + Q_2[0] + Q_3[0] + Q_4[0]) / 4
+      var lat = (Q_1[1] + Q_2[1] + Q_3[1] + Q_4[1]) / 4
 
-    this.address.lat = lat;
-    this.address.lon = lon;
-    this.baseLat = lat;
-    this.baseLng = lon;
-    this.zoom = 16;
-
-    // console.log(lat , lon);
-
+      this.address.lat = lat;
+      this.address.lon = lon;
+      this.baseLat = lat;
+      this.baseLng = lon;
+      this.zoom = 16;
+    }
   }
 
   setPoitsToDef() {
@@ -216,8 +217,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     }, e => {
       this._errorHandlerService.Handler(e);
     }, this.gnd, search);
-
-    this.getAddress(search);
+    this.addressEmit.emit(this.address);
   }
 
   selectEventAddress(item: AddressModel) {
@@ -248,19 +248,22 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   }
 
   onTownChange() {
+    this.address.id = null;
     if (this.address.town != "") {
-      this.addressEmit.emit(this.address);
+      this.getAddress(this.address.village + " " + this.address.town);
+      // this.addressEmit.emit(this.address);
     }
     else {
       this.address.town = null;
       this.addressEmit.emit(this.address)
     }
-
   }
 
   onVillageChange() {
+    this.address.id = null;
     if (this.address.village != "") {
-      this.addressEmit.emit(this.address);
+      this.getAddress(this.address.village + " " + this.address.town);
+      // this.addressEmit.emit(this.address);
     }
     else {
       this.address.village = null;
@@ -272,9 +275,10 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes.gnd) {
       if (changes.gnd.previousValue !== changes.gnd.currentValue) {
-        if (changes.gnd.currentValue !== 0) {
+        if (changes.gnd.currentValue !== 0 && changes.gnd.currentValue !== null) {
           this.enable = false;
-          this.getGndById(changes.gnd.currentValue,true);
+          this.getGndById(changes.gnd.currentValue, true);
+          this.addresEnterDisabled = false;
         }
       }
     }
@@ -287,8 +291,6 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
 
       }
     }
-
-
   }
 
 

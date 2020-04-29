@@ -19,96 +19,96 @@ export class NewOfficerComponent implements OnInit {
   form: FormGroup;
   user: UserModel;
   submitted: boolean
-  @Output('save') save: EventEmitter<boolean> = new EventEmitter<boolean>();
+  // @Output('save') save: EventEmitter<boolean> = new EventEmitter<boolean>();
 
 
-  dropdownSettings = {
-    singleSelection: false,
-    enableCheckAll: false,
-    idField: 'id',
-    textField: 'name',
-    selectAllText: 'Select All',
-    unSelectAllText: 'UnSelect All',
-    itemsShowLimit: 3,
-    allowSearchFilter: true
-  };
+  // dropdownSettings = {
+  //   singleSelection: false,
+  //   enableCheckAll: false,
+  //   idField: 'id',
+  //   textField: 'name',
+  //   selectAllText: 'Select All',
+  //   unSelectAllText: 'UnSelect All',
+  //   itemsShowLimit: 3,
+  //   allowSearchFilter: true
+  // };
 
-  locations: Array<NameIdModel>;
-  selectedLocations = new Array<NameIdModel>();
+  // locations: Array<NameIdModel>;
+  // selectedLocations = new Array<NameIdModel>();
 
   ngOnInit() {
-    this.user = new UserModel();
-    this.createForm();
-    this.getLocations();
-    this.locations = new Array<LocationModel>();
+    // this.user = new UserModel();
+    // this.createForm();
+    // this.getLocations();
+    // this.locations = new Array<LocationModel>();
     //this.getLocations()
   }
 
-  createForm() {
-    const model = {
-      // role: new FormControl(this.user.role, Validators.required),
-      name: new FormControl(this.user.name, Validators.required),
-      mobile: new FormControl(this.user.mobile, Validators.required),
-      canCreateUser: new FormControl(this.user.canCreateUser, Validators.required),
-      nic: new FormControl(this.user.nic),
-      officeId: new FormControl(this.user.officeId, Validators.required),
-      passportNo: new FormControl(this.user.passportNo),
-      // phone: new FormControl(this.user.phone),
-      rank: new FormControl(this.user.rank)
-    };
-    this.form = this._formBuilder.group(model);
-  }
+  // createForm() {
+  //   const model = {
+  //     // role: new FormControl(this.user.role, Validators.required),
+  //     name: new FormControl(this.user.name, Validators.required),
+  //     mobile: new FormControl(this.user.mobile, Validators.required),
+  //     canCreateUser: new FormControl(this.user.canCreateUser, Validators.required),
+  //     nic: new FormControl(this.user.nic),
+  //     officeId: new FormControl(this.user.officeId, Validators.required),
+  //     passportNo: new FormControl(this.user.passportNo),
+  //     // phone: new FormControl(this.user.phone),
+  //     rank: new FormControl(this.user.rank)
+  //   };
+  //   this.form = this._formBuilder.group(model);
+  // }
 
-  getLocations() {
-    this._userService.getLocations(d => {
-      this.locations = d[0].stations
-    }, e => {
-      this._toast.error("Error", "Get Location Failed")
-      //console.log(e);
-    })
-  }
+  // getLocations() {
+  //   this._userService.getLocations(d => {
+  //     this.locations = d[0].stations
+  //   }, e => {
+  //     this._toast.error("Error", "Get Location Failed")
+  //     //console.log(e);
+  //   })
+  // }
 
-  addUserLocation(event) {
-    if (event.target.value > 0 && this.user.stationIdList.indexOf(event.target.value) == -1) {
-      this.user.stationIdList.push(+event.target.value)
-    }
-  }
+  // addUserLocation(event) {
+  //   if (event.target.value > 0 && this.user.stationIdList.indexOf(event.target.value) == -1) {
+  //     this.user.stationIdList.push(+event.target.value)
+  //   }
+  // }
 
-  submit() {
-    this.submitted = true;
-    if (this.form.valid && this.selectedLocations.length > 0) {
-      this.setLocationArray();
-      const value = this.form.value
-      value.id = this.user.id;
-      value.stationIdList = this.user.stationIdList;
-      this._userService.addUser((data) => {
-        this.save.emit(true);
-        this._toast.success("Success", "User saved")
-      }, (e) => {
-        console.log(e.status)
-        this._toast.error("Error", e.status + " " + e.error.errorDesc)
-      }, value);
-    }
-    else {
-      if (this.selectedLocations.length <= 0) {
-        this._toast.error("Error", "Need to select at least one police station")
-      }
-    }
-  }
+  // submit() {
+  //   this.submitted = true;
+  //   if (this.form.valid && this.selectedLocations.length > 0) {
+  //     this.setLocationArray();
+  //     const value = this.form.value
+  //     value.id = this.user.id;
+  //     value.stationIdList = this.user.stationIdList;
+  //     this._userService.addUser((data) => {
+  //       this.save.emit(true);
+  //       this._toast.success("Success", "User saved")
+  //     }, (e) => {
+  //       console.log(e.status)
+  //       this._toast.error("Error", e.status + " " + e.error.errorDesc)
+  //     }, value);
+  //   }
+  //   else {
+  //     if (this.selectedLocations.length <= 0) {
+  //       this._toast.error("Error", "Need to select at least one police station")
+  //     }
+  //   }
+  // }
 
-  setLocationArray() {
-    this.user.stationIdList = new Array<number>();
-    this.selectedLocations.forEach(e => {
-      this.user.stationIdList.push(e.id);
-    })
-  }
+  // setLocationArray() {
+  //   this.user.stationIdList = new Array<number>();
+  //   this.selectedLocations.forEach(e => {
+  //     this.user.stationIdList.push(e.id);
+  //   })
+  // }
 
-  onItemSelect($event) {
-    // console.log($event)
-  }
+  // onItemSelect($event) {
+  //   // console.log($event)
+  // }
 
-  onSelectAll($event) {
-    // console.log($event)
-  }
+  // onSelectAll($event) {
+  //   // console.log($event)
+  // }
 
 }

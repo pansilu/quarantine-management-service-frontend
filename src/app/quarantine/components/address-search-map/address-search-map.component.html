@@ -5,21 +5,21 @@
             <label>
                 Village (ග්‍රාමය)
             </label>
-            <input type="text" [(ngModel)]="address.village" (change)="onVillageChange()" [disabled]="gnd <=0">
+            <input type="text" [(ngModel)]="address.village" (change)="onVillageChange()" [disabled]="addresEnterDisabled">
         </div>
 
         <div class="col-md-4">
             <label>
                 Town (නගරය)
             </label>
-            <input type="text" [(ngModel)]="address.town" (change)="onTownChange()" [disabled]="gnd <=0">
+            <input type="text" [(ngModel)]="address.town" (change)="onTownChange()" [disabled]="addresEnterDisabled">
         </div>
 
         <div class="col-md-4">
             <label>
                 Police Area (පොලිස් බල ප්‍රදේශය)
             </label>
-            <input type="text" [(ngModel)]="address.policeArea" (change)="onPoliceAreaChange()" [disabled]="gnd <=0">
+            <input type="text" [(ngModel)]="address.policeArea" (change)="onPoliceAreaChange()" [disabled]="addresEnterDisabled">
         </div>
     </div>
     <label>
@@ -29,7 +29,7 @@
         <ng-autocomplete [data]="addresses" [searchKeyword]="addressKeyword" placeHolder="Enter Address line"
             (selected)='selectEventAddress($event)' (inputChanged)='onChangeSearchAddress($event)'
             [(ngModel)]="initaddress" (inputFocused)='onFocusedAddress($event)' historyIdentifier="addresses"
-            [itemTemplate]="itemTemplateAdd" [notFoundTemplate]="notFoundTemplateAdd" [disabled]="gnd <=0">
+            [itemTemplate]="itemTemplateAdd" [notFoundTemplate]="notFoundTemplateAdd" [disabled]="addresEnterDisabled">
         </ng-autocomplete>
 
         <ng-template #itemTemplateAdd let-item>
