@@ -1,11 +1,12 @@
 <div class="col-md-4" style="margin-top: 300px;">
-    <div class="row" *ngIf="address != undefines">
+    <div class="row" *ngIf="address">
 
         <div class="col-md-4">
             <label>
                 Village (ග්‍රාමය)
             </label>
-            <input type="text" [(ngModel)]="address.village" (change)="onVillageChange()" [disabled]="addresEnterDisabled">
+            <input type="text" [(ngModel)]="address.village" (change)="onVillageChange()"
+                [disabled]="addresEnterDisabled">
         </div>
 
         <div class="col-md-4">
@@ -19,7 +20,8 @@
             <label>
                 Police Area (පොලිස් බල ප්‍රදේශය)
             </label>
-            <input type="text" [(ngModel)]="address.policeArea" (change)="onPoliceAreaChange()" [disabled]="addresEnterDisabled">
+            <input type="text" [(ngModel)]="address.policeArea" (change)="onPoliceAreaChange()"
+                [disabled]="addresEnterDisabled">
         </div>
     </div>
     <label>
@@ -40,13 +42,10 @@
             <div [innerHTML]="notFound"></div>
         </ng-template>
     </div>
-
-
-
 </div>
 <div class="col-md-8">
     <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off"
-        autocapitalize="off" spellcheck="off" type="text" #search (change)="onAddressChange()">
+        autocapitalize="off" spellcheck="off" type="text" #search (change)="onAddressChange($event)">
     <agm-map [latitude]="+address.lat" [longitude]="+address.lon" [zoom]="zoom" (mapClick)="onMapClick($event)">
         <agm-marker [latitude]="+address.lat" [longitude]="+address.lon"></agm-marker>
         <agm-data-layer [geoJson]="Json" [style]="styleFunc" *ngIf="enable"></agm-data-layer>
