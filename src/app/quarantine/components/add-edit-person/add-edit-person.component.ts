@@ -121,7 +121,7 @@ export class AddEditPersonComponent implements OnInit {
       this.saveButtonFlag = false
       // this.person = new QuarantinePersonEditModel();
       this._quarantineService.getQPerson((d) => {
-        console.log(d)
+        // console.log(d)
         this.getDistrict(d.provinceId);
         this.getDivision(d.districtId);
         this.getGnd(d.divisionId);
@@ -154,7 +154,7 @@ export class AddEditPersonComponent implements OnInit {
       province: new FormControl(this.person.provinceId, [Validators.required, Validators.min(1)]),
       district: new FormControl(this.person.districtId, [Validators.required, Validators.min(1)]),
       dsDivision: new FormControl(this.person.divisionId, [Validators.required, Validators.min(1)]),
-      gndId: new FormControl(this.person.address.gndId , [Validators.required, Validators.min(1)]),
+      gndId: new FormControl(this.person.address.gndId, [Validators.required, Validators.min(1)]),
       // policeDivision: new FormControl(this.person.address.policeArea, [Validators.required, Validators.min(1)]),
 
       age: new FormControl(this.person.age),
@@ -287,6 +287,10 @@ export class AddEditPersonComponent implements OnInit {
     this.person.phone = value.phone
     this.person.address = this.address
 
+    /** 
+     * Delete unnessesery property form
+     * object
+     */
     delete this.person.districtId;
     delete this.person.divisionId;
     delete this.person.provinceId;
@@ -312,7 +316,7 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   setQuarantinePerson(exit: boolean = false) {
-    console.log(this.person)
+    // console.log(this.person)
     this._quarantineService.setQuarantinePerson((d) => {
       this._toast.success("Success", "Person saved");
       if (exit) {
@@ -338,8 +342,7 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   onChangeSearchAddress(address: AddressModel) {
-    console.log(address);
-
+    // console.log(address);
     this.address = address;
   }
 

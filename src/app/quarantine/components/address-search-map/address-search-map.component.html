@@ -47,9 +47,8 @@
 <div class="col-md-8">
     <input type="text" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off"
         autocapitalize="off" spellcheck="off" type="text" #search (change)="onAddressChange()">
-    <agm-map [latitude]="+address.lat" [longitude]="+address.lon" [zoom]="zoom">
-        <agm-marker [latitude]="+address.lat" [longitude]="+address.lon" [markerDraggable]="true"
-            (dragEnd)="markerDragEnd($event)"></agm-marker>
+    <agm-map [latitude]="+address.lat" [longitude]="+address.lon" [zoom]="zoom" (mapClick)="onMapClick($event)">
+        <agm-marker [latitude]="+address.lat" [longitude]="+address.lon"></agm-marker>
         <agm-data-layer [geoJson]="Json" [style]="styleFunc" *ngIf="enable"></agm-data-layer>
 
     </agm-map>

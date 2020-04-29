@@ -4,6 +4,8 @@ import { AddressModel } from '../../models/address.model';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
 import { ToastService } from 'src/app/Service/toast.service';
 import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
+import * as GeoJsonGeometriesLookup from 'geojson-geometries-lookup';
+
 
 @Component({
   selector: 'app-address-search-map',
@@ -29,7 +31,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   addresEnterDisabled: boolean = true;
   private geoCoder;
   private _autocompleteService;
-
+  lookup: any
 
   // second method
   addresses: Array<AddressModel>;
@@ -55,7 +57,6 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
       this.setCurrentLocation();
       this.addresEnterDisabled = false;
     }
-
     this.mapsAPILoader.load().then(() => {
       this.geoCoder = new google.maps.Geocoder;
       this._autocompleteService = new google.maps.places.AutocompleteService();
@@ -83,6 +84,9 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   // Get Current Location Coordinates
   private setCurrentLocation() {
     this.getGndById(this.address.gndId, false);
+    this.baseLat = this.address.lat;
+    this.baseLng = this.address.lon;
+    this.gnd = this.address.gndId;
     this.zoom = 16;
   }
 
@@ -94,12 +98,43 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     });
   }
 
+  // [markerDraggable]="true"
+  // (dragEnd)="markerDragEnd($event)"
+  // markerDragEnd($event: MouseEvent) {
+  //   // console.log($event);
+  //   var pass = this.checkCoordinateWithingTheSelectedArea($event.coords.lng, $event.coords.lat)
+  //   console.log(pass);
+  //   if (pass) {
+  //     this.address.lat = $event.coords.lat;
+  //     this.address.lon = $event.coords.lng;
+  //   }
+  //   else {
+  //     this.address.lat = this.baseLat;
+  //     this.address.lon = this.baseLng;
+  //   }
+  //   this.addressEmit.emit(this.address);
+  // }
 
-  markerDragEnd($event: MouseEvent) {
-    // console.log($event);
-    this.address.lat = $event.coords.lat;
-    this.address.lon = $event.coords.lng;
-    this.addressEmit.emit(this.address);
+  onMapClick($event) {
+    var pass = this.checkCoordinateWithingTheSelectedArea($event.coords.lng, $event.coords.lat)
+    if (pass) {
+      this.address.lat = $event.coords.lat;
+      this.address.lon = $event.coords.lng;
+      this.addressEmit.emit(this.address);
+    }
+    else {
+      // do nothing
+    }
+  }
+
+  checkCoordinateWithingTheSelectedArea(lng, lat) {
+    const point = { type: "Point", coordinates: [lng, lat] };
+    if (this.lookup) {
+      return this.lookup.hasContainers(point, { ignorePoints: true, ignoreLines: true });
+    }
+    else {
+      return true;
+    }
   }
 
   getAddress(address: string) {
@@ -115,10 +150,22 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
           this.geoCoder.geocode({ 'placeId': results[0].place_id }, (responses, status) => {
             if (status === 'OK') {
               if (responses[0]) {
-                this.address.lat = responses[0].geometry.location.lat();
-                this.address.lon = responses[0].geometry.location.lng();
-                this.zoom = 15;
-                this.addressEmit.emit(this.address)
+                var pass = false
+                for (let e of responses) {
+                  pass = this.checkCoordinateWithingTheSelectedArea(e.geometry.location.lng(), e.geometry.location.lat());
+                  console.log(pass)
+                  if (pass) {
+                    this.address.lat = responses[0].geometry.location.lat();
+                    this.address.lon = responses[0].geometry.location.lng();
+                    this.zoom = 16;
+                    this.addressEmit.emit(this.address)
+                    return;
+                  }
+                }
+
+                if (!pass) {
+                  this.setPoitsToDef();
+                }
               }
               else {
                 this.setPoitsToDef();
@@ -145,6 +192,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
       console.log(d);
       var object = JSON.parse(d.feature)
       this.Json.features = [object]
+      this.lookup = new GeoJsonGeometriesLookup(this.Json);
       //Calculate marker point
       this.enable = true;
       if (center) {
@@ -157,7 +205,6 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   }
 
   calCenterOfPoliline() {
-    // debugger;
     if (this.Json.features[0].geometry.geometries) {
       // console.log("array");
       var avg = (this.Json.features[0].geometry.geometries[0].coordinates[0].length - 1) / 4
@@ -173,7 +220,6 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
       this.baseLat = lat;
       this.baseLng = lon;
       this.zoom = 16;
-
     }
     else {
       // console.log("normal object");
@@ -200,7 +246,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     this.address.lat = this.baseLat;
     this.address.lon = this.baseLng;
     this.addressEmit.emit(this.address)
-    this.zoom = 14;
+    this.zoom = 15;
   }
 
   onAddressChange($event) {
@@ -217,7 +263,9 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     }, e => {
       this._errorHandlerService.Handler(e);
     }, this.gnd, search);
-    this.addressEmit.emit(this.address);
+
+    this.getAddress(this.getFullAddress());
+    
   }
 
   selectEventAddress(item: AddressModel) {
@@ -250,19 +298,28 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
   onTownChange() {
     this.address.id = null;
     if (this.address.town != "") {
-      this.getAddress(this.address.village + " " + this.address.town);
+
+      this.getAddress(this.getFullAddress());
       // this.addressEmit.emit(this.address);
     }
     else {
       this.address.town = null;
       this.addressEmit.emit(this.address)
     }
+
+  }
+
+  getFullAddress(){
+    var line = this.address.line === undefined ? "" : this.address.line
+    var village = this.address.village === undefined ? "" : this.address.village
+    var town = this.address.town === undefined ? "" : this.address.town
+    return (line + " " + village +" " +town);
   }
 
   onVillageChange() {
     this.address.id = null;
     if (this.address.village != "") {
-      this.getAddress(this.address.village + " " + this.address.town);
+      this.getAddress(this.getFullAddress());
       // this.addressEmit.emit(this.address);
     }
     else {
@@ -292,6 +349,4 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
       }
     }
   }
-
-
 }
