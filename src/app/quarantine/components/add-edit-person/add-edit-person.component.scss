@@ -89,13 +89,12 @@ label {
 
   @media screen and (max-width: 991px) {
     .res {
-     position: relative !important;
-     width: 100% !important;
-     margin-top: 0px !important;
-    }
+     margin-top: -1000px !important;
+     width: 93% !important;
   }
 
   .addRecordBtn{
     background-color: #2f0144;
     border-radius: 10px;
   }
+}

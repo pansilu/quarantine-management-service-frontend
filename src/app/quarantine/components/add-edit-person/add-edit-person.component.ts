@@ -126,7 +126,7 @@ export class AddEditPersonComponent implements OnInit {
       this.saveButtonFlag = false
       // this.person = new QuarantinePersonEditModel();
       this._quarantineService.getQPerson((d) => {
-        // console.log(d)
+        console.log(d)
         this.getDistrict(d.provinceId);
         this.getDivision(d.districtId);
         this.getGnd(d.divisionId);
