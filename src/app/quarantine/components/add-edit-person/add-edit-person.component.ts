@@ -45,6 +45,7 @@ export class AddEditPersonComponent implements OnInit {
   submitted: boolean;
   edit: boolean;
   gndId: number = 0;
+  editIndex:number = -1
   /** ***/
 
 
@@ -446,9 +447,10 @@ export class AddEditPersonComponent implements OnInit {
       }
     }
 
-    if(this.userStatusDetailModel.id > 0){
-      var i = this.person.userStatusDetails.findIndex(x=>x.id = this.userStatusDetailModel.id);
-      this.person.userStatusDetails[i] = this.userStatusDetailModel
+    if(this.editIndex > -1){
+      // var i = this.person.userStatusDetails.findIndex(x=>x.id = this.userStatusDetailModel.id);
+      this.person.userStatusDetails[this.editIndex] = this.userStatusDetailModel
+      this.editIndex = -1;
     }else {
       this.person.userStatusDetails.push(this.userStatusDetailModel);
     }
@@ -487,9 +489,9 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   editDetail(index: number){
+    this.editIndex = index;
     this.pCaseEdit = this.person.userStatusDetails[index].parentCaseNum;
     this.userStatusDetailModel = this.person.userStatusDetails[index]
-
   }
 }
 
