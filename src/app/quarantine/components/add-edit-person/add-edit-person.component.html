@@ -55,7 +55,7 @@
                                     <label>
                                         Age (වයස)
                                     </label>
-                                    <input type="number" formControlName="age">
+                                    <input type="number" formControlName="age" min="0">
                                     <div class="err_lo"
                                         *ngIf="submitted && form.controls['age'].hasError('required')">
                                         Age is

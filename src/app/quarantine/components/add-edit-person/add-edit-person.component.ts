@@ -287,6 +287,14 @@ export class AddEditPersonComponent implements OnInit {
     this.person.phone = value.phone
     this.person.address = this.address
 
+    delete this.person.districtId;
+    delete this.person.divisionId;
+    delete this.person.provinceId;
+    delete this.person.gndId;
+    delete this.person.status;
+
+
+
     if (this.form.valid && this.person.userStatusDetails.length > 0) {
       this.setQuarantinePerson(exit)
     } else {

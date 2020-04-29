@@ -4,9 +4,17 @@ import { UserStatusDetailModel } from './user-status-details.model'
 // import { RecivedGramaSewaDivisionModel } from './quarantine-person-get.model'
 
 export class QuarantinePersonEditModel {
-    public provinceId:number
-    public districtId:number
-    public divisionId:number
+    /**
+     * Shuld remove before send backend get user only
+     * use delete this.person.status;
+     * 
+     * */
+    public provinceId: number
+    public districtId: number
+    public divisionId: number
+    public gndId: number
+    public status: string
+    /*********** End Dlete Properties*************/
     public id: number
     public age: number
     public arrivalDate: string
@@ -20,7 +28,7 @@ export class QuarantinePersonEditModel {
     public address: AddressModel
     public userStatusDetails: Array<UserStatusDetailModel>
 
-    constructor(){
+    constructor() {
         this.address = new AddressModel();
         this.userStatusDetails = new Array<UserStatusDetailModel>();
     }
