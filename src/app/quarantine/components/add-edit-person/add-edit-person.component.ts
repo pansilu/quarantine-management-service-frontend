@@ -305,8 +305,8 @@ export class AddEditPersonComponent implements OnInit {
 
     this.person.mobile = (value.mobile == "") ? null : value.mobile
     this.person.phone = (value.phone == "") ? null : value.phone
+    this.person.nic = (value.nic == "") ? null : value.nic
     this.person.name = value.name
-    this.person.nic = value.nic
     this.person.passportNo = value.passportNo
     this.person.address = this.address
 
