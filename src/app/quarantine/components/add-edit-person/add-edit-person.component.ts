@@ -45,7 +45,7 @@ export class AddEditPersonComponent implements OnInit {
   submitted: boolean;
   edit: boolean;
   gndId: number = 0;
-  editIndex:number = -1
+  editIndex: number = -1
   /** ***/
 
 
@@ -177,20 +177,20 @@ export class AddEditPersonComponent implements OnInit {
   }
 
 
-  getPCases(search:string){
+  getPCases(search: string) {
     this._quarantineService.getPCases((d) => {
       console.log(d)
       this.pCaseDropdownList = d;
     }, e => {
       this._errorHandlerService.Handler(e);
-    },search);
+    }, search);
   }
 
-  onChangeSearchPCase(search:string){
+  onChangeSearchPCase(search: string) {
     this.getPCases(search);
   }
 
-  selectEventPCase(event){
+  selectEventPCase(event) {
     this.userStatusDetailModel.parentCaseNum = event.caseNum
   }
 
@@ -302,11 +302,12 @@ export class AddEditPersonComponent implements OnInit {
     this.person.arrivalDate = value.arrivalDate
     this.person.countryId = value.countryId
     this.person.gender = value.gender
-    this.person.mobile = value.mobile
+
+    this.person.mobile = (value.mobile == "") ? null : value.mobile
+    this.person.phone = (value.phone == "") ? null : value.phone
     this.person.name = value.name
     this.person.nic = value.nic
     this.person.passportNo = value.passportNo
-    this.person.phone = value.phone
     this.person.address = this.address
 
     /** 
@@ -447,11 +448,11 @@ export class AddEditPersonComponent implements OnInit {
       }
     }
 
-    if(this.editIndex > -1){
+    if (this.editIndex > -1) {
       // var i = this.person.userStatusDetails.findIndex(x=>x.id = this.userStatusDetailModel.id);
       this.person.userStatusDetails[this.editIndex] = this.userStatusDetailModel
       this.editIndex = -1;
-    }else {
+    } else {
       this.person.userStatusDetails.push(this.userStatusDetailModel);
     }
     var model = new UserStatusDetailModel();
@@ -488,7 +489,7 @@ export class AddEditPersonComponent implements OnInit {
     }
   }
 
-  editDetail(index: number){
+  editDetail(index: number) {
     this.editIndex = index;
     this.pCaseEdit = this.person.userStatusDetails[index].parentCaseNum;
     this.userStatusDetailModel = this.person.userStatusDetails[index]
