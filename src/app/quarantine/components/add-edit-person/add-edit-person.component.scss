@@ -13,6 +13,17 @@ label {
     // text-align: center;
   }
 
+  .btnLabel{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: white;
+    font-size: 15px;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: -5px;
+  }
+
   hr{
     margin-top: 5px !important;
     margin-bottom: 5px !important;
