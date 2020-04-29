@@ -70,12 +70,15 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
-          //set latitude, longitude and zoom
-          this.address.lat = place.geometry.location.lat();
-          this.address.lon = place.geometry.location.lng();
-          // this.address.line = this.searchElementRef.nativeElement.value;
-          this.zoom = 16;
-          this.addressEmit.emit(this.address);
+          var pass = this.checkCoordinateWithingTheSelectedArea(place.geometry.location.lng(), place.geometry.location.lat());
+          if (pass) {
+            //set latitude, longitude and zoom
+            this.address.lat = place.geometry.location.lat();
+            this.address.lon = place.geometry.location.lng();
+            // this.address.line = this.searchElementRef.nativeElement.value;
+            this.zoom = 16;
+            this.addressEmit.emit(this.address);
+          }
         });
       });
     });
@@ -264,7 +267,7 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     }, this.gnd, search);
 
     this.getAddress(this.getFullAddress());
-    
+
   }
 
   selectEventAddress(item: AddressModel) {
@@ -308,11 +311,11 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
 
   }
 
-  getFullAddress(){
+  getFullAddress() {
     var line = this.address.line === undefined ? "" : this.address.line
     var village = this.address.village === undefined ? "" : this.address.village
     var town = this.address.town === undefined ? "" : this.address.town
-    return (line + " " + village +" " +town);
+    return (line + " " + village + " " + town);
   }
 
   onVillageChange() {
