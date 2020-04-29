@@ -9,6 +9,7 @@ import { HttpClient,HttpClientModule } from '@angular/common/http';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({

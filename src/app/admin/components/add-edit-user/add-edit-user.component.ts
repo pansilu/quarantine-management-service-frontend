@@ -51,7 +51,7 @@ export class AddEditUserComponent implements OnInit {
       this._userService.getUsers(d => {
 
         // console.log(d);
-        this.getLocations();
+        // this.getLocations();
         this.user = d;
         this.selectedLocations = d.stations;
         this.createForm();
@@ -62,7 +62,7 @@ export class AddEditUserComponent implements OnInit {
     } else {
       this.user = new UserModel();
       this.createForm();
-      this.getLocations();
+      // this.getLocations();
     }
     this.locations = new Array<LocationModel>();
     //this.getLocations()
@@ -78,34 +78,34 @@ export class AddEditUserComponent implements OnInit {
       officeId: new FormControl(this.user.officeId, Validators.required),
       passportNo: new FormControl(this.user.passportNo),
       // phone: new FormControl(this.user.phone),
-      rank: new FormControl(this.user.rank)
+      // rank: new FormControl(this.user.rank)
     };
     this.form = this._formBuilder.group(model);
   }
 
-  getLocations() {
-    this._userService.getLocations(d => {
-      this.locations = d[0].stations
-    }, e => {
-      this._errorHandlerService.Handler(e)
-      // this._toast.error("Error", "Get Location Failed")
-      //console.log(e);
-    })
-  }
+  // getLocations() {
+  //   this._userService.getLocations(d => {
+  //     this.locations = d[0].stations
+  //   }, e => {
+  //     this._errorHandlerService.Handler(e)
+  //     // this._toast.error("Error", "Get Location Failed")
+  //     //console.log(e);
+  //   })
+  // }
 
-  addUserLocation(event) {
-    if (event.target.value > 0 && this.user.stationIdList.indexOf(event.target.value) == -1) {
-      this.user.stationIdList.push(+event.target.value)
-    }
-  }
+  // addUserLocation(event) {
+  //   if (event.target.value > 0 && this.user.stationIdList.indexOf(event.target.value) == -1) {
+  //     this.user.stationIdList.push(+event.target.value)
+  //   }
+  // }
 
   submit() {
     this.submitted = true;
-    if (this.form.valid && this.selectedLocations.length > 0) {
-      this.setLocationArray();
+    if (this.form.valid) {
+      // this.setLocationArray();
       const value = this.form.value
       value.id = this.user.id;
-      value.stationIdList = this.user.stationIdList;
+      // value.stationIdList = this.user.stationIdList;
       this._userService.addUser((data) => {
         this._toast.success("Success", "User saved")
         this._router.navigate(['admin/user']);
@@ -116,24 +116,25 @@ export class AddEditUserComponent implements OnInit {
       }, value);
     }
     else {
-      if (this.selectedLocations.length <= 0) {
-        this._toast.error("Error", "Need to select at least one police station")
-      }
+      // if (this.selectedLocations.length <= 0) {
+      //   this._toast.error("Error", "Need to select at least one police station")
+      // }
+      this._toast.error("Error", "Please Fill Required Fields")
     }
   }
 
-  setLocationArray(){
-    this.user.stationIdList = new Array<number>();
-    this.selectedLocations.forEach(e=>{
-      this.user.stationIdList.push(e.id);
-    })
-  }
+  // setLocationArray(){
+  //   this.user.stationIdList = new Array<number>();
+  //   this.selectedLocations.forEach(e=>{
+  //     this.user.stationIdList.push(e.id);
+  //   })
+  // }
 
-  onItemSelect($event){
-    // console.log($event)
-  }
+  // onItemSelect($event){
+  //   // console.log($event)
+  // }
 
-  onSelectAll($event){
-    // console.log($event)
-  }
+  // onSelectAll($event){
+  //   // console.log($event)
+  // }
 }

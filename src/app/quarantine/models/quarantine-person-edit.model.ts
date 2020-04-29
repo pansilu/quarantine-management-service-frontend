@@ -1,79 +1,35 @@
 import { NameIdModel } from 'src/app/shared/models/name-id.model'
+import { AddressModel } from './address.model'
+import { UserStatusDetailModel } from './user-status-details.model'
 // import { RecivedGramaSewaDivisionModel } from './quarantine-person-get.model'
 
 export class QuarantinePersonEditModel {
-    public division: string
-    public stationId: number
-    public officers: []
-    public address: address
-    public age: number
-    public appEnable: boolean
+    /**
+     * Shuld remove before send backend get user only
+     * use delete this.person.status;
+     * 
+     * */
+    public provinceId: number
+    public districtId: number
+    public divisionId: number
+    public gndId: number
+    public status: string
+    /*********** End Dlete Properties*************/
     public id: number
+    public age: number
     public arrivalDate: string
     public countryId: number
-    public fileNo: string
-    public gramaSewaDivisionId: number
-    public guardianDetails: guardianDetails
-    public informedDate: string
-    public inspectorIds: []
-    public name: string
+    public gender: string
     public mobile: string
-    public phone: string
-    public reportedDate: string
+    public name: string
     public nic: string
     public passportNo: string
-    public secret: string
-    public otherFacts: string
-    public admittedDate: string
-    public admitHosId: number /** shuld change **/
-    public dischargedDate: string
-    public confirmedDate: string
-    public confirmedHosId: number  /** shuld change **/
-    public noticeAttachDate: string
-
-    // To map Get request only
-    admitHos: NameIdModel
-    confirmedHos: NameIdModel
-    arrivedCountry: NameIdModel
-    // gramaSewaDivision: RecivedGramaSewaDivisionModel
-    stationResDto:RecivedStationModel
-    informedAuthority: boolean
-    reportDate: string
-    inspectorDetails:Array<NameIdModel>
-    ///*********************///
+    public phone: string
+    public address: AddressModel
+    public userStatusDetails: Array<UserStatusDetailModel>
 
     constructor() {
-        this.address = new address('',null)
-        this.guardianDetails = new guardianDetails()
-        this.admitHos = new NameIdModel('',null)
-        this.confirmedHos = new NameIdModel('',null)
+        this.address = new AddressModel();
+        this.userStatusDetails = new Array<UserStatusDetailModel>();
     }
 }
-
-export class address {
-    id: number
-    line: string
-    constructor(line: string, id: number) {
-        this.id = id;
-        this.line = line;
-      }
-}
-
-export class guardianDetails {
-    id: number
-    name: string
-    mobile: string
-    nic: string
-    passportNo: string
-}
-
-export class RecivedStationModel {
-    public id: number
-    public name: string
-    public division: NameIdModel
-
-    constructor() {
-
-    }
-}
-

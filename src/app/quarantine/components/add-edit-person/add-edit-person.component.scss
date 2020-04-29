@@ -4,7 +4,6 @@ label {
     white-space: nowrap;
   }
 
-
   .footer {
     // position: fixed;
     // left: 0;
@@ -12,4 +11,91 @@ label {
     // width: 100%;
     // color: white;
     // text-align: center;
+  }
+
+  .btnLabel{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: white;
+    font-size: 15px;
+    padding: 0px;
+    margin-top: 0px;
+    margin-bottom: -5px;
+  }
+
+  hr{
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+  }
+
+  .min-label{
+    min-width: 100px;
+  }
+
+  .min-label-input{
+    min-width: 20px;
+  }
+
+  .content-header{
+    padding: 0px !important;
+  }
+
+  .set-inline{
+    display: flex;
+  }
+
+  .set-inline label{
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+  @media screen and (max-width: 1100px) {
+    .set-inline label{
+      min-width: 75px;
+      max-width: 75px;
+    }
+  }
+
+  .page_table tr:hover{
+    background-color: rgba(255,255,255,1);
+  }
+
+  .page_table tr{
+    background-color: rgba(255,255,255,1);
+  }
+
+ .header-icon{
+  margin: -15px 5px 0px 30px !important;
+ }
+
+  /*@media screen and (max-width: 1500px) {
+    .res {
+     max-width: 800px;
+    }
+  }
+
+  @media screen and (max-width: 1245px) {
+    .res {
+     max-width: 700px;
+    }
+  }
+
+  @media screen and (max-width: 1190px) {
+    .res {
+     max-width: 600px;
+    }
+  }*/
+
+  @media screen and (max-width: 991px) {
+    .res {
+     position: relative !important;
+     width: 100% !important;
+     margin-top: 0px !important;
+    }
+  }
+
+  .addRecordBtn{
+    background-color: #2f0144;
+    border-radius: 10px;
   }

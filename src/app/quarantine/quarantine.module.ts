@@ -12,6 +12,12 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { DailyUpdatesComponent } from './components/daily-updates/daily-updates.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NewOfficerComponent } from './components/new-officer/new-officer.component';
+import { AddressSearchMapComponent } from './components/address-search-map/address-search-map.component';
+import { AgmCoreModule, DataLayerManager, GoogleMapsAPIWrapper,AgmDataLayer,AgmMap} from '@agm/core';
+import { NewHospitalComponent } from './components/new-hospital/new-hospital.component';
+import { NewCenterComponent } from './components/new-center/new-center.component';
+
+
 
 
 
@@ -33,12 +39,18 @@ const routes: Routes = [
     component: AddEditPersonComponent,
     canActivate: [AuthGuard],
     data: { roles: [roles.administrator, roles.root] },
+  },
+  {
+    path: 'map',
+    component: AddressSearchMapComponent,
+    canActivate: [AuthGuard],
+    data: { roles: [roles.administrator, roles.root] },
   }
 ];
 
 
 @NgModule({
-  declarations: [PersonGridComponent, AddEditPersonComponent, DailyUpdatesComponent, NewOfficerComponent],
+  declarations: [PersonGridComponent, AddEditPersonComponent, DailyUpdatesComponent, NewOfficerComponent, AddressSearchMapComponent, NewHospitalComponent, NewCenterComponent],
   imports: [
     AutocompleteLibModule,
     RouterModule.forChild(routes),
@@ -46,8 +58,12 @@ const routes: Routes = [
     SharedComponentsModule,
     FormsModule,
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDPs5O5dn7S01WPLt_O6dWnGwt3nm97xQM',
+      libraries: ['places']
+    })
   ],
-  providers: [QuarantineService],
+  providers: [QuarantineService,DataLayerManager,GoogleMapsAPIWrapper],
 })
 export class QuarantineModule { }

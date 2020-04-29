@@ -1,0 +1,19 @@
+<form [formGroup]="form" *ngIf="form">
+    <div class="row margin page_input">
+        <div class="col-md-3">
+            <label>Name <br /> (නම)</label>
+        </div>
+        <div class="col-md-8">
+            <input type="text" formControlName="name" />
+            <div class="err_lo" *ngIf="submitted && form.controls['name'].hasError('required')">Name is
+                required </div>
+        </div>
+    </div>
+</form>
+
+<hr>
+
+<div class="page_button pageptn">
+    <button data-dismiss="modal">Close</button>
+    <button (click)="submit()">Save</button>
+</div>

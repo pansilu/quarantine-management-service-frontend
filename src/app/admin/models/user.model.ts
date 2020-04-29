@@ -10,12 +10,12 @@ export class UserModel {
     public passportNo:string
     public stations:Array<NameIdModel>
     // public phone: string
-    public rank: string
+    // public rank: string
     // public role: number
-    public stationIdList:Array<number>
+    // public stationIdList:Array<number>
 
     constructor() {
-        this.stationIdList = new Array<number>();
+        // this.stationIdList = new Array<number>();
         this.canCreateUser = false;
         this.id = null;
         // this.role = 0;

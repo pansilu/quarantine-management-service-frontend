@@ -1,14 +1,21 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { QuarantineService } from 'src/app/Service/quarantine.service';
-import { QuarantinePersonEditModel, address } from '../../models/quarantine-person-edit.model';
+import { QuarantinePersonEditModel } from '../../models/quarantine-person-edit.model';
 import { ToastService } from 'src/app/Service/toast.service';
 import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { OfficerRequestModel } from '../../models/officer-request.model';
 import { NameIdModel } from 'src/app/shared/models/name-id.model';
-import { QuarantinePersonGetModel } from '../../models/quarantine-person-get.model';
 import { AuthService } from 'src/app/Service/auth.service';
 import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
+import { AddressModel } from '../../models/address.model';
+import QuarantineUserStatus from '../../models/QuarantineUserStatus';
+import { UserStatusDetailModel } from '../../models/user-status-details.model';
+import * as moment from 'moment';
+import { StatusErrorModel } from '../../models/status-error.model';
+import { NameIdLocationModel } from 'src/app/shared/models/name-id-location.model';
+import { async } from '@angular/core/testing';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+
 declare var $: any
 @Component({
   selector: 'app-add-edit-person',
@@ -16,430 +23,312 @@ declare var $: any
   styleUrls: ['./add-edit-person.component.scss']
 })
 export class AddEditPersonComponent implements OnInit {
-  // @Output() pageRefersh: EventEmitter<boolean> = new EventEmitter<boolean>();
-  // @Input('id') q_id: number
-  q_id: number;
-  form: FormGroup;
-  form2: FormGroup;
-  person: QuarantinePersonEditModel;
 
+  /** **/
+  today: string = moment().format('YYYY-MM-DD');
+  status = QuarantineUserStatus;
+  address: AddressModel = new AddressModel();
+  person: QuarantinePersonEditModel = new QuarantinePersonEditModel();
+  userStatusDetailModel: UserStatusDetailModel = new UserStatusDetailModel();
+  currentStationName: string
+  statusError: StatusErrorModel = new StatusErrorModel();
+  quarantineCenters = new Array<NameIdLocationModel>()
+  provices = new Array<NameIdModel>()
+  districts = new Array<NameIdModel>()
+  gnds = new Array<NameIdModel>()
+  divisions = new Array<NameIdModel>()
+  countries = new Array<NameIdModel>()
+  hospitals = new Array<NameIdModel>()
+  form: FormGroup;
+  q_id: number;
+  id: any;
   submitted: boolean;
   edit: boolean;
+  gndId: number = 0;
+  /** ***/
 
-  errGramaSewaDivision: boolean;
+
+
   saveButtonFlag: boolean
+  // errGramaSewaDivision: boolean;
+  // locationData: any
+  // form2: FormGroup;
 
-  locationData: any
+  // divisions = [];
+  // policeStations = [];
+  // gramaSewaDivisions = [];
 
-  divisions = [];
-  policeStations = [];
-  gramaSewaDivisions = [];
+  // officers = [];
+  // officersToShow = [];
+  // OFFICER_RANK_ENUM = ["All", "IGP", "SDIG", "DIG", "SSP", "SP", "ASP", "CI", "IP", "SI", "PSM", "PS", "PC"]
+  // selectedRank: any
+  // selectedOfficers = [];
+  // selectedOfficerIds = [];
+  // dropdownSettings = {};
 
-  officers = [];
-  officersToShow = [];
-  OFFICER_RANK_ENUM = ["All", "IGP", "SDIG", "DIG", "SSP", "SP", "ASP", "CI", "IP", "SI", "PSM", "PS", "PC"]
-  selectedRank: any
-  selectedOfficers = [];
-  selectedOfficerIds = [];
-  dropdownSettings = {};
 
-  countries = [];
-  hospitals = [];
-  addresses = [];
-  qp_exsistingAddressID: any;
-  qp_inspectorIds: []
+  // addresses = [];
+  // qp_exsistingAddressID: any;
+  // qp_inspectorIds: []
+  // q_person: any;
+  // getOfficer: any;
+  // officerRequestbody: any
 
-  id: any;
-  q_person: any;
-  getOfficer: any;
-  officerRequestbody: any
+  // appEnebleFlag: boolean
 
-  appEnebleFlag: boolean
+  // keyword = 'name';
+  // addressKeyword = 'line';
+  // createUser: boolean
 
-  keyword = 'name';
-  addressKeyword = 'line';
-  createUser: boolean
-
-  constructor(private _quarantineService: QuarantineService,
+  constructor(
+    private _quarantineService: QuarantineService,
     private _toast: ToastService,
     private _formBuilder: FormBuilder,
     private _router: Router,
     private _route: ActivatedRoute,
-    private _authService: AuthService,
-    private _errorHandlerService:ErrorHandlerService
+    private _errorHandlerService: ErrorHandlerService,
   ) {
-    this.q_person = new QuarantinePersonEditModel(),
-      this.getOfficer = new OfficerRequestModel();
+    // this.q_person = new QuarantinePersonEditModel()
   }
 
+  // Parent case autocomp
+  pCaseDropdownList = [];
+  pCaseKeyword = 'caseNum';
+  pCaseEdit: string;
 
   ngOnInit() {
     this.q_id = parseInt(this._route.snapshot.params['id'], 10);
     this.id = this.q_id
-    this.getLocation();
+    this.getprovinces();
     this.getCountries();
     this.getHospitals();
-    this.createUser = this._authService.loggedUser.createUser;
-    // console.log(this.q_id)
+    this.getquarantineCenters();
     this.edit = false
 
-    this.officers = [];
-    this.officersToShow = [];
-
-    this.selectedOfficers = [];
-
-    this.appEnebleFlag = false;
-
-    this.dropdownSettings = {
-      singleSelection: false,
-      enableCheckAll: false,
-      idField: 'id',
-      textField: 'showingName',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
+    // this.createUser = this._authService.loggedUser.createUser;
+    // console.log(this.q_id)
+    // this.officers = [];
+    // this.officersToShow = [];
+    // this.selectedOfficers = [];
+    // this.appEnebleFlag = false;
+    // this.dropdownSettings = {
+    //   singleSelection: false,
+    //   enableCheckAll: false,
+    //   idField: 'id',
+    //   textField: 'showingName',
+    //   selectAllText: 'Select All',
+    //   unSelectAllText: 'UnSelect All',
+    //   itemsShowLimit: 3,
+    //   allowSearchFilter: true
+    // };
 
     if (this.q_id > 0) {
       this.saveButtonFlag = false
-
+      // this.person = new QuarantinePersonEditModel();
       this._quarantineService.getQPerson((d) => {
-        // console.log(d);
+        // console.log(d)
+        this.getDistrict(d.provinceId);
+        this.getDivision(d.districtId);
+        this.getGnd(d.divisionId);
+
+        if (d.address != null) {
+          this.address = d.address
+        }
         this.person = d;
-        // this.person.division = this.person.gramaSewaDivision.station.division.name
-        // this.person.policeStation = this.person.gramaSewaDivision.station.id;
-        // this.person.gramaSewaDivisionId = this.person.gramaSewaDivision.id;
-        this.person.reportedDate = this.person.reportDate;
-
-        if (this.person.stationResDto) {
-          this.person.division = this.person.stationResDto.division.name
-          this.person.stationId = this.person.stationResDto.id
-        }
-
-        if (this.person.arrivedCountry) {
-          this.person.countryId = this.person.arrivedCountry.id
-        }
-
-        if (this.person.admitHos == null) {
-          this.person.admitHos = new NameIdModel('', null)
-        }
-
-        if (this.person.confirmedHos == null) {
-          this.person.confirmedHos = new NameIdModel('', null)
-        }
-
-
         this.createForm();
-        this.filterPoliceStation();
-        // this.filterGramaSewaDivisions()
-        this.selectedOfficers = d.inspectorDetails;
-        this.getOfficer.ranks = null
-        this.getOfficer.stationIds = [+this.person.stationResDto.id]
-        this.getOfficerDetails()
+
       },
         e => {
           this._errorHandlerService.Handler(e)
         }, this.q_id)
-      // get user form back end
     } else {
       this.id = null;
       this.saveButtonFlag = true
-      this.person = new QuarantinePersonEditModel();
+      // this.person = new QuarantinePersonEditModel();
       this.createForm();
     }
-    this.selectedRank = 'All'
   }
 
   scroll(el: HTMLElement) {
     el.scrollIntoView();
   }
 
-  mapModel() {
-  }
-
-  onItemSelect(item: any) {
-    //  console.log(this.selectedOfficers)
-  }
-
-  onSelectAll(items: any) {
-
-  }
-
   createForm() {
     const model = {
-      qp_division: new FormControl(this.person.division),
-      qp_policeStationId: new FormControl(this.person.stationId, [Validators.required, Validators.min(1)]),
-      // qp_gramaSewaDivisionId: new FormControl(this.person.gramaSewaDivisionId, [Validators.required, Validators.min(1)]),
-      qp_fileNo: new FormControl(this.person.fileNo),
+      // for address filteration
+      province: new FormControl(this.person.provinceId, [Validators.required, Validators.min(1)]),
+      district: new FormControl(this.person.districtId, [Validators.required, Validators.min(1)]),
+      dsDivision: new FormControl(this.person.divisionId, [Validators.required, Validators.min(1)]),
+      gndId: new FormControl(this.person.address.gndId, [Validators.required, Validators.min(1)]),
+      // policeDivision: new FormControl(this.person.address.policeArea, [Validators.required, Validators.min(1)]),
 
-      qp_nic: new FormControl(this.person.nic, [Validators.pattern(/^[0-9]{9}[vVxX]$/)]),
-      qp_passportNo: new FormControl(this.person.passportNo),
-      qp_name: new FormControl(this.person.name, Validators.required),
-      qp_address: new FormControl(this.person.address.line, Validators.required),
-      qp_age: new FormControl(this.person.age),
-      qp_reportedDate: new FormControl(this.person.reportedDate, Validators.required),
-
-      qp_mobile: new FormControl(this.person.mobile, [Validators.pattern(/^0[0-9]{9}$/)]),
-      qp_phone: new FormControl(this.person.phone, [Validators.pattern(/^0[0-9]{9}$/)]),
-      qp_appEnable: new FormControl(this.person.appEnable),
-
-      qp_otherFacts: new FormControl(this.person.otherFacts),
-
-      qp_arrivalDate: new FormControl(this.person.arrivalDate),
-      qp_countryId: new FormControl(this.person.countryId),
-      qp_informedDate: new FormControl(this.person.informedDate),
-      qp_noticeDate: new FormControl(this.person.noticeAttachDate),
-
-      // Officer Data handled seperately
+      age: new FormControl(this.person.age),
+      arrivalDate: new FormControl(this.person.arrivalDate),
+      countryId: new FormControl(this.person.countryId),
+      gender: new FormControl(this.person.gender),
+      mobile: new FormControl(this.person.mobile, [Validators.pattern(/^0[0-9]{9}$/)]),
+      name: new FormControl(this.person.name, Validators.required),
+      nic: new FormControl(this.person.nic, [Validators.pattern(/^[0-9]{9}[vVxX]$/)]),
+      passportNo: new FormControl(this.person.passportNo),
+      phone: new FormControl(this.person.phone, [Validators.pattern(/^0[0-9]{9}$/)]),
     };
     this.form = this._formBuilder.group(model);
-
-    const model2 = {
-      qp_admittedDate: new FormControl(this.person.admittedDate),
-      qp_admitHosId: new FormControl(this.person.admitHos.name),
-      qp_dischargedDate: new FormControl(this.person.dischargedDate),
-
-      qp_confirmedDate: new FormControl(this.person.confirmedDate),
-      qp_confirmedHosId: new FormControl(this.person.confirmedHos.name),
-
-      // gr_name: new FormControl(this.person.guardianDetails.name),
-      // gr_nic: new FormControl(this.person.guardianDetails.nic),
-      // gr_passportNo: new FormControl(this.person.guardianDetails.passportNo),
-      // gr_mobile: new FormControl(this.person.guardianDetails.mobile),
-    };
-    this.form2 = this._formBuilder.group(model2)
-
-    // this.form.get('qp_appEnable').disable();
   }
 
-  getOfficerDetails() {
-    this._quarantineService.getOfficerDetails((d) => {
-      this.officers = d;
-      this.officersToShow = d;
+
+  getPCases(search:string){
+    this._quarantineService.getPCases((d) => {
+      console.log(d)
+      this.pCaseDropdownList = d;
     }, e => {
-      // console.log(e);
-      this._errorHandlerService.Handler(e)
-    }, this.getOfficer);
+      this._errorHandlerService.Handler(e);
+    },search);
   }
 
-  rankSelected() {
-    this.selectedOfficers = []
-    if (this.selectedRank == 'All') {
-      this.officersToShow = []
-      this.officersToShow = this.officers
-    } else {
-      this.officersToShow = []
-      this.officers.forEach(e => {
-        if (e.rank == this.selectedRank) {
-          this.officersToShow.push(e)
-        }
-      })
-    }
+  onChangeSearchPCase(search:string){
+    this.getPCases(search);
   }
 
+  selectEventPCase(event){
+    this.userStatusDetailModel.parentCaseNum = event.caseNum
+  }
 
   getCountries() {
     this._quarantineService.getCountries((d) => {
-      d.forEach(c => {
-        this.countries.push(c);
-      })
+      this.countries = d;
     }, e => {
       this._errorHandlerService.Handler(e);
     });
   }
 
-  counrtySelected() {
-
-  }
-
-  getLocation() {
-    this._quarantineService.getLocation((d) => {
-      this.locationData = d;
-      // console.log(d)
-      this.filterDivision();
+  getprovinces() {
+    this._quarantineService.getprovinces((d) => {
+      this.provices = d;
     }, e => {
       this._errorHandlerService.Handler(e);
-      console.log(e);
     });
   }
-
-  filterDivision() {
-    this.locationData.forEach(element => {
-      this.divisions.push(element.name)
-    });
-  }
-
-  divisionSelected() {
-    this.filterPoliceStation();
-  }
-
-  filterPoliceStation() {
-    this.locationData.forEach(element => {
-      if (element.name == this.form.value.qp_division) {
-        const ps = element.stations
-        ps.forEach(e => {
-          this.policeStations.push(e)
-        })
-      }
-    })
-  }
-
-  policeStationSelected() {
-    this.getOfficer.ranks = null;
-    const ps = [];
-    ps.push(+this.form.value.qp_policeStationId)
-    this.getOfficer.stationIds = ps
-    this.getOfficerDetails()
-    // this.filterGramaSewaDivisions()
-  }
-
-  // filterGramaSewaDivisions() {
-  //   this.gramaSewaDivisions = []
-  //   this.locationData.forEach(element => {
-  //     const ps = element.stations
-  //     ps.forEach(e => {
-  //       if (e.id == this.form.value.qp_policeStationId) {
-  //         const gsd = e.gramaSewaDivisions
-  //         gsd.forEach(e => {
-  //           this.gramaSewaDivisions.push(e)
-  //         })
-  //       }
-  //     })
-
-  //   })
-  // }
-
-  // gramaSewaDivisionSelected() {
-  //   if (this.form.value.qp_gramaSewaDivisionId === undefined) {
-  //     this.errGramaSewaDivision = true
-  //   }
-  // }
 
   getHospitals() {
     this._quarantineService.getHospitals((d) => {
-      d.forEach(h => {
-        this.hospitals.push(h);
-      })
+      this.hospitals = d;
     }, e => {
-      // console.log(e);
       this._errorHandlerService.Handler(e);
     });
   }
 
-  admitHosSelected() {
-    //console.log(this.form2.value.qp_admitHosId)
+  getquarantineCenters() {
+    this._quarantineService.getQuarantineCenters(d => {
+      this.quarantineCenters = d;
+    }, e => {
+      this._errorHandlerService.Handler(e)
+    })
   }
 
-  confirmedHosSelected() {
-    //console.log(this.form2.value.qp_confirmedHosId)
+  getDistrict(id: number) {
+    this._quarantineService.getDistrict(d => {
+      this.districts = d;
+    }, e => {
+      this._errorHandlerService.Handler(e);
+    }, id)
   }
 
-  fillMobileNo() {
-    // this.form.get('qp_appEnable').enable();
+  getDivision(id: number) {
+    this._quarantineService.getDivision(d => {
+      // console.log(d)
+      this.divisions = d;
+    }, e => {
+      this._errorHandlerService.Handler(e);
+    }, id)
+  }
+
+  getGnd(id: number) {
+    this._quarantineService.getGnd(d => {
+      this.gnds = d;
+    }, e => {
+      this._errorHandlerService.Handler(e);
+    }, id)
+  }
+
+  onProvinceChange($event) {
+    this.districts = new Array<NameIdModel>()
+    this.divisions = new Array<NameIdModel>()
+    this.gnds = new Array<NameIdModel>()
+    const id = $event.target.value;
+    if (id != 'null')
+      this.getDistrict(id);
+    this.form.controls.district.reset();
+    this.form.controls.dsDivision.reset();
+    this.form.controls.gndId.reset();
+    this.address.gndId = null
+
+  }
+
+  onDistrictChange($event) {
+    this.divisions = new Array<NameIdModel>()
+    this.gnds = new Array<NameIdModel>()
+    const id = $event.target.value;
+    if (id != 'null')
+      this.getDivision(id);
+
+    this.form.controls.dsDivision.reset();
+    this.form.controls.gndId.reset();
+    this.address.gndId = null
+  }
+
+  onDsDivisionChange($event) {
+    this.gnds = new Array<NameIdModel>()
+    const id = $event.target.value;
+    if (id != 'null')
+      this.getGnd(id);
+    this.form.controls.gndId.reset();
+    this.address.gndId = null
+  }
+
+  onGndIdSelect($event) {
+    const id = $event.target.value;
+    this.gndId = id;
+    this.address.gndId = id;
   }
 
   appEnabledValidation: boolean
 
   addNewPerson(exit: boolean = false) {
     this.submitted = true;
+    var value = this.form.value;
+    this.person.id = this.id
+    this.person.age = value.age
+    this.person.arrivalDate = value.arrivalDate
+    this.person.countryId = value.countryId
+    this.person.gender = value.gender
+    this.person.mobile = value.mobile
+    this.person.name = value.name
+    this.person.nic = value.nic
+    this.person.passportNo = value.passportNo
+    this.person.phone = value.phone
+    this.person.address = this.address
 
-    this.selectedOfficers.forEach(e => {
-      this.selectedOfficerIds.push(e.id)
-    })
+    /** 
+     * Delete unnessesery property form
+     * object
+     */
+    delete this.person.districtId;
+    delete this.person.divisionId;
+    delete this.person.provinceId;
+    delete this.person.gndId;
+    delete this.person.status;
 
-    if (this.form.valid) {
-      // check mobile app feature is enabled and phone number is enterd
-      if (this.form.value.qp_appEnable) {
-        if (this.form.value.qp_mobile === null || this.form.value.qp_mobile === '') {
-          this._toast.error('Error', 'To enable mobile app feature mobile number is requird')
-          this.appEnabledValidation = true
-          return;
-        }
-        this.appEnabledValidation = false
-      }
 
-      if (this.form.value.qp_mobile === '') {
-        this.q_person.mobile = null;
-      }
-      else {
-        this.q_person.mobile = this.form.value.qp_mobile
-      }
-      // ID use to seperate add or edit
-      this.q_person.id = this.id
-      this.q_person.stationId = +this.form.value.qp_policeStationId
-      // this.q_person.gramaSewaDivisionId = +this.form.value.qp_gramaSewaDivisionId
-      this.q_person.fileNo = this.form.value.qp_fileNo
 
-      this.q_person.nic = this.form.value.qp_nic
-      this.q_person.passportNo = this.form.value.qp_passportNo
-      this.q_person.name = this.form.value.qp_name
-
-      if(this.person.address.id == null){
-        this.q_person.address = {
-          id: null,
-          line: this.form.value.qp_address
-        }
-      } else {
-        this.q_person.address = {
-          id: this.person.address.id,
-          line: this.person.address.line
-        }
-      }
-      this.q_person.age = this.form.value.qp_age
-      this.q_person.reportDate = this.form.value.qp_reportedDate
-
-      this.q_person.appEnable = this.form.value.qp_appEnable
-
-      this.q_person.phone = this.form.value.qp_phone
-
-      this.q_person.otherFacts = this.form.value.qp_otherFacts
-
-      this.q_person.arrivalDate = this.form.value.qp_arrivalDate
-      this.q_person.countryId = this.form.value.qp_countryId
-      this.q_person.informedDate = this.form.value.qp_informedDate
-      this.q_person.noticeAttachDate = this.form.value.qp_noticeDate
-
-      this.q_person.inspectorIds = this.selectedOfficerIds
-
-      this.q_person.admittedDate = this.form2.value.qp_admittedDate
-      // this.q_person.admitHosId = this.form2.value.qp_admitHosId
-      this.q_person.dischargedDate = this.form2.value.qp_dischargedDate
-
-      this.q_person.confirmedDate = this.form2.value.qp_confirmedDate
-      // this.q_person.confirmedHosId = this.form2.value.qp_confirmedHosId
-
-      this.q_person.guardianDetails = null
-      /* {
-        id: null,
-        //name
-        mobile: this.form2.value.gr_mobile,
-        nic: this.form2.value.gr_nic,
-        passportNo: this.form2.value.gr_passportNo
-      }*/
-
-      if (this.person.confirmedHos.name === '' && this.person.confirmedHos.id === null) {
-        this.q_person.confirmedHos = null
-      }
-      else {
-        this.q_person.confirmedHos = this.person.confirmedHos
-      }
-
-      if (this.person.confirmedHos.name === '' && this.person.confirmedHos.id === null) {
-        this.q_person.admitHos = null
-      }
-      else {
-        this.q_person.admitHos = this.person.admitHos
-      }
-
-      this.q_person.secret = null
-
-      // console.log(this.q_person)
-      //console.log(this.q_person)
+    if (this.form.valid && this.person.userStatusDetails.length > 0) {
       this.setQuarantinePerson(exit)
-
     } else {
-      this._toast.error("Error", "Please Fill Required Fields")
+      if (this.person.userStatusDetails.length <= 0) {
+        this._toast.error("Error", "there should be at least one status")
+      }
+      else {
+        this._toast.error("Error", "Please Fill Required Fields")
+      }
     }
   }
 
@@ -448,6 +337,7 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   setQuarantinePerson(exit: boolean = false) {
+    // console.log(this.person)
     this._quarantineService.setQuarantinePerson((d) => {
       this._toast.success("Success", "Person saved");
       if (exit) {
@@ -457,100 +347,150 @@ export class AddEditPersonComponent implements OnInit {
         this.resetForm();
       }
     }, e => {
-      // this._toast.error("Error", "Canot Save user please recheck your data")
       this._errorHandlerService.Handler(e)
-      // this._toast.error("Error", e.error.errorDesc)
-      // console.log(e);
-    }, this.q_person);
+    }, this.person);
   }
 
   resetForm() {
     this.form.reset()
-    this.form2.reset()
-    this.selectedOfficers = [];
-    this.selectedOfficerIds = [];
-    this.selectedRank = null
-    this.officersToShow = []
+    this.person = new QuarantinePersonEditModel();
+    this.address = new AddressModel();
+    this.gndId = 0;
+    // clear dorpdown list
+    this.districts = new Array<NameIdModel>()
+    this.divisions = new Array<NameIdModel>()
+    this.gnds = new Array<NameIdModel>()
   }
 
-  selectEvent(item) {
-    // do something with selected item
-    this.person.confirmedHos = item;
-    // console.log(item)
-  }
-
-  onChangeSearch(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-    var value = new NameIdModel(search, null);
-    this.person.confirmedHos = value
-    // console.log(value);
-  }
-
-  onFocused(e) {
-    // do something
-  }
-
-  selectEventAd(item) {
-    // do something with selected item
-    this.person.admitHos = item;
-    // console.log(item)
-  }
-
-  onChangeSearchAd(search: string) {
-    // fetch remote data from here
-    // And reassign the 'data' which is binded to 'data' property.
-    var value = new NameIdModel(search, null);
-    this.person.admitHos = value
-    // console.log(value);
-  }
-
-  onFocusedAd(e) {
-    // do something
-  }
-
-  selectEventAddress(item) {
-    // do something with selected item
-    this.person.address = item;
-    // console.log(item)
-  }
-
-  onChangeSearchAddress(search: string) {
-
-    this.person.address.id = null
-    this.person.address.line = search
-
-      this._quarantineService.getAddresses((d) => {
-      d.forEach(a => {
-        this.addresses.push(a);
-      })
-    }, e => {
-      // console.log(e);
-      this._errorHandlerService.Handler(e);
-    },search);
-     
-  }
-
-  onFocusedAddress(e) {
-    // do something
+  onChangeSearchAddress(address: AddressModel) {
+    // console.log(address);
+    this.address = address;
   }
 
   new_officer: boolean
-  add_new() {
+  new_center: boolean
+  new_hospital: boolean
+
+  add_new(type: string) {
+    if (type === "center") {
+      this.new_center = true;
+      this.new_hospital = false;
+    }
+    if (type === "hospital") {
+      this.new_hospital = true;
+      this.new_center = false;
+    }
     $('#myModal').modal('show');
-    this.new_officer = true;
-    // document.getElementById('new_person').style.visibility = 'visible';
-    // document.getElementById('new_person').style.opacity = '1';
   }
 
   close_add_new($event) {
     $('#myModal').modal('hide');
-    this.new_officer = false;
-    this.getOfficerDetails()
-    // document.getElementById('new_person').style.visibility = 'hidden';
-    // document.getElementById('new_person').style.opacity = '0';
+    if (this.new_center && $event) {
+      this.getquarantineCenters();
+      this.new_center = false
+    }
+    if (this.new_hospital && $event) {
+      this.getHospitals();
+      this.new_hospital = false
+    }
   }
 
+  onChangeStatus() {
+    var model = new UserStatusDetailModel();
+    model.type = this.userStatusDetailModel.type;
+    this.userStatusDetailModel = model;
+    this.statusError = new StatusErrorModel();
+  }
+  add_userStatus_detail() {
+    this.statusError.type = this.validateString(this.userStatusDetailModel.type);
+    this.statusError.startDate = this.validateString(this.userStatusDetailModel.startDate);
+    this.statusError.endDate = this.validateString(this.userStatusDetailModel.endDate)
+    this.statusError.qCenterId = this.validateNumber(this.userStatusDetailModel.qCenterId)
+    // this.statusError.parentCaseNum = this.validateString(this.userStatusDetailModel.parentCaseNum);
+    this.statusError.hospitalId = this.validateNumber(this.userStatusDetailModel.hospitalId);
+    this.statusError.caseNum = this.validateString(this.userStatusDetailModel.caseNum);
+
+    if (this.userStatusDetailModel.type === this.status.home) {
+      if (this.statusError.startDate) {
+        this._toast.error("Error", "Please fill the required fields")
+        return
+      }
+    }
+
+    if (this.userStatusDetailModel.type === this.status.positive) {
+      if (this.statusError.startDate || this.statusError.hospitalId || this.statusError.parentCaseNum || this.statusError.caseNum) {
+        this._toast.error("Error", "Please fill the required fields")
+        return
+      }
+    }
+
+
+    if (this.userStatusDetailModel.type === this.status.suspect) {
+      if (this.statusError.startDate || this.statusError.hospitalId) {
+        this._toast.error("Error", "Please fill the required fields")
+        return
+      }
+    }
+
+    if (this.userStatusDetailModel.type === this.status.remorte) {
+      if (this.statusError.startDate || this.statusError.qCenterId) {
+        this._toast.error("Error", "Please fill the required fields")
+        return
+      }
+    }
+
+    if (this.userStatusDetailModel.type === this.status.deceased) {
+      if (this.statusError.endDate) {
+        this._toast.error("Error", "Please fill the required fields")
+        return
+      }
+    }
+
+    if(this.userStatusDetailModel.id > 0){
+      var i = this.person.userStatusDetails.findIndex(x=>x.id = this.userStatusDetailModel.id);
+      this.person.userStatusDetails[i] = this.userStatusDetailModel
+    }else {
+      this.person.userStatusDetails.push(this.userStatusDetailModel);
+    }
+    var model = new UserStatusDetailModel();
+    model.type = this.userStatusDetailModel.type;
+    this.userStatusDetailModel = model;
+    this.statusError = new StatusErrorModel();
+    this.pCaseEdit = "";
+  }
+
+
+  validateString(prop): boolean {
+    return prop === undefined || prop === null || prop == ""
+  }
+
+  validateNumber(prop: number): boolean {
+    return (prop === undefined || prop === null);
+  }
+
+  gethostpitalName(id: number) {
+    const name = this.hospitals.find(x => x.id == id)
+    return (name ? name.name : "")
+  }
+  getQcenterName(id: number) {
+    const name = this.quarantineCenters.find(x => x.id == id)
+    return (name ? name.name : "")
+  }
+
+  deleteDetail(index: number) {
+    if (this.person.userStatusDetails[index].id !== null) {
+      this.person.userStatusDetails[index].delete = true;
+    }
+    else {
+      this.person.userStatusDetails.splice(index, 1);
+    }
+  }
+
+  editDetail(index: number){
+    this.pCaseEdit = this.person.userStatusDetails[index].parentCaseNum;
+    this.userStatusDetailModel = this.person.userStatusDetails[index]
+
+  }
 }
 
 
