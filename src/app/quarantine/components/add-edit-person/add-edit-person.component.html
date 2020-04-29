@@ -402,7 +402,7 @@
                                         <!-- <input type="text" [(ngModel)]="userStatusDetailModel.parentCaseNum"> -->
                                         
                                         <ng-autocomplete [data]="pCaseDropdownList" [searchKeyword]="pCaseKeyword" placeHolder="Select Parent Case"
-                                            (selected)='selectEventPCase($event)' (inputChanged)='onChangeSearchPCase($event)' 
+                                            (selected)='selectEventPCase($event)' (inputChanged)='onChangeSearchPCase($event)' [(ngModel)]="pCaseEdit"
                                             [itemTemplate]="itemTemplateAddPCase"
                                             [notFoundTemplate]="notFoundTemplateAddPCase">
                                         </ng-autocomplete>
@@ -492,7 +492,8 @@
                                             <th width=8%>Case No</th>
                                             <th width=8%>Parent Case No</th>
                                             <th>Description</th>
-                                            <th></th>
+                                            <th colspan="2">Options</th>
+                                           
 
                                         </tr>
                                     </thead>
@@ -507,12 +508,14 @@
                                                 <td>{{e.caseNum}}</td>
                                                 <td>{{e.parentCaseNum}}</td>
                                                 <td>{{e.description}}</td>
+                                                <td class="edti_td" (click)="editDetail(i)">Edit</td>
                                                 <td class="edti_td" (click)="deleteDetail(i)">Delete</td>
                                             </tr>
 
                                             <tr *ngIf="!e.delete && e.type === status.deceased">
                                                 <td>{{e.type}}</td>
                                                 <td colspan="7" style="text-align: center;">{{e.endDate}}</td>
+                                                <td class="edti_td" (click)="editDetail(i)">Edit</td>
                                                 <td class="edti_td" (click)="deleteDetail(i)">Delete</td>
                                             </tr>
                                         </ng-container>

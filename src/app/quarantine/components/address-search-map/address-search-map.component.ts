@@ -189,7 +189,6 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
 
   getGndById(id: number, center?: boolean) {
     this._quarantineService.getGndById(d => {
-      console.log(d);
       var object = JSON.parse(d.feature)
       this.Json.features = [object]
       this.lookup = new GeoJsonGeometriesLookup(this.Json);

@@ -94,6 +94,7 @@ export class AddEditPersonComponent implements OnInit {
   // Parent case autocomp
   pCaseDropdownList = [];
   pCaseKeyword = 'caseNum';
+  pCaseEdit: string;
 
   ngOnInit() {
     this.q_id = parseInt(this._route.snapshot.params['id'], 10);
@@ -444,11 +445,18 @@ export class AddEditPersonComponent implements OnInit {
         return
       }
     }
-    this.person.userStatusDetails.push(this.userStatusDetailModel);
+
+    if(this.userStatusDetailModel.id > 0){
+      var i = this.person.userStatusDetails.findIndex(x=>x.id = this.userStatusDetailModel.id);
+      this.person.userStatusDetails[i] = this.userStatusDetailModel
+    }else {
+      this.person.userStatusDetails.push(this.userStatusDetailModel);
+    }
     var model = new UserStatusDetailModel();
     model.type = this.userStatusDetailModel.type;
     this.userStatusDetailModel = model;
     this.statusError = new StatusErrorModel();
+    this.pCaseEdit = "";
   }
 
 
@@ -476,6 +484,12 @@ export class AddEditPersonComponent implements OnInit {
     else {
       this.person.userStatusDetails.splice(index, 1);
     }
+  }
+
+  editDetail(index: number){
+    this.pCaseEdit = this.person.userStatusDetails[index].parentCaseNum;
+    this.userStatusDetailModel = this.person.userStatusDetails[index]
+
   }
 }
 
