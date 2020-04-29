@@ -35,7 +35,8 @@
                                     <label>
                                         NIC (ජා.හැ.අ)
                                     </label>
-                                    <input type="text" formControlName="nic" placeholder="Eg: 957433234v / 199312343523">
+                                    <input type="text" formControlName="nic"
+                                        placeholder="Eg: 957433234v / 199312343523">
 
                                 </div>
                                 <div class="err_lo" *ngIf="submitted && form.controls['nic'].hasError('pattern')">
@@ -56,8 +57,7 @@
                                         Age (වයස)
                                     </label>
                                     <input type="number" formControlName="age" min="0">
-                                    <div class="err_lo"
-                                        *ngIf="submitted && form.controls['age'].hasError('required')">
+                                    <div class="err_lo" *ngIf="submitted && form.controls['age'].hasError('required')">
                                         Age is
                                         required </div>
                                 </div>
@@ -74,13 +74,11 @@
                                         title="0 න් පටන් ගන්නා හා අංක 10 කින් යුතු විය යුතුය. උදා: 07XXXXXXX">
                                 </div>
 
-                                <div class="err_lo"
-                                        *ngIf="submitted && form.controls['mobile'].hasError('pattern')">
-                                        Mobile No. is
-                                        not valid </div>
+                                <div class="err_lo" *ngIf="submitted && form.controls['mobile'].hasError('pattern')">
+                                    Mobile No. is
+                                    not valid </div>
 
-                                <div class="err_lo"
-                                    *ngIf="submitted && form.controls['mobile'].hasError('required')">
+                                <div class="err_lo" *ngIf="submitted && form.controls['mobile'].hasError('required')">
                                     Mobile No. is
                                     required </div>
                             </div>
@@ -90,19 +88,18 @@
                                         Land Line (ස්ථාවර දුරකතන අංකය)
                                     </label>
                                     <input type="text" formControlName="phone" placeholder="Eg: 0111234567">
-                                    <div class="err_lo"
-                                        *ngIf="submitted && form.controls['phone'].hasError('pattern')">
+                                    <div class="err_lo" *ngIf="submitted && form.controls['phone'].hasError('pattern')">
                                         Land Line No. is
                                         not valid </div>
                                 </div>
                             </div>
-                            <div class = "col-md-6">
+                            <div class="col-md-6">
                                 <div class="page_input">
-                                <div class="col-md-2">
-                                    <label style="margin-left:-15px;">
-                                       If Arrived from forign <br/> Country (විදේශ රටක සිට පමිණියේ නම්)
-                                    </label>
-                                </div>
+                                    <div class="col-md-2">
+                                        <label style="margin-left:-15px;">
+                                            If Arrived from forign <br /> Country (විදේශ රටක සිට පමිණියේ නම්)
+                                        </label>
+                                    </div>
                                 </div>
                                 <div class="col-md-5">
                                     <div class="page_input set-inline">
@@ -115,7 +112,7 @@
                                 <div class="col-md-5">
                                     <div class="page_input set-inline">
                                         <label>
-                                           Arrival Country (පැමිණි රට)
+                                            Arrival Country (පැමිණි රට)
                                         </label>
                                         <select formControlName="countryId">
                                             <option *ngFor="let country of countries" [value]="country.id">
@@ -125,7 +122,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
 
                         <div class="row">
@@ -143,10 +140,10 @@
 
                         <div class="res" style="margin-top: -450px; z-index: 300; position: absolute; width: 32%;">
 
-                            <p> 
-                               <label>
-                                   Location Details (ස්ථානීය තොරතුරු)
-                               </label>
+                            <p>
+                                <label>
+                                    Location Details (ස්ථානීය තොරතුරු)
+                                </label>
                             </p>
                             <div class="row">
                                 <div class="col-md-12">
@@ -155,7 +152,7 @@
                                             Province (පළාත)
                                         </label>
                                         <select formControlName="province" (change)="onProvinceChange($event)">
-                                            <option [value]= null selected>-- Select Province --
+                                            <option [value]=null selected>-- Select Province --
                                             </option>
                                             <option *ngFor="let e of provices" [value]="e.id">{{e.name}}
                                             </option>
@@ -173,7 +170,7 @@
                                             District (දිස්ත්‍රික්කය)
                                         </label>
                                         <select formControlName="district" (change)="onDistrictChange($event)">
-                                            <option [value]= null selected>-- Select District --
+                                            <option [value]=null selected>-- Select District --
                                             </option>
                                             <option *ngFor="let e of districts" [value]="e.id">{{e.name}}
                                             </option>
@@ -191,16 +188,16 @@
                                             DS Division
                                         </label>
                                         <select formControlName="dsDivision" (change)="onDsDivisionChange($event)">
-                                            <option [value]= null selected>-- Select DS Division --
+                                            <option [value]=null selected>-- Select DS Division --
                                             </option>
                                             <option *ngFor="let e of divisions" [value]="e.id">
                                                 {{e.name}}</option>
                                         </select>
                                     </div>
                                     <div class="err_lo"
-                                            *ngIf="submitted && (form.controls['dsDivision'].hasError('required')||form.controls['dsDivision'].hasError('min'))">
-                                            DS Division is required
-                                        </div>
+                                        *ngIf="submitted && (form.controls['dsDivision'].hasError('required')||form.controls['dsDivision'].hasError('min'))">
+                                        DS Division is required
+                                    </div>
                                 </div>
                                 <!-- <div class="col-md-3">
                                     <div class="page_input set-inline">
@@ -226,10 +223,9 @@
                                         </label>
                                         <select formControlName="gndId" (change)="onGndIdSelect($event)">
                                             <option value=null>-- Select GN Division --</option>
-                                            <option *ngFor="let e of gnds"
-                                                [value]="e.id">{{e.name}}</option>
+                                            <option *ngFor="let e of gnds" [value]="e.id">{{e.name}}</option>
                                         </select>
-    
+
                                     </div>
                                     <div class="err_lo"
                                         *ngIf="submitted && (form.controls['gndId'].hasError('required')||form.controls['gndId'].hasError('min'))">
@@ -237,9 +233,9 @@
                                         required </div>
                                 </div>
                             </div>
-                       
+
                         </div>
-                        
+
                     </div>
                 </div>
             </form>
@@ -249,24 +245,27 @@
                         <div class="col-md-12">
                             <div class="row">
                                 <div class="col-md-2">
-                                        <label>
-                                            Please Select Record Type <br/>(වාර්තාවේ වර්ගය තෝරන්න) >>
-                                        </label>
+                                    <label>
+                                        Please Select Record Type <br />(වාර්තාවේ වර්ගය තෝරන්න) >>
+                                    </label>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="page_input">
                                         <select [(ngModel)]="userStatusDetailModel.type" (change)="onChangeStatus()">
                                             <option value="">-- Select Status --</option>
                                             <option value={{status.home}}>Home Quarantine (නිවසෙදී නීරෝධායනය)</option>
-                                            <option value={{status.remorte}}>Remorte Quarantine (නිරෝධනය මධ්යස්ථානක නීරෝධායනය)</option>
-                                            <option value={{status.positive}}>Positive COVID-19 Patient(තහවුරුකරනලද රෝගියෙක් බව)</option>
-                                            <option value={{status.suspect}}>Suspect COVID-19 Patient(සැක සහිත රෝගියෙක් බව)</option>
+                                            <option value={{status.remorte}}>Remorte Quarantine (නිරෝධනය මධ්යස්ථානක
+                                                නීරෝධායනය)</option>
+                                            <option value={{status.positive}}>Positive COVID-19 Patient(තහවුරුකරනලද
+                                                රෝගියෙක් බව)</option>
+                                            <option value={{status.suspect}}>Suspect COVID-19 Patient(සැක සහිත රෝගියෙක්
+                                                බව)</option>
                                             <option value={{status.deceased}}>Deceased (මරණය)</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                            <hr/>
+                            <hr />
                             <div class="row">
                                 <!-- <div class="col-md-2" *ngIf="userStatusDetailModel.type === status.deceased">
                                     <div class="page_input">
@@ -339,13 +338,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-1" *ngIf="userStatusDetailModel.type === status.positive || userStatusDetailModel.type === status.suspect">
+                                <div class="col-md-1"
+                                    *ngIf="userStatusDetailModel.type === status.positive || userStatusDetailModel.type === status.suspect">
                                     <div class="page_input">
                                         <label>
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button class="addRecordBtn" (click)="add_new('hospital')" style="width:50%;">+</button>
+                                            <button class="addRecordBtn" (click)="add_new('hospital')"
+                                                style="width:50%;">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -373,7 +374,8 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button class="addRecordBtn" (click)="add_new('center')" style="width:50%;">+</button>
+                                            <button class="addRecordBtn" (click)="add_new('center')"
+                                                style="width:50%;">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -397,7 +399,23 @@
                                         <label>
                                             Parent Case No
                                         </label>
-                                        <input type="text" [(ngModel)]="userStatusDetailModel.parentCaseNum">
+                                        <!-- <input type="text" [(ngModel)]="userStatusDetailModel.parentCaseNum"> -->
+                                        
+                                        <ng-autocomplete [data]="pCaseDropdownList" [searchKeyword]="pCaseKeyword" placeHolder="Select Parent Case"
+                                            (selected)='selectEventPCase($event)' (inputChanged)='onChangeSearchPCase($event)' 
+                                            [itemTemplate]="itemTemplateAddPCase"
+                                            [notFoundTemplate]="notFoundTemplateAddPCase">
+                                        </ng-autocomplete>
+
+                                        <ng-template #itemTemplateAddPCase let-item>
+                                            <a [innerHTML]="item.showingName"></a>
+                                        </ng-template>
+                                
+                                        <ng-template #notFoundTemplateAddPCase let-notFound>
+                                            <div [innerHTML]="notFound"></div>
+                                        </ng-template>
+
+
                                         <div class="err_lo" *ngIf="this.statusError.parentCaseNum">
                                             Parent Case No
                                             is
@@ -421,7 +439,8 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button class="addRecordBtn" (click)="add_userStatus_detail()" style="width:100%; overflow: hidden;">
+                                            <button class="addRecordBtn" (click)="add_userStatus_detail()"
+                                                style="width:100%; overflow: hidden;">
                                                 <label class="btnLabel">Add Record</label></button>
                                         </div>
                                     </div>
@@ -445,7 +464,8 @@
                                             <span>&#8203;</span>
                                         </label>
                                         <div class="input_button">
-                                            <button class="addRecordBtn" (click)="add_userStatus_detail()" style="width:100%">
+                                            <button class="addRecordBtn" (click)="add_userStatus_detail()"
+                                                style="width:100%">
                                                 <label class="btnLabel">Add Record</label></button>
                                         </div>
                                     </div>
@@ -464,13 +484,13 @@
                                     <thead>
                                         <tr>
                                             <!-- <th>ID</th> -->
-                                            <th width = 12%>Record Catogory</th>
-                                            <th width = 12%>Start / Admit /Informed Date</th>
-                                            <th width = 12%>End / Discharge Date</th>
-                                            <th width = 12%>Center</th>
-                                            <th width = 12%>Hospital</th>
-                                            <th width = 8%>Case No</th>
-                                            <th width = 8%>Parent Case No</th>
+                                            <th width=12%>Record Catogory</th>
+                                            <th width=12%>Start / Admit /Informed Date</th>
+                                            <th width=12%>End / Discharge Date</th>
+                                            <th width=12%>Center</th>
+                                            <th width=12%>Hospital</th>
+                                            <th width=8%>Case No</th>
+                                            <th width=8%>Parent Case No</th>
                                             <th>Description</th>
                                             <th></th>
 

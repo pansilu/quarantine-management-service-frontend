@@ -14,6 +14,7 @@ import * as moment from 'moment';
 import { StatusErrorModel } from '../../models/status-error.model';
 import { NameIdLocationModel } from 'src/app/shared/models/name-id-location.model';
 import { async } from '@angular/core/testing';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 
 declare var $: any
 @Component({
@@ -90,6 +91,9 @@ export class AddEditPersonComponent implements OnInit {
     // this.q_person = new QuarantinePersonEditModel()
   }
 
+  // Parent case autocomp
+  pCaseDropdownList = [];
+  pCaseKeyword = 'caseNum';
 
   ngOnInit() {
     this.q_id = parseInt(this._route.snapshot.params['id'], 10);
@@ -171,6 +175,22 @@ export class AddEditPersonComponent implements OnInit {
   }
 
 
+  getPCases(search:string){
+    this._quarantineService.getPCases((d) => {
+      console.log(d)
+      this.pCaseDropdownList = d;
+    }, e => {
+      this._errorHandlerService.Handler(e);
+    },search);
+  }
+
+  onChangeSearchPCase(search:string){
+    this.getPCases(search);
+  }
+
+  selectEventPCase(event){
+    this.userStatusDetailModel.parentCaseNum = event.caseNum
+  }
 
   getCountries() {
     this._quarantineService.getCountries((d) => {

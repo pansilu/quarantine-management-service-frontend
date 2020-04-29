@@ -10,6 +10,7 @@ import { UserViewModel } from '../quarantine/models/user-view.model';
 import { NameIdModel } from '../shared/models/name-id.model';
 import { AddressModel } from '../quarantine/models/address.model';
 import { NameIdLocationModel } from '../shared/models/name-id-location.model';
+import { PCaseModel } from '../quarantine/models/pCase.model';
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +39,13 @@ export class QuarantineService {
             .url('api/misc/country')
             .needJson()
             .get(data, error);
+    }
+
+    getPCases(data: NextCallback<Array<PCaseModel>>, error: ErrorCallback<ErrorModel> , search? :string){
+        this._.api()
+            .url('api/user/quarantine/pc/case')
+            .needJson()
+            .get(data, error, `search=${search}`);
     }
 
     getLocation(data: NextCallback<Array<LocationModel>>, error: ErrorCallback<ErrorModel>) {
