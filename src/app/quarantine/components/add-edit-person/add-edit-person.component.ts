@@ -404,6 +404,7 @@ export class AddEditPersonComponent implements OnInit {
     this.statusError = new StatusErrorModel();
   }
   add_userStatus_detail() {
+
     this.statusError.type = this.validateString(this.userStatusDetailModel.type);
     this.statusError.startDate = this.validateString(this.userStatusDetailModel.startDate);
     this.statusError.endDate = this.validateString(this.userStatusDetailModel.endDate)
@@ -453,6 +454,13 @@ export class AddEditPersonComponent implements OnInit {
       this.person.userStatusDetails[this.editIndex] = this.userStatusDetailModel
       this.editIndex = -1;
     } else {
+      // validate if there have inconpleate end datae
+      for (const e of this.person.userStatusDetails) {
+        if (this.validateString(e.endDate)) {
+          this._toast.error("Error", "incomplete end date found in table please fill it first")
+          return;
+        }
+      }
       this.person.userStatusDetails.push(this.userStatusDetailModel);
     }
     var model = new UserStatusDetailModel();
@@ -460,6 +468,7 @@ export class AddEditPersonComponent implements OnInit {
     this.userStatusDetailModel = model;
     this.statusError = new StatusErrorModel();
     this.pCaseEdit = "";
+    console.log(this.person.userStatusDetails)
   }
 
 
@@ -492,7 +501,8 @@ export class AddEditPersonComponent implements OnInit {
   editDetail(index: number) {
     this.editIndex = index;
     this.pCaseEdit = this.person.userStatusDetails[index].parentCaseNum;
-    this.userStatusDetailModel = this.person.userStatusDetails[index]
+
+    this.userStatusDetailModel = JSON.parse(JSON.stringify(this.person.userStatusDetails[index]));
   }
 }
 
