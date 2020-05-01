@@ -404,6 +404,7 @@ export class AddEditPersonComponent implements OnInit {
     model.type = this.userStatusDetailModel.type;
     this.userStatusDetailModel = model;
     this.statusError = new StatusErrorModel();
+    this.isEditClicked = false;
   }
   add_userStatus_detail() {
 
@@ -470,7 +471,7 @@ export class AddEditPersonComponent implements OnInit {
     this.userStatusDetailModel = model;
     this.statusError = new StatusErrorModel();
     this.pCaseEdit = "";
-    console.log(this.person.userStatusDetails)
+    this.isEditClicked = false;
   }
 
 
