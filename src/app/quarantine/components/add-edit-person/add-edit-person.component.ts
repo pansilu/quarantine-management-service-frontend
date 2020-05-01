@@ -47,6 +47,7 @@ export class AddEditPersonComponent implements OnInit {
   gndId: number = 0;
   editIndex: number = -1
   /** ***/
+  isEditClicked : boolean;
 
 
 
@@ -105,6 +106,7 @@ export class AddEditPersonComponent implements OnInit {
     this.getHospitals();
     this.getquarantineCenters();
     this.edit = false
+    this.isEditClicked = false
 
     // this.createUser = this._authService.loggedUser.createUser;
     // console.log(this.q_id)
@@ -402,8 +404,10 @@ export class AddEditPersonComponent implements OnInit {
     model.type = this.userStatusDetailModel.type;
     this.userStatusDetailModel = model;
     this.statusError = new StatusErrorModel();
+    this.isEditClicked = false;
   }
   add_userStatus_detail() {
+
     this.statusError.type = this.validateString(this.userStatusDetailModel.type);
     this.statusError.startDate = this.validateString(this.userStatusDetailModel.startDate);
     this.statusError.endDate = this.validateString(this.userStatusDetailModel.endDate)
@@ -453,6 +457,13 @@ export class AddEditPersonComponent implements OnInit {
       this.person.userStatusDetails[this.editIndex] = this.userStatusDetailModel
       this.editIndex = -1;
     } else {
+      // validate if there have inconpleate end datae
+      for (const e of this.person.userStatusDetails) {
+        if (this.validateString(e.endDate)) {
+          this._toast.error("Error", "incomplete end date found in table please fill it first")
+          return;
+        }
+      }
       this.person.userStatusDetails.push(this.userStatusDetailModel);
     }
     var model = new UserStatusDetailModel();
@@ -460,6 +471,7 @@ export class AddEditPersonComponent implements OnInit {
     this.userStatusDetailModel = model;
     this.statusError = new StatusErrorModel();
     this.pCaseEdit = "";
+    this.isEditClicked = false;
   }
 
 
@@ -490,9 +502,11 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   editDetail(index: number) {
+    this.isEditClicked = true;
     this.editIndex = index;
     this.pCaseEdit = this.person.userStatusDetails[index].parentCaseNum;
-    this.userStatusDetailModel = this.person.userStatusDetails[index]
+
+    this.userStatusDetailModel = JSON.parse(JSON.stringify(this.person.userStatusDetails[index]));
   }
 }
 

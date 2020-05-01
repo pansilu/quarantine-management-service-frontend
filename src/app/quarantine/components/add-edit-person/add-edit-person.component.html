@@ -345,7 +345,7 @@
                                         </label>
                                         <div class="input_button">
                                             <button class="addRecordBtn" (click)="add_new('hospital')"
-                                                style="width:50%;">+</button>
+                                                style="width:50%;background-color: #2f0144;">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -374,7 +374,7 @@
                                         </label>
                                         <div class="input_button">
                                             <button class="addRecordBtn" (click)="add_new('center')"
-                                                style="width:50%;">+</button>
+                                                style="width:50%; background-color: #2f0144;">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -439,8 +439,10 @@
                                         </label>
                                         <div class="input_button">
                                             <button class="addRecordBtn" (click)="add_userStatus_detail()"
-                                                style="width:100%; overflow: hidden;">
-                                                <label class="btnLabel">Add Record</label></button>
+                                                style="width:100%; overflow: hidden; background-color: #2f0144;">
+                                                <label *ngIf = "!isEditClicked"class="btnLabel">Add Record</label>
+                                                <label *ngIf = "isEditClicked" class="btnLabel">Update Record</label>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -464,8 +466,10 @@
                                         </label>
                                         <div class="input_button">
                                             <button class="addRecordBtn" (click)="add_userStatus_detail()"
-                                                style="width:100%">
-                                                <label class="btnLabel">Add Record</label></button>
+                                                style="width:100%; background-color: #2f0144;">
+                                                <label *ngIf = "!isEditClicked" class="btnLabel">Add Record</label>
+                                                <label *ngIf = "isEditClicked" class="btnLabel">Update Record</label>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
