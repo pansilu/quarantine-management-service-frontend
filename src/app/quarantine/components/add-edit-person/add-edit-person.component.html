@@ -6,7 +6,7 @@
             <i class="material-icons-outlined">supervisor_account</i>
         </div>
         <div class="header-title">
-            <h1>Add / Edit Quarantine Person <span class="sinhalaTitle">(නිරෝධායනයේ නිරත පුද්ගලයින් එක්කිරීම /
+            <h1>Add / Edit COVID-19 Affected People <span class="sinhalaTitle">(කොවිඩ්-19 බලපෑමට ලක් වූ පුද්ගලයින් එක්කිරීම /
                     සංස්කරණය)</span></h1>
         </div>
     </div>
@@ -254,8 +254,7 @@
                                         <select [(ngModel)]="userStatusDetailModel.type" (change)="onChangeStatus()">
                                             <option value="">-- Select Status --</option>
                                             <option value={{status.home}}>Home Quarantine (නිවසෙදී නීරෝධායනය)</option>
-                                            <option value={{status.remorte}}>Remorte Quarantine (නිරෝධනය මධ්යස්ථානක
-                                                නීරෝධායනය)</option>
+                                            <option value={{status.remorte}}>Remorte Quarantine (නිරෝධායන මධ්‍යස්ථානයකට යොමු කරන ලද)</option>
                                             <option value={{status.positive}}>Positive COVID-19 Patient(තහවුරුකරනලද
                                                 රෝගියෙක් බව)</option>
                                             <option value={{status.suspect}}>Suspect COVID-19 Patient(සැක සහිත රෝගියෙක්
@@ -346,7 +345,7 @@
                                         </label>
                                         <div class="input_button">
                                             <button class="addRecordBtn" (click)="add_new('hospital')"
-                                                style="width:50%;">+</button>
+                                                style="width:50%;background-color: #2f0144;">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -375,7 +374,7 @@
                                         </label>
                                         <div class="input_button">
                                             <button class="addRecordBtn" (click)="add_new('center')"
-                                                style="width:50%;">+</button>
+                                                style="width:50%; background-color: #2f0144;">+</button>
                                         </div>
                                     </div>
                                 </div>
@@ -440,8 +439,10 @@
                                         </label>
                                         <div class="input_button">
                                             <button class="addRecordBtn" (click)="add_userStatus_detail()"
-                                                style="width:100%; overflow: hidden;">
-                                                <label class="btnLabel">Add Record</label></button>
+                                                style="width:100%; overflow: hidden; background-color: #2f0144;">
+                                                <label *ngIf = "!isEditClicked"class="btnLabel">Add Record</label>
+                                                <label *ngIf = "isEditClicked" class="btnLabel">Update Record</label>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -465,8 +466,10 @@
                                         </label>
                                         <div class="input_button">
                                             <button class="addRecordBtn" (click)="add_userStatus_detail()"
-                                                style="width:100%">
-                                                <label class="btnLabel">Add Record</label></button>
+                                                style="width:100%; background-color: #2f0144;">
+                                                <label *ngIf = "!isEditClicked" class="btnLabel">Add Record</label>
+                                                <label *ngIf = "isEditClicked" class="btnLabel">Update Record</label>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

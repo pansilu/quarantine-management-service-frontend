@@ -47,6 +47,7 @@ export class AddEditPersonComponent implements OnInit {
   gndId: number = 0;
   editIndex: number = -1
   /** ***/
+  isEditClicked : boolean;
 
 
 
@@ -105,6 +106,7 @@ export class AddEditPersonComponent implements OnInit {
     this.getHospitals();
     this.getquarantineCenters();
     this.edit = false
+    this.isEditClicked = false
 
     // this.createUser = this._authService.loggedUser.createUser;
     // console.log(this.q_id)
@@ -499,6 +501,7 @@ export class AddEditPersonComponent implements OnInit {
   }
 
   editDetail(index: number) {
+    this.isEditClicked = true;
     this.editIndex = index;
     this.pCaseEdit = this.person.userStatusDetails[index].parentCaseNum;
 
