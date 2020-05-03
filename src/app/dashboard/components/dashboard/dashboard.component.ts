@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
   };
 
   selectedDistricts = new Array<NameIdModel>();
+  allDistricts: Array<NameIdModel> = new Array<NameIdModel>();
   provices: Array<NameIdModel> = new Array<NameIdModel>();
   districts: Array<NameIdModel> = new Array<NameIdModel>();
   divisions: Array<NameIdModel> = new Array<NameIdModel>();
@@ -59,6 +60,7 @@ export class DashboardComponent implements OnInit {
     this.request = new GraphDataRequestModel();
     this.request.covidCaseType = "ALL";
     this.getprovinces()
+    this.getAllDistricts();
   }
 
   getprovinces() {
@@ -77,6 +79,15 @@ export class DashboardComponent implements OnInit {
       },
       e => { this._errorHandlerService.Handler(e) }
       , id)
+  }
+
+  getAllDistricts() {
+    this._dashboardService.getAllDistricts(
+      d => {
+        this.allDistricts = d;
+      },
+      e => { this._errorHandlerService.Handler(e) }
+      )
   }
 
   getDivisions(id: number) {
@@ -151,7 +162,7 @@ export class DashboardComponent implements OnInit {
     else{
       this.request.districtIdList = null;
     }
-    
+    console.log(this.request.districtIdList)
   }
 
   graph_params(graph: string) {

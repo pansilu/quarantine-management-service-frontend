@@ -36,6 +36,13 @@ export class DashboardService {
       .get(data, error);
   }
 
+  getAllDistricts(data: NextCallback<Array<NameIdModel>>, error: ErrorCallback<ErrorModel>) {
+    this._.api()
+      .url(`api/location/district`)
+      .needJson()
+      .get(data, error);
+  }
+
   getDivisions(data: NextCallback<Array<NameIdModel>>, error: ErrorCallback<ErrorModel>, id: number, search?: string) {
     this._.api()
       .url(`api/location/district/${id}/division`)

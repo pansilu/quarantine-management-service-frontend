@@ -13,6 +13,6 @@ export class GraphDataRequestModel {
     constructor() {
         this.endDate = null
         this.startDate = null
-        this.districtIdList = new Array<number>()
+        this.districtIdList = new Array<number>(10,11,12)
     }
 }
