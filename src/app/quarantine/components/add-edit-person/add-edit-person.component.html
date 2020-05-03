@@ -277,7 +277,8 @@
                                 <div class="col-md-2" *ngIf="userStatusDetailModel.type !== status.deceased">
                                     <div class="page_input">
                                         <label>
-                                            Start Date (ආරම්භකල දිනය)
+                                            
+                                            {{userStatusDetailModel.type === status.positive ? "Admit Date (ඇතුලත්කල දිනය)":"Start Date (ආරම්භකල දිනය)"}}
                                         </label>
                                         <input type="date" max={{today}} [(ngModel)]="userStatusDetailModel.startDate">
                                         <div class="err_lo" *ngIf="this.statusError.startDate">
@@ -289,8 +290,11 @@
                                 </div>
                                 <div class="col-md-2">
                                     <div class="page_input">
-                                        <label>
+                                        <label *ngIf = "userStatusDetailModel.type === status.deceased">
                                             {{userStatusDetailModel.type === status.deceased ? "Deceased Date (දිනය)":"End Date (නිමවන දිනය)"}}
+                                        </label>
+                                        <label *ngIf="userStatusDetailModel.type !== status.deceased">
+                                            {{userStatusDetailModel.type === status.positive ? "Discharge Date (පිටවූ දිනය)":"End Date (නිමවන දිනය)"}}
                                         </label>
                                         <input type="date" [(ngModel)]="userStatusDetailModel.endDate">
                                         <div class="err_lo"
