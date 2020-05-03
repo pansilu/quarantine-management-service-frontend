@@ -6,7 +6,7 @@
         </div>
         <div class="header-title">
             <h1>Dashboard <span class="sinhalaTitle">(දත්ත පුවරුව)</span></h1>
-            <small>Summarized review of data. (සමුච්චිත දත්තයන්හි නිරූපනය)</small>
+            <small>All COVID-19 Infected People (කොවිඩ් -19 ආසාධිත පුද්ගලයින්)</small>
             <ol class="breadcrumb">
                 <li><a><i class="fa fa-home"></i> Home</a></li>
                 <li><a>Dashboard</a></li>
@@ -59,7 +59,7 @@
                             <div class="col-md-2" *ngIf="district !=null && activeGraph != graph.DISTRICT_COMPARISION">
                                 <div class="page_input set-inline">
                                     <label>
-                                        DS Division <br> ()
+                                        DS Division <br> (ප්‍රාදේශීය ලේකම් කොට්ඨාසය)
                                     </label>
                                     <select [(ngModel)]="division" (change)="onDsDivisionChange($event)">
                                         <option [value]=null selected>All
