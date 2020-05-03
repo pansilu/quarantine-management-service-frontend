@@ -20,28 +20,67 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-2">
-                                <div class="page_input">
+                                <div class="page_input set-inline">
                                     <label>
-                                        Division <br>(කොට්ඨාසය)
+                                        Province <br> (පළාත)
                                     </label>
-                                    <select (change)="divisionSelected($event)" [(ngModel)]="selectedDivition">
-                                        <option *ngFor="let d of divitions" [value]="d.id">{{d.name}}
+                                    <select [(ngModel)]="provice" (change)="onProvinceChange($event)">
+                                        <option [value]=null selected>All
+                                        </option>
+                                        <option *ngFor="let e of provices" [value]="e.id">{{e.name}}
                                         </option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-4" *ngIf="provice !=null && activeGraph == graph.DISTRICT_COMPARISION">
                                 <div class="page_input">
                                     <label>
-                                        Police Station <br> (පොලිස් ස්ථානය)
+                                        District <br> (දිස්ත්‍රික්කය)
                                     </label>
-                                    <ng-multiselect-dropdown [placeholder]="'-- Please Select --'" [data]="locations"
-                                        [(ngModel)]="selectedLocations" [settings]="dropdownSettings"
-                                        (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                    <ng-multiselect-dropdown [placeholder]="ALL" [data]="districts"
+                                        [(ngModel)]="selectedDistricts" [settings]="dropdownSettings">
                                     </ng-multiselect-dropdown>
                                 </div>
                             </div>
-                            <div class="col-md-2" *ngIf="activeGraph == graph.date">
+
+                            <div class="col-md-2" *ngIf="provice !=null && activeGraph != graph.DISTRICT_COMPARISION">
+                                <div class="page_input set-inline">
+                                    <label>
+                                        District <br>(දිස්ත්‍රික්කය)
+                                    </label>
+                                    <select [(ngModel)]="district" (change)="onDistrictChange($event)">
+                                        <option [value]=null selected>All
+                                        </option>
+                                        <option *ngFor="let e of districts" [value]="e.id">{{e.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2" *ngIf="district !=null && activeGraph != graph.DISTRICT_COMPARISION">
+                                <div class="page_input set-inline">
+                                    <label>
+                                        DS Division <br> ()
+                                    </label>
+                                    <select [(ngModel)]="division" (change)="onDsDivisionChange($event)">
+                                        <option [value]=null selected>All
+                                        </option>
+                                        <option *ngFor="let e of divisions" [value]="e.id">
+                                            {{e.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2" *ngIf="division !=null && activeGraph != graph.DISTRICT_COMPARISION">
+                                <div class="page_input set-inline">
+                                    <label>
+                                        GN Division <br> (ග්‍රාම නිලධාරී වසම)
+                                    </label>
+                                    <select [(ngModel)]="gnd" (change)="onGndIdSelect($event)">
+                                        <option value=null>All</option>
+                                        <option *ngFor="let e of gnds" [value]="e.id">{{e.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2" *ngIf="activeGraph == graph.DAILY_COVID">
                                 <div class="page_input">
                                     <label>
                                         Date Range <br> (කාල පරාසය)
@@ -50,15 +89,16 @@
                                         opens="right" drops="down" startKey="start" endKey="end" [locale]="locale" />
                                 </div>
                             </div>
-                            <div class="col-md-2" *ngIf="(activeGraph == graph.age ||activeGraph == graph.station)">
+                            <div class="col-md-1" *ngIf="(activeGraph == graph.age ||activeGraph == graph.DAILY_COVID)">
                                 <div class="page_input">
                                     <label>
                                         Type <br> (වර්ගය)
                                     </label>
-                                    <select [(ngModel)]="quserType">
-                                        <option value="BOTH">BOTH</option>
-                                        <option value="OVER">OVER</option>
-                                        <option value="NOT_DONE">NOT_DONE</option>
+                                    <select [(ngModel)]="covidCaseType">
+                                        <option value="ALL">ALL</option>
+                                        <option value="ACTIVE">ACTIVE</option>
+                                        <option value="RECOVERED">RECOVERED</option>
+                                        <option value="DECEASED">DECEASED</option>
                                     </select>
                                 </div>
                             </div>
@@ -124,51 +164,49 @@
                             <li class="active" (click)="graph_params(graph.age)"><a data-toggle="tab"
                                     href="#age">According to Ages <br> (වයස අනුව)</a>
                             </li>
-                            <li (click)="graph_params(graph.station)"><a data-toggle="tab" href="#station">According to
-                                    Police Station <br>(පොලිස් ස්ථානය
-                                    අනුව)</a>
+                            <li (click)="graph_params(graph.date)"><a data-toggle="tab" href="#date"> CUMULATIVE_COVID
+                                    <br> (CUMULATIVE_COVID)</a></li>
+                            <li (click)="graph_params(graph.DAILY_COVID)"><a data-toggle="tab"
+                                    href="#station">DAILY_COVID <br>(DAILY_COVID)</a>
                             </li>
-                            <li (click)="graph_params(graph.date)"><a data-toggle="tab" href="#date">According to Date
-                                    <br> (දිනය අනුව)</a></li>
-                            <li (click)="graph_params(graph.growth)"><a data-toggle="tab" href="#growth"> In/End
-                                    quarantine process <br> (නිරත හා නිරෝධායනය
-                                    නිම කළ
-                                    පුද්ගලයින්)</a></li>
-                            <li (click)="graph_params(graph.growth)"><a data-toggle="tab" href="#map"> In/End
-                                    Distribution in map <br> (ව්‍යාප්තිය සිතියමක)</a></li>
+                            <li (click)="graph_params(graph.DISTRICT_COMPARISION)"><a data-toggle="tab" href="#growth">
+                                    DISTRICT_COMPARISION <br>
+                                    (DISTRICT_COMPARISION)</a></li>
+                            <!-- <li (click)="graph_params(graph.growth)"><a data-toggle="tab" href="#map"> In/End
+                                    Distribution in map <br> (ව්‍යාප්තිය සිතියමක)</a></li> -->
                         </ul>
                     </div>
                     <!-- <div class="container"> -->
-                        <div class="tab-content">
-                            <div id="age" class="tab-pane fade in active">
-                                <div class="container">
-                                    <app-age-chart [reqest]='request'> </app-age-chart>
-                                </div>
-                            </div>
-                            <div id="station" class="tab-pane fade">
-                                <div class="container">
-                                    <app-station-distribution [reqest]='request'></app-station-distribution>
-                                </div>
-                            </div>
-                            <div id="date" class="tab-pane fade">
-                                <div class="container">
-                                    <app-new-quarantine-persons-distribution [reqest]='request'>
-                                    </app-new-quarantine-persons-distribution>
-                                </div>
-                            </div>
-                            <div id="growth" class="tab-pane fade">
-                                <div class="container">
-                                    <app-quarantine-person-distribution [reqest]='request'>
-                                    </app-quarantine-person-distribution>
-                                </div>
-                            </div>
-                            <div id="map" class="tab-pane fade">
-                                <div style="padding-top: 10px;">
-                                    <app-map-distribution>
-                                    </app-map-distribution>
-                                </div>
+                    <div class="tab-content">
+                        <div id="age" class="tab-pane fade in active">
+                            <div class="container">
+                                <app-age-chart [reqest]='request'> </app-age-chart>
                             </div>
                         </div>
+                        <div id="date" class="tab-pane fade">
+                            <div class="container">
+                                <app-new-quarantine-persons-distribution [reqest]='request'>
+                                </app-new-quarantine-persons-distribution>
+                            </div>
+                        </div>
+                        <div id="station" class="tab-pane fade">
+                            <div class="container">
+                                <app-station-distribution [reqest]='request'></app-station-distribution>
+                            </div>
+                        </div>
+                        <div id="growth" class="tab-pane fade">
+                            <div class="container">
+                                <app-quarantine-person-distribution [reqest]='request'>
+                                </app-quarantine-person-distribution>
+                            </div>
+                        </div>
+                        <div id="map" class="tab-pane fade">
+                            <div style="padding-top: 10px;">
+                                <!-- <app-map-distribution>
+                                    </app-map-distribution> -->
+                            </div>
+                        </div>
+                    </div>
                     <!-- </div> -->
                 </div>
             </div>

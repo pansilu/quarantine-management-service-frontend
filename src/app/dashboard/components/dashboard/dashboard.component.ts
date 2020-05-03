@@ -17,8 +17,15 @@ export class DashboardComponent implements OnInit {
 
   // selected: {startDate: Moment, endDate: Moment};
   graph = GraphTypes;
-  activeGraph:string = GraphTypes.age;
+  activeGraph: string = GraphTypes.age;
   enabled: boolean = false;
+  covidCaseType: string = "ALL";
+  selected = { start: moment().subtract(30, 'days'), end: moment() };
+  provice: number = null;
+  district: number = null;
+  division: number = null;
+  gnd: number = null;
+
   dropdownSettings = {
     singleSelection: false,
     enableCheckAll: false,
@@ -30,7 +37,12 @@ export class DashboardComponent implements OnInit {
     allowSearchFilter: true
   };
 
-  selected = {start: moment().subtract(30, 'days'), end: moment() };
+  selectedDistricts = new Array<NameIdModel>();
+  provices: Array<NameIdModel> = new Array<NameIdModel>();
+  districts: Array<NameIdModel> = new Array<NameIdModel>();
+  divisions: Array<NameIdModel> = new Array<NameIdModel>();
+  gnds: Array<NameIdModel> = new Array<NameIdModel>();
+
   locale: any = {
     format: 'YYYY-MM-DDTHH:mm:ss.SSSSZ',
     displayFormat: 'DD MMMM YYYY',
@@ -39,47 +51,113 @@ export class DashboardComponent implements OnInit {
     applyLabel: 'Okay'
   }
 
-  divitions = new Array<UserStationModel>();
-  locations = new Array<NameIdModel>();
-  selectedLocations = new Array<NameIdModel>();
-  selectedDivition: number
-  quserType:string = "BOTH"
-
   request: GraphDataRequestModel
 
   constructor(private _dashboardService: DashboardService, private _errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit() {
-    // this.request = new GraphDataRequestModel();
-    // this.request.quserType = "BOTH";
-    // this.request.divisionIds = [1];
-    // this.request.stationIds = null;
-    this.getLoacations()
+    this.request = new GraphDataRequestModel();
+    this.request.covidCaseType = "ALL";
+    this.getprovinces()
   }
 
-  getLoacations() {
-    this._dashboardService.getLocations(
+  getprovinces() {
+    this._dashboardService.getprovinces(
       d => {
-        this.divitions = d
-        this.locations = d[0].stations
-        this.selectedLocations = d[0].stations
-        this.selectedDivition = d[0].id
-        this.draw()
+        this.provices = d;
       },
       e => { this._errorHandlerService.Handler(e) }
     )
   }
 
+  getDistricts(id: number) {
+    this._dashboardService.getDistricts(
+      d => {
+        this.districts = d;
+      },
+      e => { this._errorHandlerService.Handler(e) }
+      , id)
+  }
+
+  getDivisions(id: number) {
+    this._dashboardService.getDivisions(
+      d => {
+        this.divisions = d;
+      },
+      e => { this._errorHandlerService.Handler(e) }
+      , id)
+  }
+
+  getGnds(id: number) {
+    this._dashboardService.getGnds(
+      d => {
+        this.gnds = d;
+      },
+      e => { this._errorHandlerService.Handler(e) }
+      , id)
+  }
+
+  onProvinceChange($event) {
+    this.districts = new Array<NameIdModel>()
+    this.divisions = new Array<NameIdModel>()
+    this.gnds = new Array<NameIdModel>()
+    const id = $event.target.value;
+    if (id != 'null')
+      this.getDistricts(id);
+    this.district = null
+    this.division = null
+    this.gnd = null
+  }
+
+  onDistrictChange($event) {
+    this.divisions = new Array<NameIdModel>()
+    this.gnds = new Array<NameIdModel>()
+    const id = $event.target.value;
+    if (id != 'null')
+      this.getDivisions(id);
+    this.division = null
+    this.gnd = null
+  }
+
+  onDsDivisionChange($event) {
+    this.gnds = new Array<NameIdModel>()
+    const id = $event.target.value;
+    if (id != 'null')
+      this.getGnds(id);
+    this.gnd = null
+  }
+
+  onGndIdSelect($event) {
+    // const id = $event.target.value;
+  }
+
+
   draw() {
     this.request = new GraphDataRequestModel();
-    this.request.quserType = this.quserType;
-    this.selectedLocations.forEach(l => {
-      this.request.stationIds.push(l.id);
-    })
-    this.request.divisionIds = [this.selectedDivition];
+    this.request.provinceId = this.provice;
+    this.request.districtId = this.district;
+    this.request.divisionId = this.division;
+    this.request.gndId = this.gnd;
+    this.request.covidCaseType = this.covidCaseType;
     this.request.startDate = this.selected.start.format('YYYY-MM-DD')
     this.request.endDate = this.selected.end.format('YYYY-MM-DD')
+    this.request.districtIdList = new Array<number>();
+
+    if(this.selectedDistricts.length > 0){
+      this.selectedDistricts.forEach(e => {
+        this.request.districtIdList.push(e.id)
+      });
+    }
+    else{
+      this.request.districtIdList = null;
+    }
+    
   }
+
+  graph_params(graph: string) {
+    this.activeGraph = graph
+  }
+
 
   onSelectAll($event) {
 
@@ -87,18 +165,6 @@ export class DashboardComponent implements OnInit {
 
   onItemSelect($event) {
 
-  }
-
-  divisionSelected($event) {
-    const id = +$event.target.value
-    if (id) {
-      this.selectedLocations = []
-      this.locations = this.divitions[id].stations
-    }
-  }
-
-  graph_params(graph:string){
-    this.activeGraph = graph
   }
 
 }

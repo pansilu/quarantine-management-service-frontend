@@ -4,6 +4,8 @@ import { Label } from 'ng2-charts';
 import { DashboardService } from 'src/app/Service/dashboard.service';
 import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 import { GraphDataRequestModel } from '../../models/graph-data-request.model';
+import GraphTypes from '../../models/GraphTypes';
+
 
 @Component({
   selector: 'app-station-distribution',
@@ -13,6 +15,7 @@ import { GraphDataRequestModel } from '../../models/graph-data-request.model';
 export class StationDistributionComponent implements OnChanges {
 
   @Input('reqest') request_model !: GraphDataRequestModel
+  request_clone:GraphDataRequestModel;
   loading: boolean = true;
   barChartOptions: ChartOptions = {
     responsive: true,
@@ -21,6 +24,13 @@ export class StationDistributionComponent implements OnChanges {
         ticks: {
           beginAtZero: true,
           callback: function (value: number) { if (value % 1 === 0) { return value; } }
+        }
+      }],
+      xAxes: [{
+        ticks: {
+          callback: function (tick, index, array) {
+            return (index % 3) ? "" : tick;
+          }
         }
       }]
     }
@@ -38,11 +48,10 @@ export class StationDistributionComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.request_model) {
-      this.request_model.graphType = "STATION"
-      this.request_model.divisionIds = null;
+      this.request_clone = JSON.parse(JSON.stringify(this.request_model));
+      this.request_clone.graphType = GraphTypes.DAILY_COVID;
       this.populate();
     }
-
   }
 
   populate() {
@@ -58,7 +67,7 @@ export class StationDistributionComponent implements OnChanges {
     },
       e => {
         this._errorHandlerService.Handler(e);
-      }, this.request_model)
+      }, this.request_clone)
   }
 
 }

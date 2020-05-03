@@ -5,8 +5,8 @@ export class AddressModel {
     lon: number
     gndId:number
     policeArea: string
-    town: string
-    village: string
+    // town: string
+    // village: string
     constructor() {
         this.lat = 7.723867
         this.lon = 80.771878

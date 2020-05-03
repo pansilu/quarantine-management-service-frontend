@@ -3,5 +3,7 @@ export class KeyValueModel{
     public value:number
     public value1:number
     public value2:number
+    public value3:number
+    public value4:number
 
 }

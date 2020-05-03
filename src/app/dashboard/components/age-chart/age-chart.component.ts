@@ -5,6 +5,8 @@ import { NameIdModel } from 'src/app/shared/models/name-id.model';
 import { DashboardService } from 'src/app/Service/dashboard.service';
 import { GraphDataRequestModel } from '../../models/graph-data-request.model';
 import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
+import GraphTypes from '../../models/GraphTypes';
+
 
 @Component({
   selector: 'app-age-chart',
@@ -14,6 +16,7 @@ import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 export class AgeChartComponent implements OnChanges {
 
   @Input('reqest') request_model !: GraphDataRequestModel
+  request_clone:GraphDataRequestModel;
 
   loading: boolean = true;
   public pieChartOptions: ChartOptions = {
@@ -63,7 +66,7 @@ export class AgeChartComponent implements OnChanges {
     },
       e => {
         this._errorHandlerService.Handler(e);
-      }, this.request_model)
+      }, this.request_clone)
   }
 
   dynamicColors(avg: number, i: number): string {
@@ -73,8 +76,12 @@ export class AgeChartComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.request_model) {
-      this.request_model.divisionIds = null
-      this.request_model.graphType = "AGE"
+      // this.request_model.divisionIds = null
+      this.request_clone = JSON.parse(JSON.stringify(this.request_model));
+      this.request_clone.graphType = GraphTypes.age
+      this.request_clone.endDate = null
+      this.request_clone.startDate = null
+
       this.populate();
     }
 
