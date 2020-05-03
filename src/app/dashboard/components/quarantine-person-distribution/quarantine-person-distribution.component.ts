@@ -18,6 +18,7 @@ export class QuarantinePersonDistributionComponent implements OnChanges {
   @Input('reqest') request_model !: GraphDataRequestModel
   request_clone: GraphDataRequestModel;
   loading: boolean = true;
+  haveDistrict:boolean = false; 
   barChartOptions: ChartOptions = {
     responsive: true,
     scales: {
@@ -61,17 +62,31 @@ export class QuarantinePersonDistributionComponent implements OnChanges {
       this.request_clone.divisionId = null
       if (this.request_clone.districtIdList !== null && this.request_clone.districtIdList.length > 0) {
         this.barChartType = this.request_clone.districtIdList.length > 4 ? 'line' : 'bar'
+        this.haveDistrict = true;
         this.populate();
+      }
+      else{
+        this.loading = false;
+        this.haveDistrict = false;
       }
     }
   }
 
   populate() {
     this.loading = true;
-
+    this.barChartData = [];
     this._dashboardService.getGraphData(d => {
       this.barChartLabels = d.keys;
-      this.barChartData = d.dataSet;
+      if (this.barChartType == 'line') {
+
+        d.dataSet.forEach(e => {
+          e.fill = false;
+          this.barChartData.push(e)
+        });
+      }
+      else {
+        this.barChartData = d.dataSet;
+      }
       this.loading = false;
     },
       e => {
