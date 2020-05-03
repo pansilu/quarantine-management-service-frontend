@@ -459,7 +459,7 @@ export class AddEditPersonComponent implements OnInit {
     } else {
       // validate if there have inconpleate end datae
       for (const e of this.person.userStatusDetails) {
-        if (this.validateString(e.endDate)) {
+        if (this.validateString(e.endDate) && !e.delete) {
           this._toast.error("Error", "incomplete end date found in table please fill it first")
           return;
         }

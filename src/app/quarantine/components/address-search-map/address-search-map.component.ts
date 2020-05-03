@@ -279,8 +279,8 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     this.address.line = item.line
     this.address.lon = +item.lon
     this.address.policeArea = item.policeArea
-    this.address.town = item.town
-    this.address.village = item.village
+    // this.address.town = item.town
+    // this.address.village = item.village
     this.addressEmit.emit(this.address)
   }
 
@@ -297,39 +297,39 @@ export class AddressSearchMapComponent implements OnInit, OnChanges {
     }
   }
 
-  onTownChange() {
-    this.address.id = null;
-    if (this.address.town != "") {
+  // onTownChange() {
+  //   this.address.id = null;
+  //   if (this.address.town != "") {
 
-      this.getAddress(this.getFullAddress());
-      // this.addressEmit.emit(this.address);
-    }
-    else {
-      this.address.town = null;
-      this.addressEmit.emit(this.address)
-    }
+  //     this.getAddress(this.getFullAddress());
+  //     // this.addressEmit.emit(this.address);
+  //   }
+  //   else {
+  //     this.address.town = null;
+  //     this.addressEmit.emit(this.address)
+  //   }
 
-  }
+  // }
 
   getFullAddress() {
     var line = this.address.line === undefined ? "" : this.address.line
-    var village = this.address.village === undefined ? "" : this.address.village
-    var town = this.address.town === undefined ? "" : this.address.town
-    return (line + " " + village + " " + town);
+    // var village = this.address.village === undefined ? "" : this.address.village
+    // var town = this.address.town === undefined ? "" : this.address.town
+    return (line + " ");
   }
 
-  onVillageChange() {
-    this.address.id = null;
-    if (this.address.village != "") {
-      this.getAddress(this.getFullAddress());
-      // this.addressEmit.emit(this.address);
-    }
-    else {
-      this.address.village = null;
-      this.addressEmit.emit(this.address)
-    }
+  // onVillageChange() {
+  //   this.address.id = null;
+  //   if (this.address.village != "") {
+  //     this.getAddress(this.getFullAddress());
+  //     // this.addressEmit.emit(this.address);
+  //   }
+  //   else {
+  //     this.address.village = null;
+  //     this.addressEmit.emit(this.address)
+  //   }
 
-  }
+  // }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.gnd) {

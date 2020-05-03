@@ -1,15 +1,18 @@
 export class GraphDataRequestModel {
+    covidCaseType: string
+    districtId: number
+    divisionId: number
     endDate: string
+    gndId: number
     graphType: string
-    quserType: string
+    provinceId: number
     startDate: string
-    stationIds: Array<number>
-    divisionIds: Array<number>
+    districtIdList: Array<number>
 
-    constructor(){
+
+    constructor() {
         this.endDate = null
         this.startDate = null
-        this.stationIds = new Array<number>()
-        this.divisionIds = new Array<number>()
+        this.districtIdList = new Array<number>(10,11,12)
     }
 }

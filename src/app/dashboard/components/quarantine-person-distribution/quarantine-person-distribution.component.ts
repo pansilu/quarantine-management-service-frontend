@@ -5,6 +5,8 @@ import { NameIdModel } from 'src/app/shared/models/name-id.model';
 import { GraphDataRequestModel } from '../../models/graph-data-request.model';
 import { DashboardService } from 'src/app/Service/dashboard.service';
 import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
+import GraphTypes from '../../models/GraphTypes';
+
 
 @Component({
   selector: 'app-quarantine-person-distribution',
@@ -14,6 +16,7 @@ import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 export class QuarantinePersonDistributionComponent implements OnChanges {
 
   @Input('reqest') request_model !: GraphDataRequestModel
+  request_clone: GraphDataRequestModel;
   loading: boolean = true;
   barChartOptions: ChartOptions = {
     responsive: true,
@@ -34,7 +37,7 @@ export class QuarantinePersonDistributionComponent implements OnChanges {
     }
   };
   barChartLabels: Label[] = [];
-  barChartType: ChartType = 'line';
+  barChartType: ChartType = 'bar';
   barChartLegend = true;
   barChartPlugins = [];
 
@@ -48,32 +51,32 @@ export class QuarantinePersonDistributionComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
 
     if (this.request_model) {
-      this.request_model.graphType = "GROWTH"
-      this.request_model.quserType = null
-      this.request_model.endDate = null
-      this.request_model.startDate = null
-      this.populate();
+      this.request_clone = JSON.parse(JSON.stringify(this.request_model));
+      this.request_clone.graphType = GraphTypes.DISTRICT_COMPARISION;
+      this.request_clone.endDate = null
+      this.request_clone.startDate = null
+      this.request_clone.provinceId = null
+      this.request_clone.districtId = null
+      this.request_clone.gndId = null
+      this.request_clone.divisionId = null
+      if (this.request_clone.districtIdList !== null && this.request_clone.districtIdList.length > 0) {
+        this.barChartType = this.request_clone.districtIdList.length > 4 ? 'line' : 'bar'
+        this.populate();
+      }
     }
   }
 
   populate() {
     this.loading = true;
-    this.barChartLabels = []
-    this.barChartData[0].data = []
-    this.barChartData[1].data = []
 
     this._dashboardService.getGraphData(d => {
-      d.data.forEach((v) => {
-        this.barChartLabels.push(v.key)
-        this.barChartData[0].data.push(v.value1)
-        this.barChartData[1].data.push(v.value2)
-
-      })
+      this.barChartLabels = d.keys;
+      this.barChartData = d.dataSet;
       this.loading = false;
     },
       e => {
         this._errorHandlerService.Handler(e);
-      }, this.request_model)
+      }, this.request_clone)
   }
 
 }
