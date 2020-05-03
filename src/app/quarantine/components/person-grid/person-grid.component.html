@@ -30,6 +30,18 @@
                                             [ngModelOptions]="{standalone: true}" />
                                     </div>
                                 </li>
+                                <li>
+                                    <div class="filter_input">
+                                        <select [(ngModel)]="status" (change)="onStatusChange($event)">
+                                            <option value="">ALL</option>
+                                            <option value="HOUSE_QUARANTINE">House Quarantine</option>
+                                            <option value="REMOTE_QUARANTINE">Remote Quarantine</option>
+                                            <option value="POSITIVE_COVID">Positive COVID-19</option>
+                                            <option value="SUSPECT_COVID">Suspect COVID-19</option>
+                                            <option value="DECEASED">Deceased</option>
+                                        </select>
+                                    </div>
+                                </li>
                                 <!-- <li>
                                     <div class="filterbtn">
                                         <button type="submit" (click)="search()">Search</button>
@@ -56,6 +68,7 @@
                                         <th>Passport No<br />(වී.ග.බ.අ)</th>
 
                                         <th>Address<br />(ලිපිනය)</th>
+                                        <th>Status<br />(තත්වය)</th>
                                         <!-- <th>Police Station <br />(පොලිස් ස්ථානය)</th> -->
                                         <!-- <th>Total Points<br />(අවදානම් මට්ටම)</th> -->
                                         <!-- <th>Remaining Days<br />(ඉතිරි දින ගනන)</th> -->
@@ -67,37 +80,16 @@
                                 </thead>
                                 <tbody>
                                     <tr [ngClass]="p.needToRemind?'notupdate':'update'" *ngFor="let p of persons">
-                                        <!-- <td>{{p.id}}</td> -->
                                         <td>{{p.name}}</td>
                                         <td>{{p.mobile}}</td>
                                         <td>{{p.nic}}</td>
                                         <td>{{p.passportNo}}</td>
-                                        <td>{{setAddress(p.address)}}</td>
-                                        <!-- <td>{{p.stationResDto?.name}}</td> -->
-                                        <!-- <td>{{p.totalPoints ? p.totalPoints : 0}}</td> -->
-                                        <!-- <td>{{p.remainingDays}}</td> -->
-                                        <!-- <td>{{p.reportDate}}</td> -->
-                                        <!-- <td>{{p.lastUpdateDate}}</td> -->
-                                        <!-- <td class="update_td" (click)="OnDailyUpdatesClick(p.id)">
-                                            Daily Updates
-                                        </td> -->
+                                        <td>{{p.address.line}}</td>
+                                        <td>{{p.status}}</td>
                                         <td class="edti_td" (click)="OnEditClick(p.id)">
                                             Edit
                                         </td>
                                     </tr>
-                                    <!-- <tr class="update"  >
-                                        <td>2</td>
-                                        <td>John Doe</td>
-                                        <td>0112245369</td>
-                                        <td>45</td>
-                                        <td>2020-04-01</td>
-                                        <td class="update_td" (click)="OnDailyUpdatesClick(2)" >
-                                            Daily Updates
-                                        </td>
-                                        <td class="edti_td" (click)="add_new(2)">
-                                            Edit
-                                        </td>
-                                    </tr> -->
                                 </tbody>
 
                             </table>
@@ -113,22 +105,3 @@
         </div>
     </div>
 </div>
-
-<!-- <div id="addNew" class="overlay">
-    <div class=" popup " style="width: 90%;">
-        <div class="popup_heading ">
-            <div class="row margin ">
-                <div class="pull-right ">
-                    <a class="close " (click)="close_add_new()">&times;</a>
-                </div>
-                <h2>Add New Quarantine Person</h2>
-            </div>
-        </div>
-        <div class="content">
-            <div *ngIf = "show_q_person_model">
-            <app-add-edit-person [id] = "q_person_id" (pageRefersh)="onPageRefresh($event)"></app-add-edit-person>
-        </div>
-        </div>
-
-    </div>
-</div> -->

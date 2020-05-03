@@ -4,6 +4,7 @@ import { ToastService } from 'src/app/Service/toast.service';
 import { Router } from '@angular/router';
 import { QuarantinePersonViewModel } from '../../models/quarantine-person-view.model';
 import { AddressModel } from '../../models/address.model';
+import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
 
 @Component({
   selector: 'app-person-grid',
@@ -21,37 +22,37 @@ export class PersonGridComponent implements OnInit {
   pageNumber = 0
   search_text = ""
   sort: string = 'id,desc'
-  constructor(private _quarantineService: QuarantineService, private _toast: ToastService, public _router: Router) { }
+  status: string = "";
+  constructor(private _quarantineService: QuarantineService, private _toast: ToastService, public _router: Router, private _errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit() {
-    this.load_data_types();
+    this.getQUsers();
   }
 
   onPageChange(offset) {
     // console.log(offset)
     this.offset = offset;
     this.pageNumber = Math.floor(offset / this.limit);
-    this.load_data_types();
+    this.getQUsers();
   }
 
-  load_data_types() {
+  getQUsers() {
     const pageSize = this.limit;
     this._quarantineService.getQUsers((d) => {
       this.persons = d.data;
       this.count = d.totalPages * pageSize;
     }, e => {
-      this._toast.error("Error", "Canot get quarantine users")
-      // console.log(e);
-    }, pageSize, this.pageNumber, this.sort, this.search_text);
+      this._errorHandlerService.Handler(e);
+    }, pageSize, this.pageNumber, this.sort, this.search_text, this.status);
   }
 
   onPageRefresh(value: boolean) {
-    this.load_data_types();
+    this.getQUsers();
   }
 
   search() {
     this.offset = 0;
-    this.load_data_types();
+    this.getQUsers();
   }
 
   checkEnter(key: number) {
@@ -60,36 +61,13 @@ export class PersonGridComponent implements OnInit {
     }
   }
 
-
-  add_new(id: number) {
-    this.q_person_id = id;
-    this.show_q_person_model = true;
-    document.getElementById('addNew').style.visibility = 'visible';
-    document.getElementById('addNew').style.opacity = '1';
-  }
-
-  close_add_new() {
-    this.show_q_person_model = false;
-    document.getElementById('addNew').style.visibility = 'hidden';
-    document.getElementById('addNew').style.opacity = '0';
-  }
-
-  OnDailyUpdatesClick(id: number) {
-    this._router.navigate(['quarantine/dailyUpdates', id]);
+  onStatusChange($event) {
+    this.status = $event.target.value;
+    this.getQUsers();
   }
 
   OnEditClick(id: number) {
     this._router.navigate(['quarantine/add-edit', id]);
-  }
-
-  setAddress(address: AddressModel):string {
-    var ad = address.line;
-    // if (!this.validateString(address.village))
-    //   ad = ad + ", " + address.village
-    // if (!this.validateString(address.town))
-    //   ad = ad + ", " + address.town
-
-    return ad;
   }
 
   validateString(prop): boolean {

@@ -50,6 +50,8 @@ export class StationDistributionComponent implements OnChanges {
     if (this.request_model) {
       this.request_clone = JSON.parse(JSON.stringify(this.request_model));
       this.request_clone.graphType = GraphTypes.DAILY_COVID;
+      this.request_clone.endDate = null;
+      this.request_clone.startDate = null;
       this.populate();
     }
   }
