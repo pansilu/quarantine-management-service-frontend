@@ -39,10 +39,10 @@ export class NewQuarantinePersonsDistributionComponent implements OnChanges {
   barChartPlugins = [];
 
   barChartData: ChartDataSets[] = [
-    { data: [], label: 'Value1', fill: false, borderColor: "#1967ab", pointBackgroundColor: "#1967bf" },
-    { data: [], label: 'Value2', fill: false, borderColor: "#9f0419", pointBackgroundColor: "#9f042f" },
-    { data: [], label: 'Value3', fill: false, borderColor: "#8e5ea2", pointBackgroundColor: "#8e5ebf" },
-    { data: [], label: 'Value4', fill: false, borderColor: "#3ef8b8", pointBackgroundColor: "#3ef8cf" },
+    { data: [], label: 'Denoted Total Cases', fill: false, borderColor: "#1967ab", pointBackgroundColor: "#1967bf" },
+    { data: [], label: 'Total Active Cases', fill: false, borderColor: "#9f0419", pointBackgroundColor: "#9f042f" },
+    { data: [], label: 'Total Recovered Cases,', fill: false, borderColor: "#8e5ea2", pointBackgroundColor: "#8e5ebf" },
+    { data: [], label: 'Total Deceased Cases', fill: false, borderColor: "#3ef8b8", pointBackgroundColor: "#3ef8cf" },
   ];
   constructor(private _dashboardService: DashboardService, private _errorHandlerService: ErrorHandlerService) { }
 
