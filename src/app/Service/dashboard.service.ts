@@ -56,4 +56,11 @@ export class DashboardService {
       .needJson()
       .get(data, error);
   }
+
+  getDistrictsFeatures(data: NextCallback<Array<any>>, error: ErrorCallback<ErrorModel>, id: number, search?: string) {
+    this._.api()
+      .url(`api/location/province/${id}/district`)
+      .needJson()
+      .get(data, error);
+  }
 }

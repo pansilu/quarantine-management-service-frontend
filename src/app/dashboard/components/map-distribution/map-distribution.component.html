@@ -1,11 +1,32 @@
-<agm-map [zoom]="zoom" [latitude]="6.829621" [longitude]="79.893947">
-    <agm-marker [latitude]="6.807410" [longitude]="79.8917987"
-        ></agm-marker>
-    <agm-marker [latitude]="6.832123" [longitude]="79.880580"
-        ></agm-marker>
-    <agm-kml-layer [url]="'https://www.dropbox.com/s/l026obljmvq6u9m/VAVUNIYA.kmz?dl=1'"> </agm-kml-layer>
-</agm-map>
+<div>
+    <div class="legend">
+        <p><i class="fa fa-circle" aria-hidden="true" style="color: red;"></i> Active Covid 19
+            <i class="fa fa-circle" aria-hidden="true" style="color: green;"></i> Complete Covid 19
+            <i class="fa fa-circle" aria-hidden="true" style="color: blue;"></i> Deceased
+        </p>
 
-<!-- <div #gmap id="map"></div> -->
+    </div>
 
-<!-- <img src="../../../../assets/map/freeParking.kml" alt=""> -->
+    <agm-map [zoom]="zoom" [latitude]="infoLat" [longitude]="infoLon">
+        <agm-marker *ngFor="let m of markers; let i = index" [latitude]="m.lat" [longitude]="m.lng"
+            (markerClick)="clickedMarker(m.lat,m.lng,m.id)" [iconUrl]="setIconType(m.status)">
+        </agm-marker>
+
+        <agm-snazzy-info-window #infoWindow [latitude]="infoLat" [longitude]="infoLon" [isOpen]="visible"
+            [closeWhenOthersOpen]="true" (isOpenChange)="onOpenChange($event)" [closeOnMapClick]="true">
+            <ng-template>
+                <p>name : {{districtName}}</p>
+            </ng-template>
+        </agm-snazzy-info-window>
+
+        <agm-data-layer [geoJson]="GeoJson" [style]="styleFunc" *ngIf="enable" (layerClick)="clicked($event)">
+            <!-- <agm-snazzy-info-window #infoWindow [latitude]="infoLat" [longitude]="infoLon" [isOpen]="visible"
+                [closeWhenOthersOpen]="true" (isOpenChange)="onOpenChange($event)" [closeOnMapClick]="true">
+                <ng-template>
+                    {{districtName}}
+                </ng-template>
+            </agm-snazzy-info-window> -->
+        </agm-data-layer>
+
+    </agm-map>
+</div>

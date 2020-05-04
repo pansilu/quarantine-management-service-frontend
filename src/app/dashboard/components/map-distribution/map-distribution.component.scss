@@ -1,9 +1,21 @@
 agm-map {
     border-top: 8px;
-    height: 600px;
+    height: 700px;
 }
 
 #map {
     border-top: 8px;
     height: 600px;
+}
+
+.legend p {
+    text-align: center;
+    // position: absolute;
+    // z-index: 997;
+    // margin: 0 auto;
+    // left: 24px;
+    // /* right: 0; */
+    // top: 2%;
+    // /* text-align: center; */
+    // width: 40%;
 }
