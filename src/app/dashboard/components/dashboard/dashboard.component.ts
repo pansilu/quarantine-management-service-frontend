@@ -57,10 +57,16 @@ export class DashboardComponent implements OnInit {
   constructor(private _dashboardService: DashboardService, private _errorHandlerService: ErrorHandlerService) { }
 
   ngOnInit() {
-    this.request = new GraphDataRequestModel();
-    this.request.covidCaseType = "ALL";
     this.getprovinces()
     this.getAllDistricts();
+  }
+
+  initGraph() {
+    this.request = new GraphDataRequestModel();
+    this.request.covidCaseType = "ALL";
+    this.selectedDistricts.forEach(e => {
+      this.request.districtIdList.push(e.id)
+    });
   }
 
   getprovinces() {
@@ -85,9 +91,14 @@ export class DashboardComponent implements OnInit {
     this._dashboardService.getAllDistricts(
       d => {
         this.allDistricts = d;
+        this.selectedDistricts = d;
+        this.initGraph();
       },
-      e => { this._errorHandlerService.Handler(e) }
-      )
+      e => {
+        this._errorHandlerService.Handler(e)
+        this.initGraph();
+      }
+    )
   }
 
   getDivisions(id: number) {
@@ -154,15 +165,14 @@ export class DashboardComponent implements OnInit {
     this.request.endDate = this.selected.end.format('YYYY-MM-DD')
     this.request.districtIdList = new Array<number>();
 
-    if(this.selectedDistricts.length > 0){
+    if (this.selectedDistricts.length > 0) {
       this.selectedDistricts.forEach(e => {
         this.request.districtIdList.push(e.id)
       });
     }
-    else{
+    else {
       this.request.districtIdList = null;
     }
-    console.log(this.request.districtIdList)
   }
 
   graph_params(graph: string) {

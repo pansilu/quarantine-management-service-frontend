@@ -1,14 +1,17 @@
 <div class="graph_sub_title">
-  <p>නිරෝධායනයේ නිරත හා නිරෝධායනය නිම කළ පුද්ගලයින් <br />(Number of people in/end quarantine process)</p>
+  <p>එක් එක් දිස්ත්‍රික්කය අනුව වාර්තා සන්සන්දනය <br />(Comparison of records - According to District )</p>
   <hr>
 </div>
-<div class="chart-wrapper" *ngIf="!loading">
+<div class="chart-wrapper" *ngIf="!loading && haveDistrict">
   <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
     [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
   </canvas>
 </div>
 
-<div class="loading" *ngIf="loading">
+<div *ngIf="!haveDistrict">
   <p style="text-align: center;">Select District to Draw comparison</p>
+</div>
+
+<div class="loading" *ngIf="loading">
   <img class="image_Loading" src="../../../../assets/img/loader.gif" />
 </div>

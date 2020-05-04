@@ -16,9 +16,10 @@ import GraphTypes from '../../models/GraphTypes';
 export class AgeChartComponent implements OnChanges {
 
   @Input('reqest') request_model !: GraphDataRequestModel
-  request_clone:GraphDataRequestModel;
+  request_clone: GraphDataRequestModel;
 
   loading: boolean = true;
+  data: boolean = false;
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
@@ -32,7 +33,7 @@ export class AgeChartComponent implements OnChanges {
   public pieChartData: ChartDataSets[] = [
     {
       data: [],
-      backgroundColor: [],
+      backgroundColor: ["#1476f2", "#c4a92c", "#213a51", "#660bcf", "#2df73a", "#c3a0f9", "#932332"],
       fill: false
     },
   ]
@@ -52,15 +53,23 @@ export class AgeChartComponent implements OnChanges {
     this.loading = true;
     this.pieChartLabels = []
     this.pieChartData[0].data = []
-    var backgroundColor: string[] = []
+    var total = 0;
     this._dashboardService.getGraphData(d => {
       const colorAvg = 1 / d.data.length
       d.data.forEach((v, i) => {
+        total = total + v.value
         this.pieChartLabels.push(v.key + ' (' + v.value + ')')
         this.pieChartData[0].data.push(v.value)
-        backgroundColor.push(this.dynamicColors(colorAvg, (i + 1)))
-      })
-      this.pieChartData[0].backgroundColor = backgroundColor;
+        // backgroundColor.push(this.dynamicColors(colorAvg, (i + 1)))
+      })      
+      
+      if (total > 0) {
+        this.data = true
+      }
+      else {
+        this.data = false
+      }
+      // this.pieChartData[0].backgroundColor = backgroundColor;
       this.loading = false;
 
     },
@@ -70,18 +79,15 @@ export class AgeChartComponent implements OnChanges {
   }
 
   dynamicColors(avg: number, i: number): string {
-    // return `rgba(255, 0, 0, ${avg * i})`;
     return "#" + ((1 << 24) * Math.random() | 0).toString(16)//('#' + Math.floor(Math.random()*16777215).toString(16))
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (this.request_model) {
-      // this.request_model.divisionIds = null
       this.request_clone = JSON.parse(JSON.stringify(this.request_model));
       this.request_clone.graphType = GraphTypes.age
       this.request_clone.endDate = null
       this.request_clone.startDate = null
-
       this.populate();
     }
 

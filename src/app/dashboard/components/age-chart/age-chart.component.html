@@ -1,12 +1,15 @@
 <div class="graph_sub_title">
-    <p>නිරෝධායනය වන පුද්ගලයින් ගේ ව්‍යාප්තිය - වයස අනුව <br /> (Distribution of Quarantine Persons - According to Ages)
+    <p>වයස අනුව ව්‍යාප්තිය<br /> (Distribution - According to Ages)
     </p>
     <hr>
 </div>
-<div class="chart-wrapper" *ngIf="!loading">
+<div class="chart-wrapper" *ngIf="!loading && data">
     <canvas baseChart [datasets]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"
         [options]="pieChartOptions" [plugins]="pieChartPlugins" [legend]="pieChartLegend">
     </canvas>
+</div>
+<div *ngIf="!data">
+    <p style="text-align: center;">No data available</p>
 </div>
 <div class="loading" *ngIf="loading">
     <img class="image_Loading" src="../../../../assets/img/loader.gif" />

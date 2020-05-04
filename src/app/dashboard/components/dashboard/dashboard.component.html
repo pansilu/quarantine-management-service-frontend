@@ -6,7 +6,7 @@
         </div>
         <div class="header-title">
             <h1>Dashboard <span class="sinhalaTitle">(දත්ත පුවරුව)</span></h1>
-            <small>Summarized review of data. (සමුච්චිත දත්තයන්හි නිරූපනය)</small>
+            <small>All COVID-19 Infected People (කොවිඩ් -19 ආසාධිත පුද්ගලයින්)</small>
             <ol class="breadcrumb">
                 <li><a><i class="fa fa-home"></i> Home</a></li>
                 <li><a>Dashboard</a></li>
@@ -37,13 +37,14 @@
                                     <label>
                                         District <br> (දිස්ත්‍රික්කය)
                                     </label>
-                                    <ng-multiselect-dropdown [data]="allDistricts"
-                                        [(ngModel)]="selectedDistricts" [settings]="dropdownSettings">
+                                    <ng-multiselect-dropdown [data]="allDistricts" [(ngModel)]="selectedDistricts"
+                                        [settings]="dropdownSettings">
                                     </ng-multiselect-dropdown>
                                 </div>
                             </div>
 
-                            <div class="col-md-2" *ngIf="provice !=null && activeGraph != graph.DISTRICT_COMPARISION">
+                            <div class="col-md-2"
+                                *ngIf="!(provice == 'null' ||provice == null || activeGraph == graph.DISTRICT_COMPARISION)">
                                 <div class="page_input set-inline">
                                     <label>
                                         District <br>(දිස්ත්‍රික්කය)
@@ -56,10 +57,10 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2" *ngIf="district !=null && activeGraph != graph.DISTRICT_COMPARISION">
+                            <div class="col-md-2" *ngIf="!(district ==null ||district =='null' || activeGraph == graph.DISTRICT_COMPARISION)">
                                 <div class="page_input set-inline">
                                     <label>
-                                        DS Division <br> ()
+                                        DS Division <br> (ප්‍රාදේශීය ලේකම් කොට්ඨාසය)
                                     </label>
                                     <select [(ngModel)]="division" (change)="onDsDivisionChange($event)">
                                         <option [value]=null selected>All
@@ -69,7 +70,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2" *ngIf="division !=null && activeGraph != graph.DISTRICT_COMPARISION">
+                            <div class="col-md-2" *ngIf="!(division ==null ||division =='null'|| activeGraph == graph.DISTRICT_COMPARISION)">
                                 <div class="page_input set-inline">
                                     <label>
                                         GN Division <br> (ග්‍රාම නිලධාරී වසම)
@@ -89,14 +90,17 @@
                                         opens="right" drops="down" startKey="start" endKey="end" [locale]="locale" />
                                 </div>
                             </div>
-                            <div class="col-md-1" *ngIf="(activeGraph == graph.age ||activeGraph == graph.DAILY_COVID || activeGraph == graph.DISTRICT_COMPARISION)">
+                            <div class="col-md-1"
+                                *ngIf="(activeGraph == graph.age ||activeGraph == graph.DAILY_COVID || activeGraph == graph.DISTRICT_COMPARISION)">
                                 <div class="page_input">
                                     <label>
                                         Type <br> (වර්ගය)
                                     </label>
                                     <select [(ngModel)]="covidCaseType">
                                         <option value="ALL">ALL</option>
-                                        <option value="ACTIVE" *ngIf="!(activeGraph == graph.DAILY_COVID || activeGraph == graph.DISTRICT_COMPARISION)">ACTIVE</option>
+                                        <option value="ACTIVE"
+                                            *ngIf="!(activeGraph == graph.DAILY_COVID || activeGraph == graph.DISTRICT_COMPARISION)">
+                                            ACTIVE</option>
                                         <option value="RECOVERED">RECOVERED</option>
                                         <option value="DECEASED">DECEASED</option>
                                     </select>
@@ -165,13 +169,13 @@
                                     href="#age">According to Age <br> (වයස අනුව)</a>
                             </li>
                             <li (click)="graph_params(graph.date)"><a data-toggle="tab" href="#date"> CUMULATIVE_COVID
-                                    <br> (CUMULATIVE_COVID)</a></li>
+                                    <br> (සමුච්චිත දත්ත)</a></li>
                             <li (click)="graph_params(graph.DAILY_COVID)"><a data-toggle="tab"
-                                    href="#station">DAILY_COVID <br>(DAILY_COVID)</a>
+                                    href="#station">DAILY_COVID <br>(දෛනික දත්ත)</a>
                             </li>
                             <li (click)="graph_params(graph.DISTRICT_COMPARISION)"><a data-toggle="tab" href="#growth">
                                     DISTRICT_COMPARISION <br>
-                                    (DISTRICT_COMPARISION)</a></li>
+                                    (දිස්ත්‍රික්ක අතර සන්සන්දනය)</a></li>
                             <!-- <li (click)="graph_params(graph.growth)"><a data-toggle="tab" href="#map"> In/End
                                     Distribution in map <br> (ව්‍යාප්තිය සිතියමක)</a></li> -->
                         </ul>
