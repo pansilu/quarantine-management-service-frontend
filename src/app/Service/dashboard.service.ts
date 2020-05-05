@@ -6,6 +6,7 @@ import { GraphDataModel } from '../dashboard/models/graph-data.model';
 import { GraphDataRequestModel } from '../dashboard/models/graph-data-request.model';
 import { UserStationModel } from '../dashboard/models/user-station.model';
 import { NameIdModel } from '../shared/models/name-id.model';
+import { MapDataRequestModel } from '../dashboard/models/map-data-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,14 @@ export class DashboardService {
   getGraphData(data: NextCallback<any>, error: ErrorCallback<ErrorModel>, model: GraphDataRequestModel) {
     this._.api()
       .url('api/graph')
+      .json(model)
+      .needJson()
+      .put(data, error)
+  }
+
+  getMarkers(data: NextCallback<any>, error: ErrorCallback<ErrorModel>, model: MapDataRequestModel) {
+    this._.api()
+      .url('api/graph/map')
       .json(model)
       .needJson()
       .put(data, error)
@@ -53,6 +62,29 @@ export class DashboardService {
   getGnds(data: NextCallback<Array<NameIdModel>>, error: ErrorCallback<ErrorModel>, id: number, search?: string) {
     this._.api()
       .url(`api/location/division/${id}/gnd`)
+      .needJson()
+      .get(data, error);
+  }
+
+  getDistrictsFeatures(data: NextCallback<Array<any>>, error: ErrorCallback<ErrorModel>, ids: Array<number>) {
+    var qury: string = "";
+    if (ids.length > 0) {
+      qury = `districtIds=${ids[0]}`
+
+      for (let i = 1; i < ids.length; i++) {
+        qury = qury + `&districtIds=${ids[i]}`
+      }
+    }
+
+    this._.api()
+      .url(`api/location/district`)
+      .needJson()
+      .get(data, error, qury);
+  }
+
+  getUser(data: NextCallback<Array<any>>, error: ErrorCallback<ErrorModel>, id:number) {
+    this._.api()
+      .url(`api/graph/map/user/${id}`)
       .needJson()
       .get(data, error);
   }

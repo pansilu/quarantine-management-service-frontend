@@ -176,8 +176,8 @@
                             <li (click)="graph_params(graph.DISTRICT_COMPARISION)"><a data-toggle="tab" href="#growth">
                                     DISTRICT_COMPARISION <br>
                                     (දිස්ත්‍රික්ක අතර සන්සන්දනය)</a></li>
-                            <!-- <li (click)="graph_params(graph.growth)"><a data-toggle="tab" href="#map"> In/End
-                                    Distribution in map <br> (ව්‍යාප්තිය සිතියමක)</a></li> -->
+                            <li (click)="graph_params(graph.DISTRICT_COMPARISION)"><a data-toggle="tab" href="#map"> In/End
+                                    Distribution in map <br> (ව්‍යාප්තිය සිතියමක)</a></li>
                         </ul>
                     </div>
                     <!-- <div class="container"> -->
@@ -206,8 +206,8 @@
                         </div>
                         <div id="map" class="tab-pane fade">
                             <div style="padding-top: 10px;">
-                                <!-- <app-map-distribution>
-                                    </app-map-distribution> -->
+                                <app-map-distribution [reqest]='request'>
+                                    </app-map-distribution>
                             </div>
                         </div>
                     </div>
