@@ -21,10 +21,10 @@ export class DashboardComponent implements OnInit {
   enabled: boolean = false;
   covidCaseType: string = "ALL";
   selected = { start: moment().subtract(30, 'days'), end: moment() };
-  provice: number = null;
-  district: number = null;
-  division: number = null;
-  gnd: number = null;
+  provice: any = null;
+  district: any = null;
+  division: any = null;
+  gnd: any = null;
 
   dropdownSettings = {
     singleSelection: false,
