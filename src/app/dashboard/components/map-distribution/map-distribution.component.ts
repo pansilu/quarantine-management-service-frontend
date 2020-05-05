@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild, AfterContentInit, ChangeDetectorRef, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterContentInit, ChangeDetectorRef, Inject, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { DashboardService } from 'src/app/Service/dashboard.service';
 import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
+import { GraphDataRequestModel } from '../../models/graph-data-request.model';
+import { MapDataRequestModel } from '../../models/map-data-request.model';
+import QuarantineUserStatus from '../../models/QuarantineUserStatus';
 
 @Component({
   selector: 'app-map-distribution',
@@ -9,13 +12,19 @@ import { ErrorHandlerService } from 'src/app/Service/error-handler.service';
   styleUrls: ['./map-distribution.component.scss']
 })
 
-export class MapDistributionComponent implements OnInit, AfterContentInit {
+export class MapDistributionComponent implements OnChanges, AfterContentInit {
+  @Input('reqest') request_model !: GraphDataRequestModel
+  request: MapDataRequestModel = new MapDataRequestModel();
   zoom: number = 8;
   enable: boolean = false;
   visible: boolean = false;
+  mapView:boolean = false;
   infoLat: number = 7.723867;
   infoLon: number = 80.771878;
   districtName: string;
+  user: any
+  markers: any[] = []
+  status = QuarantineUserStatus;
 
   GeoJson: any = {
     "type": "FeatureCollection",
@@ -23,22 +32,22 @@ export class MapDistributionComponent implements OnInit, AfterContentInit {
   }
 
   scaledSize = {
-    width: 5,
-    height: 5
+    width: 6,
+    height: 6
   }
 
   iconA = {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Location_dot_red.svg/64px-Location_dot_red.svg.png',
+    url: '../../../../assets/img/active.png',
     scaledSize: this.scaledSize
   }
 
   iconC = {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Location_dot_green.svg/64px-Location_dot_green.svg.png',
+    url: '../../../../assets/img/recoverd.png',
     scaledSize: this.scaledSize
   }
 
   iconD = {
-    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Location_dot_blue.svg/64px-Location_dot_blue.svg.png',
+    url: '../../../../assets/img/deceased.png',
     scaledSize: this.scaledSize
   }
 
@@ -48,39 +57,64 @@ export class MapDistributionComponent implements OnInit, AfterContentInit {
     @Inject(ChangeDetectorRef) private changeDetectorRef: ChangeDetectorRef
   ) { }
 
-  ngOnInit() {
-    this.loadDistrictsIntoMap();
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.request_model) {
+      this.request.covidCaseType = this.request_model.covidCaseType;
+      this.request.districtIds = this.request_model.districtIdList;
+
+      if (this.request.districtIds) {
+        this.mapView = false;
+        this.loadDistrictsIntoMap(this.request.districtIds);
+        // marker is load after dristricts
+        // this.getMarkers(this.request)
+      }
+    }
   }
 
   ngAfterContentInit() {
   }
 
   styleFunc(feature) {
+    const color = '#' + Math.floor(Math.random() * 16777215).toString(16)
     return ({
       clickable: true,
-      fillColor: '#fff900',
+      fillColor: color,
       strokeWeight: .75,
-      fillOpacity: .5,
-      // strokeOpacity: 1,
+      fillOpacity: .3,
+      strokeOpacity: .5,
       // strokeColor:'#d8d305'
     });
   }
 
-  loadDistrictsIntoMap() {
+  loadDistrictsIntoMap(ids: Array<number>) {
+    this.enable = false;
+    this.GeoJson.features = [];
     this._dashboardService.getDistrictsFeatures(d => {
-      this.enable = false;
-      // console.log(d);
       d.forEach(e => {
         var feture = JSON.parse(e.feature)
         feture.properties.id = e.id
         this.GeoJson.features.push(feture)
       })
+      this.zoom = 8;
       this.enable = true
+      this.getMarkers(this.request)
+    },
+      e => {
+        this._errorHandlerService.Handler(e);
+        this.getMarkers(this.request)
+      }
+      , ids)
+  }
+
+  getMarkers(model: MapDataRequestModel) {
+    this._dashboardService.getMarkers(d => {
+      this.markers = d;
+      this.mapView = true;
     },
       e => {
         this._errorHandlerService.Handler(e);
       }
-      , 1)
+      , model)
   }
 
   clicked(clickEvent) {
@@ -96,49 +130,29 @@ export class MapDistributionComponent implements OnInit, AfterContentInit {
     this.changeDetectorRef.detectChanges();
   }
 
-  clickedMarker(lat: number, lng: number, id: string) {
+  clickedMarker(lat: number, lng: number, id: number) {
     this.infoLat = lat;
     this.infoLon = lng;
-    this.visible = true;
-    this.districtName = id;
+
+    this._dashboardService.getUser(d => {
+      // console.log(d);
+      this.user = d;
+      this.visible = true;
+    },
+      e => {
+        this._errorHandlerService.Handler(e);
+      }
+      , id)
+    // this.visible = true;
+    // this.districtName = id.toString();
   }
 
   setIconType(status: string) {
-    var url: string = "";
-    if (status == "compleat")
+    if (status === "RECOVERED")
       return this.iconC
-    else if (status == "ded")
+    else if (status === "DECEASED")
       return this.iconD
-    else if (status == "active")
+    else if (status === "ACTIVE")
       return this.iconA
   }
-
-  markers: marker[] = [
-    {
-      lat: 6.647406,
-      lng: 81.265137,
-      id: 'A',
-      status: "compleat"
-    },
-    {
-      lat: 6.793491,
-      lng: 81.383417,
-      id: 'B',
-      status: "ded"
-    },
-    {
-      lat: 7.039378,
-      lng: 81.322151,
-      id: 'C',
-      status: "active"
-    }
-  ]
-
-}
-
-interface marker {
-  lat: number;
-  lng: number;
-  id: string;
-  status: string;
 }

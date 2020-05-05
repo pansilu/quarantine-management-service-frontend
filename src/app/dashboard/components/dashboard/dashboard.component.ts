@@ -28,12 +28,12 @@ export class DashboardComponent implements OnInit {
 
   dropdownSettings = {
     singleSelection: false,
-    enableCheckAll: false,
+    enableCheckAll: true,
     idField: 'id',
     textField: 'name',
     selectAllText: 'Select All',
     unSelectAllText: 'UnSelect All',
-    itemsShowLimit: 3,
+    itemsShowLimit: 4,
     allowSearchFilter: true
   };
 
