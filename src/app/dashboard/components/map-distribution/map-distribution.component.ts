@@ -32,8 +32,8 @@ export class MapDistributionComponent implements OnChanges, AfterContentInit {
   }
 
   scaledSize = {
-    width: 6,
-    height: 6
+    width: 8,
+    height: 8
   }
 
   iconA = {
