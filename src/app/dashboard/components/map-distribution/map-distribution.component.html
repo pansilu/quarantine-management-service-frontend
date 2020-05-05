@@ -10,6 +10,14 @@
 
     </div>
     <agm-map [zoom]="zoom" [latitude]="infoLat" [longitude]="infoLon">
+        <agm-data-layer [geoJson]="GeoJson" [style]="styleFunc" *ngIf="enable" (layerClick)="clicked($event)">
+            <!-- <agm-snazzy-info-window #infoWindow [latitude]="infoLat" [longitude]="infoLon" [isOpen]="visible"
+                [closeWhenOthersOpen]="true" (isOpenChange)="onOpenChange($event)" [closeOnMapClick]="true">
+                <ng-template>
+                    {{districtName}}
+                </ng-template>
+            </agm-snazzy-info-window> -->
+        </agm-data-layer>
         <agm-marker *ngFor="let m of markers" [latitude]="+m.lat" [longitude]="+m.lon"
             (markerClick)="clickedMarker(+m.lat,+m.lon,m.id)" [iconUrl]="setIconType(m.status)">
         </agm-marker>
@@ -54,15 +62,6 @@
                 </ul>
             </ng-template>
         </agm-snazzy-info-window>
-
-        <agm-data-layer [geoJson]="GeoJson" [style]="styleFunc" *ngIf="enable" (layerClick)="clicked($event)">
-            <!-- <agm-snazzy-info-window #infoWindow [latitude]="infoLat" [longitude]="infoLon" [isOpen]="visible"
-                [closeWhenOthersOpen]="true" (isOpenChange)="onOpenChange($event)" [closeOnMapClick]="true">
-                <ng-template>
-                    {{districtName}}
-                </ng-template>
-            </agm-snazzy-info-window> -->
-        </agm-data-layer>
 
     </agm-map>
 </div>
