@@ -1,3 +1,18 @@
 agm-map {
     height : 700px;
 }
+
+
+.legend {
+    max-width: 549px;
+    border: 1px solid;
+    padding: 2px;
+    margin-bottom: 10px;
+    margin-left: 27%;
+}
+
+@media screen and (max-width: 990px) {
+    .legend {
+        margin-left: 1% !important;
+    }
+  }

@@ -2,19 +2,19 @@
     <img class="image_Loading" src="../../../../assets/img/loader.gif" />
 </div>
 <div *ngIf="mapView">
-    <!-- <div class="legend">
+    <div class="legend">
         <div class="row">
             <div class="col-sm-4">
-                <i class="fa fa-circle" aria-hidden="true" style="color: red;"></i> Active Covid 19 <br/> හදුනා ගත් ආසාධිතයින් 
+                <i class="fa fa-circle" aria-hidden="true" style="color: red;"></i> High Risk <br/> ඉතා අවධානම්
             </div>
             <div class="col-sm-4">
-                <i class="fa fa-circle" aria-hidden="true" style="color: green;"></i> Complete Covid 19 <br/> සුවය ලැබූ ආසාධිතයින්
+                <i class="fa fa-circle" aria-hidden="true" style="color: orange;"></i> Modarate Risk <br/> අවධානම්
             </div>
             <div class="col-sm-4">
-                <i class="fa fa-circle" aria-hidden="true" style="color: blue;"></i> Deceased <br/> මියගිය ආසාධිතයින්
+                <i class="fa fa-circle" aria-hidden="true" style="color: green;"></i> Low Risk <br/> අවධානම පහවගිය
             </div>
         </div>
-    </div> -->
+    </div>
     <agm-map [zoom]="zoom" [latitude]="infoLat" [longitude]="infoLon">
         <agm-data-layer [geoJson]="GeoJson" [style]="styleFunc" *ngIf="enable" (layerClick)="clicked($event)">
         </agm-data-layer>
