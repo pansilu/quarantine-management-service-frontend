@@ -45,6 +45,13 @@ export class DashboardService {
       .get(data, error);
   }
 
+  getDistrict(data: NextCallback<any>, error: ErrorCallback<ErrorModel>, id: number, search?: string) {
+    this._.api()
+      .url(`api/location/district/${id}`)
+      .needJson()
+      .get(data, error);
+  }
+
   getAllDistricts(data: NextCallback<Array<NameIdModel>>, error: ErrorCallback<ErrorModel>) {
     this._.api()
       .url(`api/location/district`)
@@ -80,6 +87,14 @@ export class DashboardService {
       .url(`api/location/district`)
       .needJson()
       .get(data, error, qury);
+  }
+
+  
+  getRiskArea(data: NextCallback<Array<any>>, error: ErrorCallback<ErrorModel>, id:number) {
+    this._.api()
+      .url(`api/graph/map/risk/district/${id}`)
+      .needJson()
+      .get(data, error);
   }
 
   getUser(data: NextCallback<Array<any>>, error: ErrorCallback<ErrorModel>, id:number) {

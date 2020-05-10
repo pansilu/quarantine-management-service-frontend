@@ -15,5 +15,6 @@ export const environment = {
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
 (window as any).apiHost = 'http://localhost:8085/';
+(window as any).mapApiKey = 'AIzaSyDPs5O5dn7S01WPLt_O6dWnGwt3nm97xQM';
 // (window as any).apiHost = 'http://18.138.48.140/qms/';
 

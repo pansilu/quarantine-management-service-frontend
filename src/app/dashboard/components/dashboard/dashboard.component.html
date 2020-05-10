@@ -19,7 +19,7 @@
                 <div class="panel panel-bd">
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-2" *ngIf="activeGraph != graph.DISTRICT_COMPARISION">
+                            <div class="col-md-2" *ngIf="!(activeGraph == graph.DISTRICT_COMPARISION || activeGraph == graph.RISK)">
                                 <div class="page_input set-inline">
                                     <label>
                                         Province <br> (පළාත)
@@ -44,7 +44,7 @@
                             </div>
 
                             <div class="col-md-2"
-                                *ngIf="!(provice == 'null' ||provice == null || activeGraph == graph.DISTRICT_COMPARISION)">
+                                *ngIf="!(provice == 'null' ||provice == null || activeGraph == graph.DISTRICT_COMPARISION || activeGraph == graph.RISK)">
                                 <div class="page_input set-inline">
                                     <label>
                                         District <br>(දිස්ත්‍රික්කය)
@@ -57,20 +57,32 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2" *ngIf="!(district ==null ||district =='null' || activeGraph == graph.DISTRICT_COMPARISION)">
+
+                            <div class="col-md-2" *ngIf="activeGraph == graph.RISK">
+                                <div class="page_input set-inline">
+                                    <label>
+                                        District <br>(දිස්ත්‍රික්කය)
+                                    </label>
+                                    <select [(ngModel)]="districtId">
+                                        <option *ngFor="let e of allDistricts" [value]="e.id">{{e.name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-2"
+                                *ngIf="!(district ==null ||district =='null' || activeGraph == graph.DISTRICT_COMPARISION || activeGraph == graph.RISK)">
                                 <div class="page_input set-inline">
                                     <label>
                                         DS Division <br> (ප්‍රාදේශීය ලේකම් කොට්ඨාසය)
                                     </label>
                                     <select [(ngModel)]="division" (change)="onDsDivisionChange($event)">
-                                        <option [value]=null selected>All
-                                        </option>
                                         <option *ngFor="let e of divisions" [value]="e.id">
                                             {{e.name}}</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-2" *ngIf="!(division ==null ||division =='null'|| activeGraph == graph.DISTRICT_COMPARISION)">
+                            <div class="col-md-2"
+                                *ngIf="!(division ==null ||division =='null'|| activeGraph == graph.DISTRICT_COMPARISION || activeGraph == graph.RISK)">
                                 <div class="page_input set-inline">
                                     <label>
                                         GN Division <br> (ග්‍රාම නිලධාරී වසම)
@@ -99,7 +111,7 @@
                                     <select [(ngModel)]="covidCaseType">
                                         <option value="ALL">ALL</option>
                                         <option value="ACTIVE"
-                                            *ngIf="!(activeGraph == graph.DAILY_COVID || activeGraph == graph.DISTRICT_COMPARISION)">
+                                            *ngIf="!(activeGraph == graph.DAILY_COVID || activeGraph == graph.DISTRICT_COMPARISION || activeGraph == graph.RISK)">
                                             ACTIVE</option>
                                         <option value="RECOVERED">RECOVERED</option>
                                         <option value="DECEASED">DECEASED</option>
@@ -176,8 +188,11 @@
                             <li (click)="graph_params(graph.DISTRICT_COMPARISION)"><a data-toggle="tab" href="#growth">
                                     DISTRICT_COMPARISION <br>
                                     (දිස්ත්‍රික්ක අතර සන්සන්දනය)</a></li>
-                            <li (click)="graph_params(graph.DISTRICT_COMPARISION)"><a data-toggle="tab" href="#map"> In/End
+                            <li (click)="graph_params(graph.DISTRICT_COMPARISION)"><a data-toggle="tab" href="#map">
+                                    In/End
                                     Distribution in map <br> (ව්‍යාප්තිය සිතියමක)</a></li>
+                            <li (click)="graph_params(graph.RISK)"><a data-toggle="tab" href="#risk">
+                                    Risk map <br> (අවධානම් කලාප සිතියමක)</a></li>
                         </ul>
                     </div>
                     <!-- <div class="container"> -->
@@ -207,7 +222,13 @@
                         <div id="map" class="tab-pane fade">
                             <div style="padding-top: 10px;">
                                 <app-map-distribution [reqest]='request'>
-                                    </app-map-distribution>
+                                </app-map-distribution>
+                            </div>
+                        </div>
+                        <div id="risk" class="tab-pane fade">
+                            <div style="padding-top: 10px;">
+                                <app-risk-map [reqest]='districtId'>
+                                </app-risk-map>
                             </div>
                         </div>
                     </div>
