@@ -1,0 +1,68 @@
+<div class="loading" *ngIf="!mapView">
+    <img class="image_Loading" src="../../../../assets/img/loader.gif" />
+</div>
+<div *ngIf="mapView">
+    <!-- <div class="legend">
+        <div class="row">
+            <div class="col-sm-4">
+                <i class="fa fa-circle" aria-hidden="true" style="color: red;"></i> Active Covid 19 <br/> හදුනා ගත් ආසාධිතයින් 
+            </div>
+            <div class="col-sm-4">
+                <i class="fa fa-circle" aria-hidden="true" style="color: green;"></i> Complete Covid 19 <br/> සුවය ලැබූ ආසාධිතයින්
+            </div>
+            <div class="col-sm-4">
+                <i class="fa fa-circle" aria-hidden="true" style="color: blue;"></i> Deceased <br/> මියගිය ආසාධිතයින්
+            </div>
+        </div>
+    </div> -->
+    <agm-map [zoom]="zoom" [latitude]="infoLat" [longitude]="infoLon">
+        <agm-data-layer [geoJson]="GeoJson" [style]="styleFunc" *ngIf="enable" (layerClick)="clicked($event)">
+        </agm-data-layer>
+        <agm-data-layer [geoJson]="DistrictGeoJson" [style]="districtStyleFunc" *ngIf="enable" (layerClick)="clicked($event)">
+        </agm-data-layer>
+        <!-- <agm-marker *ngFor="let m of markers" [latitude]="+m.lat" [longitude]="+m.lon"
+            (markerClick)="clickedMarker(+m.lat,+m.lon,m.id)" [iconUrl]="setIconType(m.status)">
+        </agm-marker> -->
+        <!-- <agm-snazzy-info-window [maxWidth]="600" maxHeight="200px" #infoWindow [latitude]="infoLat"
+            [longitude]="infoLon" [isOpen]="visible" [closeWhenOthersOpen]="true" (isOpenChange)="onOpenChange($event)"
+            [closeOnMapClick]="true">
+            <ng-template>
+                <p>Name : {{user.name}}</p>
+                <p>Address : {{user.address?.line}}</p>
+                <ul>
+                    <li *ngFor="let e of user.userStatusDetails"> {{e.type}}
+                        <ul *ngIf="e.type === status.deceased">
+                            <li *ngIf="e.endDate"> Date : {{e.endDate}}</li>
+                            <li *ngIf="e.description"> Description : {{e.description}}</li>
+                        </ul>
+                        <ul *ngIf="e.type === status.home">
+                            <li *ngIf="e.startDate">Stat Date: {{e.startDate}}</li>
+                            <li *ngIf="e.endDate"> End Date : {{e.endDate}}</li>
+                            <li *ngIf="e.description"> Description : {{e.description}}</li>
+                        </ul>
+                        <ul *ngIf="e.type === status.remorte">
+                            <li *ngIf="e.startDate">Start Date: {{e.startDate}}</li>
+                            <li *ngIf="e.endDate"> End Date : {{e.endDate}}</li>
+                            <li *ngIf="e.quarantineCenter"> Center : {{e.quarantineCenter?.name}}</li>
+                            <li *ngIf="e.description"> Description : {{e.description}}</li>
+                        </ul>
+                        <ul *ngIf="e.type === status.positive">
+                            <li *ngIf="e.startDate">Admit Date: {{e.startDate}}</li>
+                            <li *ngIf="e.endDate"> Discharge Date : {{e.endDate}}</li>
+                            <li *ngIf="e.hospital"> Hospital : {{e.hospital?.name}}</li>
+                            <li *ngIf="e.description"> Description : {{e.description}}</li>
+                        </ul>
+
+                        <ul *ngIf="e.type === status.suspect">
+                            <li *ngIf="e.startDate">End Date: {{e.startDate}}</li>
+                            <li *ngIf="e.endDate"> Start Date : {{e.endDate}}</li>
+                            <li *ngIf="e.hospital"> Hospital : {{e.hospital?.name}}</li>
+                            <li *ngIf="e.description"> Description : {{e.description}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </ng-template>
+        </agm-snazzy-info-window> -->
+
+    </agm-map>
+</div>

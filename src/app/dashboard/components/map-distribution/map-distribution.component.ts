@@ -18,7 +18,7 @@ export class MapDistributionComponent implements OnChanges, AfterContentInit {
   zoom: number = 8;
   enable: boolean = false;
   visible: boolean = false;
-  mapView:boolean = false;
+  mapView: boolean = false;
   infoLat: number = 7.723867;
   infoLon: number = 80.771878;
   districtName: string;
@@ -75,10 +75,10 @@ export class MapDistributionComponent implements OnChanges, AfterContentInit {
   }
 
   styleFunc(feature) {
-    const color = '#' + Math.floor(Math.random() * 16777215).toString(16)
+    // const color = '#' + Math.floor(Math.random() * 16777215).toString(16)
     return ({
       clickable: true,
-      fillColor: color,
+      fillColor: 'gray',
       strokeWeight: .75,
       fillOpacity: .3,
       strokeOpacity: .5,
@@ -90,11 +90,14 @@ export class MapDistributionComponent implements OnChanges, AfterContentInit {
     this.enable = false;
     this.GeoJson.features = [];
     this._dashboardService.getDistrictsFeatures(d => {
-      d.forEach(e => {
-        var feture = JSON.parse(e.feature)
-        feture.properties.id = e.id
-        this.GeoJson.features.push(feture)
-      })
+      // if district count is 25 or the all islend do not load district boundries
+      if (d.length < 25) {
+        d.forEach(e => {
+          var feture = JSON.parse(e.feature)
+          feture.properties.id = e.id
+          this.GeoJson.features.push(feture)
+        })
+      }
       this.zoom = 8;
       this.enable = true
       this.getMarkers(this.request)

@@ -14,6 +14,7 @@ import { NewQuarantinePersonsDistributionComponent } from './components/new-quar
 import { MapDistributionComponent } from './components/map-distribution/map-distribution.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { RiskMapComponent } from './components/risk-map/risk-map.component';
 
 
 
@@ -27,7 +28,7 @@ const routes: Routes = [
 
 
 @NgModule({
-  declarations: [DashboardComponent, AgeChartComponent, StationDistributionComponent, QuarantinePersonDistributionComponent, NewQuarantinePersonsDistributionComponent, MapDistributionComponent],
+  declarations: [DashboardComponent, AgeChartComponent, StationDistributionComponent, QuarantinePersonDistributionComponent, NewQuarantinePersonsDistributionComponent, MapDistributionComponent, RiskMapComponent],
   imports: [
     RouterModule.forChild(routes),
     CommonModule,
@@ -35,7 +36,7 @@ const routes: Routes = [
     NgMultiSelectDropDownModule.forRoot(),
     NgxDaterangepickerMd.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDPs5O5dn7S01WPLt_O6dWnGwt3nm97xQM',
+      apiKey: (window as any).mapApiKey,
       libraries: ['places']
     }),
     AgmSnazzyInfoWindowModule,

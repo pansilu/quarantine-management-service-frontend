@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
   district: any = null;
   division: any = null;
   gnd: any = null;
+  districtId:number = 10; // used for the risk map
 
   dropdownSettings = {
     singleSelection: false,
