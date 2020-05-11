@@ -4,15 +4,15 @@
 <div *ngIf="mapView">
     <div class="legend">
         <div class="row">
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <i class="fa fa-circle" aria-hidden="true" style="color: red;"></i> High Risk <br/> ඉතා අවධානම්
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-6">
                 <i class="fa fa-circle" aria-hidden="true" style="color: orange;"></i> Modarate Risk <br/> අවධානම්
             </div>
-            <div class="col-sm-4">
+            <!-- <div class="col-sm-4">
                 <i class="fa fa-circle" aria-hidden="true" style="color: green;"></i> Low Risk <br/> අවධානම පහවගිය
-            </div>
+            </div> -->
         </div>
     </div>
     <agm-map [zoom]="zoom" [latitude]="infoLat" [longitude]="infoLon">
