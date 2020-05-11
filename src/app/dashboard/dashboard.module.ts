@@ -36,7 +36,7 @@ const routes: Routes = [
     NgMultiSelectDropDownModule.forRoot(),
     NgxDaterangepickerMd.forRoot(),
     AgmCoreModule.forRoot({
-      apiKey: (window as any).mapApiKey,
+      apiKey: 'AIzaSyDPs5O5dn7S01WPLt_O6dWnGwt3nm97xQM',
       libraries: ['places']
     }),
     AgmSnazzyInfoWindowModule,
